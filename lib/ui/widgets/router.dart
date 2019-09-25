@@ -1,3 +1,4 @@
+import 'package:final_1/ui/view/home_screen.dart';
 import 'package:final_1/ui/view/main_screen.dart';
 import 'package:final_1/ui/view/signin_screen.dart';
 import 'package:final_1/ui/view/welcome_screen.dart';
@@ -15,15 +16,18 @@ import '../../main.dart';
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case RoutePaths.Home:
-        return MaterialPageRoute(builder: (_) => MainScreen());
+      case RoutePaths.Login:
+        return MaterialPageRoute(builder: (_) => SignInScreen());
       case RoutePaths.Welcome:
         return MaterialPageRoute(builder: (_) => WelcomeScreen());
-	  case RoutePaths.Login:
-	     return MaterialPageRoute(builder: (_) => SignInScreen());
-    //   case RoutePaths.Post:
-    //     var post = settings.arguments as Post;
-    //     return MaterialPageRoute(builder: (_) => PostView(post: post));
+      case RoutePaths.Main:
+        return MaterialPageRoute(builder: (_) => MainScreen());
+      case RoutePaths.Home:
+        return MaterialPageRoute(builder: (_) => HomeScreen());
+
+      //   case RoutePaths.Post:
+      //     var post = settings.arguments as Post;
+      //     return MaterialPageRoute(builder: (_) => PostView(post: post));
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

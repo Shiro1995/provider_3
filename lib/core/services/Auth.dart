@@ -15,12 +15,27 @@ class Auth {
   StreamController<User> _userController = StreamController<User>();
 
   Stream<User> get user => _userController.stream;
-  Future<FirebaseUser> getCurrentFirebaseUser() async {
+
+  static Future<FirebaseUser> getCurrentFirebaseUser() async {
     FirebaseUser user = await FirebaseAuth.instance.currentUser();
     return user;
   }
 
-   static void addUser(User user) async {
+  static Future<String> getID() async {
+    String id;
+    getCurrentFirebaseUser().then((info) {
+      User user = new User(
+        firstName: info.displayName,
+        userID: info.uid,
+        email: info.email ?? '',
+        profilePictureURL: info.photoUrl ?? '',
+      );
+      id = user.userID;
+    });
+    return id;
+  }
+
+  static void addUser(User user) async {
     checkUserExist(user.userID).then((value) {
       if (!value) {
         print("user ${user.firstName} ${user.email} added");
@@ -51,6 +66,7 @@ class Auth {
           print('===========================');
           print(user);
           FirebaseAuth.instance.currentUser().then((firebaseUser) {
+			  print('hiiiiisdf');
             User user = new User(
               firstName: firebaseUser.displayName,
               userID: firebaseUser.uid,
@@ -58,7 +74,9 @@ class Auth {
               profilePictureURL: firebaseUser.photoUrl ?? '',
             );
             Auth.addUser(user);
-				Navigator.of(context).pushNamed("/");
+			print('adasdhihi');
+			print(Auth.getUser('0MI7ZZ41GyVDLblwWGKqIj24zKZ2'));
+             Navigator.of(context).pop();
           });
           break;
         case FacebookLoginStatus.cancelledByUser:
@@ -73,6 +91,7 @@ class Auth {
       throw ErrorHint(error.code);
     }
   }
+
   static Stream<User> getUser(String userID) {
     return Firestore.instance
         .collection("users")
@@ -140,8 +159,6 @@ class Auth {
       throw ErrorHint(error.code);
     }
   }
-
- 
 
 //   Future<bool> login(int userId) async {
 //     var fetchedUser = await _api.getUserProfile(userId);

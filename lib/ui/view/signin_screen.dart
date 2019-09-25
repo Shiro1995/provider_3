@@ -1,3 +1,4 @@
+import 'package:final_1/core/constant/app_constant.dart';
 import "package:flutter/material.dart";
 import "package:final_1/ui/widgets/custom_text_field.dart";
 import 'package:flutter/services.dart';
@@ -110,10 +111,11 @@ class _SignInScreenState extends State<SignInScreen> {
                         fontWeight: FontWeight.w700,
                         textColor: Colors.white,
                         onPressed: () {
-                          _emailLogin(
-                              email: _email.text,
-                              password: _password.text,
-                              context: context);
+							 Navigator.of(context).pushNamed(RoutePaths.Welcome);
+                        //   _emailLogin(
+                        //       email: _email.text,
+                        //       password: _password.text,
+                        //       context: context);
                         },
                         splashColor: Colors.black12,
                         borderColor: Color.fromRGBO(17, 156, 103, 30),
