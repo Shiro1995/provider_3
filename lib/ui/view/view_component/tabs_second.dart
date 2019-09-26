@@ -1,3 +1,4 @@
+import 'package:final_1/core/services/Auth.dart';
 import 'package:flutter/material.dart';
 
 class SecondTab extends StatelessWidget {
@@ -11,13 +12,16 @@ class SecondTab extends StatelessWidget {
             // center the children
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Icon(
-                Icons.adb,
-                size: 160.0,
-                color: Colors.white,
+              GestureDetector(
+                onTap: _logOut,
+                child: Icon(
+                  Icons.adb,
+                  size: 160.0,
+                  color: Colors.white,
+                ),
               ),
               Text(
-                "Second Tab",
+                "Click here to logout",
                 style: TextStyle(color: Colors.white),
               )
             ],
@@ -25,5 +29,8 @@ class SecondTab extends StatelessWidget {
         ),
       ),
     );
+  }
+  void _logOut() async {
+    Auth.signOut();
   }
 }

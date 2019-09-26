@@ -1,6 +1,8 @@
 import 'package:final_1/ui/view/home_screen.dart';
 import 'package:final_1/ui/view/main_screen.dart';
+import 'package:final_1/ui/view/root_screen.dart';
 import 'package:final_1/ui/view/signin_screen.dart';
+import 'package:final_1/ui/view/welcome_screen%20copy.dart';
 import 'package:final_1/ui/view/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -19,11 +21,15 @@ class Router {
       case RoutePaths.Login:
         return MaterialPageRoute(builder: (_) => SignInScreen());
       case RoutePaths.Welcome:
+        return MaterialPageRoute(builder: (_) => WelcomeScreen1());
+      case RoutePaths.Welcome1:
         return MaterialPageRoute(builder: (_) => WelcomeScreen());
       case RoutePaths.Main:
         return MaterialPageRoute(builder: (_) => MainScreen());
       case RoutePaths.Home:
         return MaterialPageRoute(builder: (_) => HomeScreen());
+      case RoutePaths.Root:
+        return MaterialPageRoute(builder: (_) => RootScreen());
 
       //   case RoutePaths.Post:
       //     var post = settings.arguments as Post;

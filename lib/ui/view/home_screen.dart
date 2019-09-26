@@ -1,5 +1,7 @@
+import 'package:final_1/core/constant/app_constant.dart';
 import 'package:final_1/ui/view/view_component/tabs_second.dart';
 import 'package:final_1/ui/view/view_component/tabs_third.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // import 'package:using_bottom_nav_bar/tabs/second.dart';
 // import 'package:using_bottom_nav_bar/tabs/third.dart';
@@ -14,12 +16,17 @@ void main() {
 }
 
 class HomeScreen extends StatefulWidget {
+  final FirebaseUser firebaseUser;
+
+  HomeScreen({this.firebaseUser});
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 // SingleTickerProviderStateMixin is used for animation
-class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
   // Create a tab controller
   TabController controller;
 
@@ -43,9 +50,16 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     return Scaffold(
       // Appbar
       appBar: AppBar(
+		  automaticallyImplyLeading: false,
         // Title
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () =>
+                Navigator.of(context).pushNamed(RoutePaths.Welcome),
+          )
+        ],
         title: Text("Using Bottom Navigation Bar"),
-        // Set the background color of the App Bar
         backgroundColor: Colors.blue,
       ),
       // Set the TabBar view as the body of the Scaffold
@@ -55,7 +69,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           FirstTab(),
           SecondTab(),
           ThirdTab(),
-
         ],
         // set the controller
         controller: controller,

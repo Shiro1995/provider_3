@@ -6,6 +6,8 @@ import 'package:final_1/ui/widgets/custom_flat_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:final_1/core/services/Auth.dart';
 import 'package:final_1/core/constant/app_constant.dart';
+import 'package:final_1/ui/shared/ui_helpers.dart';
+
 class WelcomeScreen extends StatelessWidget {
   final FirebaseUser firebaseUser;
   WelcomeScreen({this.firebaseUser});
@@ -26,7 +28,7 @@ class WelcomeScreen extends StatelessWidget {
               softWrap: true,
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Color.fromRGBO(17, 156, 103, 1),
+                color: Color.fromARGB(255, 20, 175, 135),
                 decoration: TextDecoration.none,
                 fontSize: 24.0,
                 fontWeight: FontWeight.w700,
@@ -58,12 +60,12 @@ class WelcomeScreen extends StatelessWidget {
               fontWeight: FontWeight.w700,
               textColor: Colors.white,
               onPressed: () {
-                Navigator.of(context).pushNamed(RoutePaths.Home);
+                Navigator.of(context).pushNamed(RoutePaths.Root);
               },
               splashColor: Colors.black12,
               borderColor: Color.fromRGBO(17, 156, 103, 1),
               borderWidth: 0,
-              color: Color.fromRGBO(17, 156, 103, 1),
+              color: Color.fromARGB(255, 20, 175, 135),
             ),
           ),
           Padding(
@@ -85,14 +87,13 @@ class WelcomeScreen extends StatelessWidget {
             padding:
                 const EdgeInsets.symmetric(vertical: 8.0, horizontal: 40.0),
             child: CustomFlatButton(
-              title: "Sign up with Facebook",
+              title: "Sign in with Facebook",
               fontSize: 22,
               fontWeight: FontWeight.w700,
               textColor: Colors.white,
               onPressed: () {
                 // loginWithFacebook(context);
-				Auth.loginWithFacebook(context);
-			
+                Auth.loginWithFacebook(context);
               },
               // splashColor: Colors.black12,
               borderColor: Colors.black12,
@@ -104,7 +105,7 @@ class WelcomeScreen extends StatelessWidget {
             padding:
                 const EdgeInsets.symmetric(vertical: 8.0, horizontal: 40.0),
             child: CustomFlatButton(
-              title: "Sign up with Google",
+              title: "Sign in with Google",
               fontSize: 22,
               fontWeight: FontWeight.w700,
               textColor: Colors.white,
@@ -120,44 +121,5 @@ class WelcomeScreen extends StatelessWidget {
         ],
       ),
     );
-   }
-//   void loginWithFacebook(context) async {
-//     var fbLogin = FacebookLogin();
-//     FacebookLoginResult result;
-//     try {
-//       result =
-//           await fbLogin.logInWithReadPermissions(['email', 'public_profile']);
-//       switch (result.status) {
-//         case FacebookLoginStatus.loggedIn:
-//           var accessToken = result.accessToken;
-//           print(accessToken.token);
-//           final AuthCredential credential = FacebookAuthProvider.getCredential(
-//               accessToken: accessToken.token);
-//           final FirebaseUser user =
-//               (await FirebaseAuth.instance.signInWithCredential(credential))
-//                   .user;
-//           print('===========================');
-//           print(user);
-
-//         //   Auth.getCurrentFirebaseUser().then((firebaseUser) {
-//         //     User user = new User(
-//         //       firstName: firebaseUser.displayName,
-//         //       userID: firebaseUser.uid,
-//         //       email: firebaseUser.email ?? '',
-//         //       profilePictureURL: firebaseUser.photoUrl ?? '',
-//         //     );
-//         //     Auth.addUser(user);
-//         //   });
-//           break;
-//         case FacebookLoginStatus.cancelledByUser:
-//           throw ErrorHint("CANCEL_BY_USER");
-//           break;
-//         case FacebookLoginStatus.error:
-//           throw ErrorHint("UNKNOWN ERROR");
-//           break;
-//       }
-//     } catch (error) {
-//       throw ErrorHint(error.code);
-//     }
-//   }
+  }
 }

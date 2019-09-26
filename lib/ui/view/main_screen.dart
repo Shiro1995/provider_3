@@ -1,4 +1,5 @@
 // import 'package:finalproject_healthcare/business/auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_1/core/constant/app_constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +38,12 @@ class _MainScreenState extends State<MainScreen> {
                 icon: new Icon(Icons.menu),
                 onPressed: () => _scaffoldKey.currentState.openDrawer()),
             title: Text("Home"),
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.ac_unit),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ],
             centerTitle: true,
           ),
           drawer: Drawer(
@@ -49,15 +56,15 @@ class _MainScreenState extends State<MainScreen> {
                 ListTile(
                   title: Text('Log Out'),
                   onTap: () {
-                    Navigator.of(context).pushNamed(RoutePaths.Welcome);
-                    _scaffoldKey.currentState.openEndDrawer();
+                    // Navigator.of(context).pushNamed(RoutePaths.Root);
+					_logOut();
                   },
                 ),
               ],
             ),
           ),
           body: StreamBuilder(
-            stream: Auth.getUser(Auth.getID().toString()),
+            stream: Auth.getUser(widget.firebaseUser.uid),
             builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
               if (!snapshot.hasData) {
                 return Center(
@@ -96,6 +103,6 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   void _logOut() async {
-    FirebaseAuth.instance.signOut();
+    Auth.signOut();
   }
 }

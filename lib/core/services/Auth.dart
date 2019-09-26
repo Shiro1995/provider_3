@@ -35,6 +35,9 @@ class Auth {
     });
     return id;
   }
+   static Future<void> signOut() async {
+    return FirebaseAuth.instance.signOut();
+  }
 
   static void addUser(User user) async {
     checkUserExist(user.userID).then((value) {
@@ -77,7 +80,7 @@ class Auth {
             Auth.addUser(user);
 			print('adasdhihi');
 			print(Auth.getUser('0MI7ZZ41GyVDLblwWGKqIj24zKZ2'));
-             Navigator.of(context).pushNamed(RoutePaths.Home);
+             Navigator.of(context).pushNamed(RoutePaths.Root);
           });
           break;
         case FacebookLoginStatus.cancelledByUser:
