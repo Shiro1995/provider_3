@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:final_1/core/constant/app_constant.dart';
 import 'package:final_1/core/services/api.dart';
 import 'package:final_1/core/model/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -76,7 +77,7 @@ class Auth {
             Auth.addUser(user);
 			print('adasdhihi');
 			print(Auth.getUser('0MI7ZZ41GyVDLblwWGKqIj24zKZ2'));
-             Navigator.of(context).pop();
+             Navigator.of(context).pushNamed(RoutePaths.Home);
           });
           break;
         case FacebookLoginStatus.cancelledByUser:
