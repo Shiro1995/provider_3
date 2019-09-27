@@ -1,5 +1,6 @@
 import 'package:final_1/core/constant/app_constant.dart';
 import 'package:final_1/core/services/Auth.dart';
+import 'package:final_1/ui/view/view_component/tab_fourth.dart';
 import 'package:final_1/ui/view/view_component/tabs_second.dart';
 import 'package:final_1/ui/view/view_component/tabs_third.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -70,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen>
           FirstTab(),
           SecondTab(),
           ThirdTab(),
-		  Text('hi'),
+		  FourthTab(),
         ],
         // set the controller
         controller: controller,

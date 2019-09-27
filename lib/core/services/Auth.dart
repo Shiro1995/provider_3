@@ -84,15 +84,15 @@ class Auth {
           });
           break;
         case FacebookLoginStatus.cancelledByUser:
-          throw ErrorHint("CANCEL_BY_USER");
-          break;
+        //   throw ErrorHint("CANCEL_BY_USER");
+        //   break;
         case FacebookLoginStatus.error:
-          throw ErrorHint("UNKNOWN ERROR");
+        //   throw ErrorHint("UNKNOWN ERROR");
           break;
       }
       return null;
     } catch (error) {
-      throw ErrorHint(error.code);
+    //   throw ErrorHint(error.code);
     }
   }
 
