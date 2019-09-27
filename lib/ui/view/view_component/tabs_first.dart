@@ -9,7 +9,7 @@ class _FirstTabState extends State<FirstTab> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: 5,
+        itemCount: 10,
         itemBuilder: (BuildContext context, int position) {
           return Card(
               color: Colors.amberAccent,

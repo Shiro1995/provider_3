@@ -50,136 +50,151 @@ class _SignInScreenState extends State<SignInScreen> {
     return WillPopScope(
       onWillPop: onBackPress,
       child: Scaffold(
-		  backgroundColor: Color.fromARGB(255, 20, 200, 150),
+         backgroundColor: Colors.red[300],
         body: Stack(
           children: <Widget>[
-            Stack(
-              alignment: Alignment.topLeft,
+            Container(
+              margin: EdgeInsets.only(top: 200, left: 30, right: 30),
+              height: 410,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      offset: Offset(0.0, 15.0),
+                      blurRadius: 15.0,
+                    ),
+                  ]),
+            ),
+            ListView(
               children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(top: 200, left: 30, right: 30),
-                  height: 350,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8.0),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black12,
-                          offset: Offset(0.0, 15.0),
-                          blurRadius: 15.0,
-                        ),
-                      ]),
+                Padding(
+                  padding: EdgeInsets.only(top: 60.0),
+                  child: Container(
+                      height: 100, child: Image.asset('images/medicine.png')),
                 ),
-                ListView(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(top: 60.0),
-                      child: Container(
-                          height: 100,
-                          child: Image.asset('images/medicine.png')),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: Text(
+                    'Personal \nHealthcare',
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      color: Colors.redAccent,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20),
-                      child: Text(
-                        'Personal \nHealthcare',
-                        maxLines: 2,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                          color: Colors.redAccent,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          top: 20.0, bottom: 10.0, left: 80.0, right: 50.0),
-                      child: _emailField,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          top: 10.0, bottom: 20.0, left: 80.0, right: 50.0),
-                      child: _passwordField,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 14.0, horizontal: 60.0),
-                      child: CustomFlatButton(
-                        title: "Log In",
-                        fontSize: 22,
-                        fontWeight: FontWeight.w700,
-                        textColor: Colors.white,
-                        onPressed: () {
-							 Navigator.of(context).pushNamed(RoutePaths.Welcome);
-                        //   _emailLogin(
-                        //       email: _email.text,
-                        //       password: _password.text,
-                        //       context: context);
-                        },
-                        splashColor: Colors.black12,
-                        borderColor: Color.fromRGBO(17, 156, 103, 30),
-                        borderWidth: 0,
-                        color: Color.fromRGBO(17, 156, 103, 1),
-                      ),
-                    ),
-                    // Padding(
-                    //   padding: const EdgeInsets.all(10.0),
-                    //   child: Text(
-                    //     "OR",
-                    //     softWrap: true,
-                    //     textAlign: TextAlign.center,
-                    //     style: TextStyle(
-                    //       color: Colors.black,
-                    //       decoration: TextDecoration.none,
-                    //       fontSize: 15.0,
-                    //       fontWeight: FontWeight.w300,
-                    //       fontFamily: "OpenSans",
-                    //     ),
-                    //   ),
-                    // ),
-                    // Padding(
-                    //   padding: const EdgeInsets.symmetric(
-                    //       vertical: 14.0, horizontal: 40.0),
-                    //   child: CustomFlatButton(
-                    //     title: "Facebook Login",
-                    //     fontSize: 22,
-                    //     fontWeight: FontWeight.w700,
-                    //     textColor: Colors.white,
-                    //     onPressed: () {
-                    //     //   _facebookLogin(context: context);
-                    //     },
-                    //     splashColor: Colors.black12,
-                    //     borderColor: Color.fromRGBO(59, 89, 152, 1.0),
-                    //     borderWidth: 0,
-                    //     color: Color.fromRGBO(59, 89, 152, 1.0),
-                    //   ),
-                    // ),
-                  ],
-                ),
-                SafeArea(
-                  child: IconButton(
-                    icon: Icon(Icons.arrow_back),
-                    onPressed: onBackPress,
                   ),
                 ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: 20.0, bottom: 10.0, left: 80.0, right: 50.0),
+                  child: _emailField,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: 10.0, bottom: 20.0, left: 80.0, right: 50.0),
+                  child: _passwordField,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 14.0, horizontal: 60.0),
+                  child: CustomFlatButton(
+                    title: "Log In",
+                    fontSize: 22,
+                    fontWeight: FontWeight.w700,
+                    textColor: Colors.white,
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(RoutePaths.Welcome);
+                      //   _emailLogin(
+                      //       email: _email.text,
+                      //       password: _password.text,
+                      //       context: context);
+                    },
+                    splashColor: Colors.black12,
+                    borderColor: Color.fromRGBO(17, 156, 103, 30),
+                    borderWidth: 0,
+                    color: Color.fromARGB(255, 20, 175, 135),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 14.0, horizontal: 60.0),
+                  child: CustomFlatButton(
+                    title: "Back",
+                    fontSize: 22,
+                    fontWeight: FontWeight.w700,
+                    textColor: Colors.white,
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(RoutePaths.Welcome);
+                      //   _emailLogin(
+                      //       email: _email.text,
+                      //       password: _password.text,
+                      //       context: context);
+                    },
+                    splashColor: Colors.black12,
+                    borderColor: Color.fromRGBO(17, 156, 103, 30),
+                    borderWidth: 0,
+                    color: Colors.orangeAccent,
+                  ),
+                ),
+                // Padding(
+                //   padding: const EdgeInsets.all(10.0),
+                //   child: Text(
+                //     "OR",
+                //     softWrap: true,
+                //     textAlign: TextAlign.center,
+                //     style: TextStyle(
+                //       color: Colors.black,
+                //       decoration: TextDecoration.none,
+                //       fontSize: 15.0,
+                //       fontWeight: FontWeight.w300,
+                //       fontFamily: "OpenSans",
+                //     ),
+                //   ),
+                // ),
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(
+                //       vertical: 14.0, horizontal: 40.0),
+                //   child: CustomFlatButton(
+                //     title: "Facebook Login",
+                //     fontSize: 22,
+                //     fontWeight: FontWeight.w700,
+                //     textColor: Colors.white,
+                //     onPressed: () {
+                //     //   _facebookLogin(context: context);
+                //     },
+                //     splashColor: Colors.black12,
+                //     borderColor: Color.fromRGBO(59, 89, 152, 1.0),
+                //     borderWidth: 0,
+                //     color: Color.fromRGBO(59, 89, 152, 1.0),
+                //   ),
+                // ),
               ],
             ),
-            Offstage(
-              offstage: !_blackVisible,
-              child: GestureDetector(
-                onTap: () {},
-                child: AnimatedOpacity(
-                  opacity: _blackVisible ? 1.0 : 0.0,
-                  duration: Duration(milliseconds: 400),
-                  curve: Curves.ease,
-                  child: Container(
-                    height: MediaQuery.of(context).size.height,
-                    color: Colors.black54,
-                  ),
-                ),
-              ),
-            ),
+            // SafeArea(
+            //   child: IconButton(
+            //     icon: Icon(Icons.arrow_back),
+            //     onPressed: onBackPress,
+            //   ),
+            // ),
+            // Offstage(
+            //   offstage: !_blackVisible,
+            //   child: GestureDetector(
+            //     onTap: () {},
+            //     child: AnimatedOpacity(
+            //       opacity: _blackVisible ? 1.0 : 0.0,
+            //       duration: Duration(milliseconds: 400),
+            //       curve: Curves.ease,
+            //       child: Container(
+            //         height: MediaQuery.of(context).size.height,
+            //         color: Colors.black54,
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),

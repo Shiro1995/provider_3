@@ -1,5 +1,4 @@
 import 'package:final_1/ui/view/home_screen.dart';
-import 'package:final_1/ui/view/welcome_screen%20copy.dart';
 import 'package:final_1/ui/view/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';

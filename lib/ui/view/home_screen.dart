@@ -1,4 +1,5 @@
 import 'package:final_1/core/constant/app_constant.dart';
+import 'package:final_1/core/services/Auth.dart';
 import 'package:final_1/ui/view/view_component/tabs_second.dart';
 import 'package:final_1/ui/view/view_component/tabs_third.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -35,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen>
     super.initState();
 
     // Initialize the Tab Controller
-    controller = TabController(length: 3, vsync: this);
+    controller = TabController(length: 4, vsync: this);
   }
 
   @override
@@ -54,13 +55,13 @@ class _HomeScreenState extends State<HomeScreen>
         // Title
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: Icon(Icons.backspace),
             onPressed: () =>
-                Navigator.of(context).pushNamed(RoutePaths.Welcome),
+                Auth.signOut(),
           )
         ],
         title: Text("Using Bottom Navigation Bar"),
-        backgroundColor: Colors.blue,
+        backgroundColor: Color.fromARGB(255, 20, 175, 135),
       ),
       // Set the TabBar view as the body of the Scaffold
       body: TabBarView(
@@ -69,6 +70,7 @@ class _HomeScreenState extends State<HomeScreen>
           FirstTab(),
           SecondTab(),
           ThirdTab(),
+		  Text('hi'),
         ],
         // set the controller
         controller: controller,
@@ -76,20 +78,23 @@ class _HomeScreenState extends State<HomeScreen>
       // Set the bottom navigation bar
       bottomNavigationBar: Material(
         // set the color of the bottom navigation bar
-        color: Colors.blue,
+        color: Color.fromARGB(255, 20, 175, 135),
         // set the tab bar as the child of bottom navigation bar
         child: TabBar(
           tabs: <Tab>[
             Tab(
               // set icon to the tab
-              icon: Icon(Icons.favorite),
+              icon: Icon(Icons.home),
             ),
             Tab(
-              icon: Icon(Icons.adb),
+              icon: Icon(Icons.assignment_return),
             ),
             Tab(
-              icon: Icon(Icons.airport_shuttle),
+              icon: Icon(Icons.location_on),
             ),
+			Tab(
+				icon: Icon(Icons.person)
+			)
           ],
           // setup the controller
           controller: controller,

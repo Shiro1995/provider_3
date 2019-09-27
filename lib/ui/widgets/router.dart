@@ -20,9 +20,9 @@ class Router {
     switch (settings.name) {
       case RoutePaths.Login:
         return MaterialPageRoute(builder: (_) => SignInScreen());
+    //   case RoutePaths.Welcome:
+    //     return MaterialPageRoute(builder: (_) => WelcomeScreen1());
       case RoutePaths.Welcome:
-        return MaterialPageRoute(builder: (_) => WelcomeScreen1());
-      case RoutePaths.Welcome1:
         return MaterialPageRoute(builder: (_) => WelcomeScreen());
       case RoutePaths.Main:
         return MaterialPageRoute(builder: (_) => MainScreen());

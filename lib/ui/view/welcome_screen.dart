@@ -60,7 +60,7 @@ class WelcomeScreen extends StatelessWidget {
               fontWeight: FontWeight.w700,
               textColor: Colors.white,
               onPressed: () {
-                Navigator.of(context).pushNamed(RoutePaths.Root);
+                Navigator.of(context).pushNamed(RoutePaths.Login);
               },
               splashColor: Colors.black12,
               borderColor: Color.fromRGBO(17, 156, 103, 1),

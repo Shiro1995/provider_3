@@ -5,7 +5,7 @@ class SecondTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green,
+      backgroundColor: Colors.redAccent,
       body: Container(
         child: Center(
           child: Column(
@@ -15,7 +15,7 @@ class SecondTab extends StatelessWidget {
               GestureDetector(
                 onTap: _logOut,
                 child: Icon(
-                  Icons.adb,
+                  Icons.assignment_returned,
                   size: 160.0,
                   color: Colors.white,
                 ),

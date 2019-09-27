@@ -8,7 +8,7 @@ class RoutePaths {
   static const String Home = '/';
   static const String Post = 'post';
   static const String Main = 'main';
-  static const String Welcome1 = 'welcome1';
+//   static const String Welcome1 = 'welcome1';
 
   static const String Root = 'root';
 }
