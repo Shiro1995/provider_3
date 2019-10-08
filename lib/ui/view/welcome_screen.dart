@@ -6,7 +6,6 @@ import 'package:final_1/ui/widgets/custom_flat_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:final_1/core/services/Auth.dart';
 import 'package:final_1/core/constant/app_constant.dart';
-import 'package:final_1/ui/shared/ui_helpers.dart';
 
 class WelcomeScreen extends StatelessWidget {
   final FirebaseUser firebaseUser;
@@ -51,37 +50,8 @@ class WelcomeScreen extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: 8.0, horizontal: 40.0),
-            child: CustomFlatButton(
-              title: "Log In",
-              fontSize: 22,
-              fontWeight: FontWeight.w700,
-              textColor: Colors.white,
-              onPressed: () {
-                Navigator.of(context).pushNamed(RoutePaths.Login);
-              },
-              splashColor: Colors.black12,
-              borderColor: Color.fromRGBO(17, 156, 103, 1),
-              borderWidth: 0,
-              color: Color.fromARGB(255, 20, 175, 135),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Text(
-              "OR",
-              softWrap: true,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.black,
-                decoration: TextDecoration.none,
-                fontSize: 15.0,
-                fontWeight: FontWeight.w300,
-                fontFamily: "OpenSans",
-              ),
-            ),
+		  SizedBox(
+            height: 20,
           ),
           Padding(
             padding:
@@ -101,6 +71,9 @@ class WelcomeScreen extends StatelessWidget {
               color: Color.fromRGBO(11, 55, 138, 30),
             ),
           ),
+          SizedBox(
+            height: 10,
+          ),
           Padding(
             padding:
                 const EdgeInsets.symmetric(vertical: 8.0, horizontal: 40.0),
@@ -118,6 +91,38 @@ class WelcomeScreen extends StatelessWidget {
               color: Colors.red,
             ),
           ),
+          //   Padding(
+          //     padding: const EdgeInsets.all(10.0),
+          //     child: Text(
+          //       "OR",
+          //       softWrap: true,
+          //       textAlign: TextAlign.center,
+          //       style: TextStyle(
+          //         color: Colors.black,
+          //         decoration: TextDecoration.none,
+          //         fontSize: 15.0,
+          //         fontWeight: FontWeight.w300,
+          //         fontFamily: "OpenSans",
+          //       ),
+          //     ),
+          //   ),
+          //     Padding(
+          //     padding:
+          //         const EdgeInsets.symmetric(vertical: 8.0, horizontal: 40.0),
+          //     child: CustomFlatButton(
+          //       title: "Register",
+          //       fontSize: 22,
+          //       fontWeight: FontWeight.w700,
+          //       textColor: Colors.white,
+          //       onPressed: () {
+          //         Navigator.of(context).pushNamed(RoutePaths.Login);
+          //       },
+          //       splashColor: Colors.black12,
+          //       borderColor: Color.fromRGBO(17, 156, 103, 1),
+          //       borderWidth: 0,
+          //       color: Color.fromARGB(255, 20, 175, 135),
+          //     ),
+          //   ),
         ],
       ),
     );
