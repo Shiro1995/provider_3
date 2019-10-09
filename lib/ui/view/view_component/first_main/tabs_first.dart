@@ -1,9 +1,7 @@
 import 'package:final_1/core/constant/app_constant.dart';
-import 'package:final_1/ui/shared/utils.dart';
-import 'package:final_1/ui/widgets/separator.dart';
 import 'package:flutter/material.dart';
 import 'package:final_1/core/viewmodels/disease_view_modal.dart';
-import 'package:timeago/timeago.dart' as timeago;
+import 'package:intl/intl.dart';
 
 const double kSmallPadding = 7.0;
 const double kPadding = 12.0;
@@ -23,33 +21,42 @@ class FirstTab extends StatefulWidget {
 
 class _FirstTabState extends State<FirstTab> {
   Widget _row() {
-    return Row(
-      children: <Widget>[
-		  
-      Padding(
-		  padding: const EdgeInsets.all(kSmallPadding),
-		    child: Image.asset("images/babysick.jpg"),
-	  ),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(kSmallPadding),
-            child: Column(
-              children: <Widget>[
-                Text(
-                  'Dau Hieu O Tre',
-                  maxLines: 3,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
+    return GestureDetector(
+      onTap: null,
+      child: Row(
+        children: <Widget>[
+          ClipRRect(
+            borderRadius: new BorderRadius.circular(8.0),
+            child: Image.asset(
+              "images/babysick.jpg",
             ),
           ),
-        ),
-        // _column(),
-      ],
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(kPadding),
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    'Dau Hieu O Tre Em',
+                    maxLines: 3,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    '\nCac trieu chung xuat hien o tre tu 5 thang tuoi den 5 tuoi',
+                    textAlign: TextAlign.center,
+                    style: _kTextStyle,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          // _column(),
+        ],
+      ),
     );
   }
 
@@ -57,41 +64,55 @@ class _FirstTabState extends State<FirstTab> {
     return Stack(
       children: <Widget>[
         _row(),
-        // _date(),
+        _date(),
       ],
     );
   }
 
-  List<ListView> _list;
+  Widget _date() {
+    DateTime _date = DateTime.now();
+    final df = new DateFormat('dd-MM-yyyy ');
+    String time = df.format(_date);
+    return Positioned(
+      right: kSmallPadding,
+      bottom: kPadding,
+      child: Text(
+        time,
+        style: TextStyle(
+          fontSize: 12.0,
+          color: kColorGrayText,
+        ),
+      ),
+    );
+  }
+
+  _onTap() {
+    Navigator.of(context).pushNamed(RoutePaths.Sysptomt);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
+    return ListView.builder(
       itemCount: 10,
       itemBuilder: (BuildContext context, int position) {
-        return RawMaterialButton(
-          onPressed: null,
-          child: Container(
-            margin: EdgeInsets.all(10.0),
-            padding: EdgeInsets.only(bottom: 5),
-            //   color: Colors.amberAccent,
-            // elevation: 3.0,
-            height: 150,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black12,
-                    offset: Offset(0.0, 15.0),
-                    blurRadius: 15.0,
-                  ),
-                ]),
-            child: _stack(),
-          ),
+        return Container(
+          margin: EdgeInsets.all(10.0),
+          padding: EdgeInsets.only(bottom: 5),
+          //   color: Colors.amberAccent,
+          // elevation: 3.0,
+          height: 120,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black12,
+                  offset: Offset(0.0, 15.0),
+                  blurRadius: 15.0,
+                ),
+              ]),
+          child: _stack(),
         );
-      },
-      separatorBuilder: (BuildContext context, int index) {
-        return Separator();
       },
     );
   }

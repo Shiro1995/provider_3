@@ -1,4 +1,5 @@
 import 'package:final_1/ui/view/main_view/home_screen.dart';
+import 'package:final_1/ui/view/view_component/first_main/symptoms_list.dart';
 import 'package:final_1/ui/view/view_component/main_screen.dart';
 import 'package:final_1/ui/view/main_view/root_screen.dart';
 import 'package:final_1/ui/view/main_view/signin_screen.dart';
@@ -12,7 +13,6 @@ class Router {
     switch (settings.name) {
       case RoutePaths.Login:
         return MaterialPageRoute(builder: (_) => SignInScreen());
-
       case RoutePaths.Welcome:
         return MaterialPageRoute(builder: (_) => WelcomeScreen());
       case RoutePaths.Main:
@@ -21,6 +21,8 @@ class Router {
         return MaterialPageRoute(builder: (_) => HomeScreen());
       case RoutePaths.Root:
         return MaterialPageRoute(builder: (_) => RootScreen());
+      case RoutePaths.Sysptomt:
+        return MaterialPageRoute(builder: (_) => ListSymptoms());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(
