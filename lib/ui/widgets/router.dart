@@ -1,4 +1,5 @@
 import 'package:final_1/ui/view/main_view/home_screen.dart';
+import 'package:final_1/ui/view/view_component/first_main/header_first.dart';
 import 'package:final_1/ui/view/view_component/first_main/symptoms_list.dart';
 import 'package:final_1/ui/view/view_component/main_screen.dart';
 import 'package:final_1/ui/view/main_view/root_screen.dart';
@@ -23,6 +24,8 @@ class Router {
         return MaterialPageRoute(builder: (_) => RootScreen());
       case RoutePaths.Sysptomt:
         return MaterialPageRoute(builder: (_) => ListSymptoms());
+		case RoutePaths.Sysptomt1:
+        return MaterialPageRoute(builder: (_) => DeckScreen());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

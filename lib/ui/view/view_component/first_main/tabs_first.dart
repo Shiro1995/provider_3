@@ -1,6 +1,5 @@
 import 'package:final_1/core/constant/app_constant.dart';
 import 'package:flutter/material.dart';
-import 'package:final_1/core/viewmodels/disease_view_modal.dart';
 import 'package:intl/intl.dart';
 
 const double kSmallPadding = 7.0;
@@ -13,8 +12,8 @@ final TextStyle _kTextStyle = TextStyle(
 );
 
 class FirstTab extends StatefulWidget {
-  FirstTab({this.viewmodel});
-  DiseaseViewModel viewmodel;
+//   FirstTab({this.viewmodel});
+//   DiseaseViewModel viewmodel;
   @override
   _FirstTabState createState() => _FirstTabState();
 }
@@ -22,11 +21,11 @@ class FirstTab extends StatefulWidget {
 class _FirstTabState extends State<FirstTab> {
   Widget _row() {
     return GestureDetector(
-      onTap: null,
+      onTap: _onTap,
       child: Row(
         children: <Widget>[
           ClipRRect(
-            borderRadius: new BorderRadius.circular(8.0),
+            borderRadius: new BorderRadius.circular(12.0),
             child: Image.asset(
               "images/babysick.jpg",
             ),
