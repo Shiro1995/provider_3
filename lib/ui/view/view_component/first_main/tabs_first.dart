@@ -86,7 +86,7 @@ class _FirstTabState extends State<FirstTab> {
   }
 
   _onTap() {
-    Navigator.of(context).pushNamed(RoutePaths.Sysptomt);
+    Navigator.of(context).pushNamed(RoutePaths.Sysptomt1);
   }
 
   @override

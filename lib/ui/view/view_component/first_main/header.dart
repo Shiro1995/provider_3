@@ -1,57 +1,26 @@
-
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-class DeckHeader extends StatelessWidget {
-//   DeckHeader({
-//     Key key,
-//     @required this.viewModel,
-//   }) : assert(viewModel != null);
-
-//   final DeckHeaderViewModel viewModel;
-
+class DeckHeader extends SliverPersistentHeaderDelegate {
   @override
-  Widget build(BuildContext context) {
-    return SliverPersistentHeader(
-      pinned: false,
-      floating: false,
-      delegate: _DeckHeaderDelegate(),
-    );
-  }
-}
-class _DeckHeaderDelegate extends SliverPersistentHeaderDelegate {
-
-
-  @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
-   return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-			Text('hello '),
-        //   _icon(),
-        //   SizedBox(height: 5),
-        //   _name(),
-        //   SizedBox(height: 5),
-        //   _faction(),
-        //   SizedBox(height: 5),
-        //   _info(),
-        ],
-      ),
-    );
-  }
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+		  return Container(
+			  child: Text('hi'),
+		  );
+	  }
 
   @override
   // TODO: implement maxExtent
-  double get maxExtent => null;
+  double get maxExtent => 160;
 
   @override
   // TODO: implement minExtent
-  double get minExtent => null;
+  double get minExtent => 160;
 
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
     // TODO: implement shouldRebuild
-    return null;
+    return false;
   }
-
 }
