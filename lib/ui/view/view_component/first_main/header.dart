@@ -2,25 +2,30 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DeckHeader extends SliverPersistentHeaderDelegate {
+	DeckHeader({
+    @required this.minHeight,
+    @required this.maxHeight,
+    @required this.child,
+  });
+  final double minHeight;
+  final double maxHeight;
+  final Widget child;
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-		  return Container(
-			  child: Text('hi'),
-		  );
-	  }
+     return new SizedBox.expand(child: child);;
+  }
 
   @override
-  // TODO: implement maxExtent
   double get maxExtent => 160;
 
   @override
-  // TODO: implement minExtent
   double get minExtent => 160;
 
   @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
-    // TODO: implement shouldRebuild
-    return false;
+  bool shouldRebuild(DeckHeader oldDelegate) {
+    return maxHeight != oldDelegate.maxHeight ||
+        minHeight != oldDelegate.minHeight ||
+        child != oldDelegate.child;
   }
 }

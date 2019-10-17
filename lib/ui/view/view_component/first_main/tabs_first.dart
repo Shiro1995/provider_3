@@ -36,7 +36,7 @@ class _FirstTabState extends State<FirstTab> {
               child: Column(
                 children: <Widget>[
                   Text(
-                    'Dau Hieu O Tre Em',
+                    'Dấu hiệu ở trẻ em',
                     maxLines: 3,
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -45,7 +45,7 @@ class _FirstTabState extends State<FirstTab> {
                     ),
                   ),
                   Text(
-                    '\nCac trieu chung xuat hien o tre tu 5 thang tuoi den 5 tuoi',
+                    '\nCác triệu chứng xuất hiện từ 5 tháng tuổi đến 5 tuổi',
                     textAlign: TextAlign.center,
                     style: _kTextStyle,
                   ),
