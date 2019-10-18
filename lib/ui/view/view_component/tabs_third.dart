@@ -33,8 +33,9 @@ class _ThirdTabState extends State<ThirdTab> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _goToTheLake,
-        label: Text('To the lake!'),
-        icon: Icon(Icons.directions_boat),
+        label: Text('Find doctor/pharmacy'),
+        icon: Icon(Icons.location_city),
+		backgroundColor: Colors.blueAccent,
       ),
     );
   }

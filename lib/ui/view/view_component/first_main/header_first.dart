@@ -18,11 +18,12 @@ final TextStyle _textStyleName = TextStyle(
 const String text1 = 'Trẻ ho hoặc khó thở';
 const String text2 = 'Ho khò khè, thở nhanh, khó thở';
 const String text3 = 'Thở rít nằm nghiên';
+const String text4 = 'tiêu chảy';
 class DeckScreen extends StatelessWidget {
   @override
   String get screenName => 'Deck';
 
-  Widget _sectionList() {
+  Widget _sectionList(String string) {
     return Container(
       height: 35,
       color: Colors.green[400],
@@ -31,7 +32,7 @@ class DeckScreen extends StatelessWidget {
         child: Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            text1,
+            string,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,
@@ -102,10 +103,7 @@ class DeckScreen extends StatelessWidget {
     return Container(
       width: 55.0,
       child: Center(
-        child: Image.asset(
-          'images/google-plus.png',
-          height: 25.0,
-        ),
+        child: Icon(Icons.open_with)
       ),
     );
   }
@@ -137,7 +135,7 @@ class DeckScreen extends StatelessWidget {
     return Column(
       children: <Widget>[
         Container(
-          height: 44.0,
+          height: 55.0,
           child: RawMaterialButton(
             onPressed: null,
             child: Row(
@@ -152,6 +150,7 @@ class DeckScreen extends StatelessWidget {
       ],
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -169,13 +168,39 @@ class DeckScreen extends StatelessWidget {
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
                   if (index == 0) {
-                    return _sectionList();
+                    return _sectionList(text1);
                   } else {
                     return cardList(context, 3, text2);
 				
                   }
                 },
-                childCount: 2,
+                childCount: 5,
+              ),
+            ),
+			 SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+                  if (index == 0) {
+                    return _sectionList(text4);
+                  } else {
+                    return cardList(context, 2, text3);
+				
+                  }
+                },
+                childCount: 5,
+              ),
+            ),
+			 SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+                  if (index == 0) {
+                    return _sectionList('Trẻ bị sốt');
+                  } else {
+                    return cardList(context, 2, 'Sởi và các triệu chứng');
+				
+                  }
+                },
+                childCount: 5,
               ),
             ),
             SliverFixedExtentList(
@@ -192,6 +217,7 @@ class DeckScreen extends StatelessWidget {
                 },
               ),
             ),
+			
             // SliverGrid(
             //   gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
             //     maxCrossAxisExtent: 200.0,

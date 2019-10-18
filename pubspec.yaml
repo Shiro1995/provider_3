@@ -59,6 +59,7 @@ flutter:
     - images/google-plus.png  
     - images/babysick.jpg
     - assets/icons/
+    - images/doctor.jpg
   fonts:  
   - family: Montserrat
     fonts:

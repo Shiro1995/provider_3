@@ -89,30 +89,80 @@ class _FirstTabState extends State<FirstTab> {
     Navigator.of(context).pushNamed(RoutePaths.Sysptomt1);
   }
 
+  Widget appBarTitle = new Text("Personal Healthcare");
+  Icon actionIcon = new Icon(Icons.search);
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 10,
-      itemBuilder: (BuildContext context, int position) {
-        return Container(
-          margin: EdgeInsets.all(10.0),
-          padding: EdgeInsets.only(bottom: 5),
-          //   color: Colors.amberAccent,
-          // elevation: 3.0,
-          height: 120,
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8.0),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black12,
-                  offset: Offset(0.0, 15.0),
-                  blurRadius: 15.0,
-                ),
-              ]),
-          child: _stack(),
-        );
-      },
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        // Title
+
+        title: Text(
+          'Personal Healthcare',
+          maxLines: 1,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontFamily: 'Montserrat',
+            fontWeight: FontWeight.bold,
+            fontSize: 23,
+            color: Colors.black38,
+          ),
+        ),
+        actions: <Widget>[
+          IconButton(
+            icon: actionIcon,
+            onPressed: () {
+              setState(() {
+                if (this.actionIcon.icon == Icons.search) {
+                  this.actionIcon = new Icon(Icons.close);
+                  this.appBarTitle = new TextField(
+                    style: new TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 23,
+                      color: Colors.black38,
+                    ),
+                    decoration: new InputDecoration(
+                        prefixIcon: new Icon(Icons.search, color: Colors.white),
+                        hintText: "Search...",
+                        hintStyle: new TextStyle(color: Colors.white)),
+                  );
+                } else {
+                  this.actionIcon = new Icon(Icons.search);
+                  this.appBarTitle = new Text("Personal Healthcar");
+                }
+              });
+            },
+          ),
+        ],
+
+        // title: Text("Using Bottom Navigation Bar"),
+        backgroundColor: Color.fromARGB(255, 20, 175, 135),
+      ),
+      body: ListView.builder(
+        itemCount: 10,
+        itemBuilder: (BuildContext context, int position) {
+          return Container(
+            margin: EdgeInsets.all(10.0),
+            padding: EdgeInsets.only(bottom: 5),
+            //   color: Colors.amberAccent,
+            // elevation: 3.0,
+            height: 120,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12,
+                    offset: Offset(0.0, 15.0),
+                    blurRadius: 15.0,
+                  ),
+                ]),
+            child: _stack(),
+          );
+        },
+      ),
     );
   }
 }

@@ -1,8 +1,11 @@
+import 'package:final_1/core/constant/app_constant.dart';
+import 'package:final_1/ui/view/view_component/second_main/tab_second.dart';
 import 'package:final_1/ui/view/view_component/tab_fourth.dart';
 import 'package:final_1/ui/view/view_component/tabs_second.dart';
 import 'package:final_1/ui/view/view_component/tabs_third.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
 // import 'package:using_bottom_nav_bar/tabs/second.dart';
 // import 'package:using_bottom_nav_bar/tabs/third.dart';
 import 'package:final_1/ui/view/view_component/first_main/tabs_first.dart';
@@ -44,32 +47,21 @@ class _HomeScreenState extends State<HomeScreen>
     controller.dispose();
     super.dispose();
   }
-
+	 Widget appBarTitle = new Text("Personal Healthcare");
+  Icon actionIcon = new Icon(Icons.search);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // Appbar
-      //   appBar: AppBar(
-      // 	  automaticallyImplyLeading: false,
-      //     // Title
-      //     actions: <Widget>[
-      //       IconButton(
-      //         icon: Icon(Icons.search),
-      //         onPressed: () =>
-      //             Navigator.of(context).pushNamed(RoutePaths.Login),
-      //       )
-      //     ],
-      //     // title: Text("Using Bottom Navigation Bar"),
-      //     backgroundColor: Color.fromARGB(255, 20, 175, 135),
-      //   ),
+      
       // Set the TabBar view as the body of the Scaffold
       body: TabBarView(
         // Add tabs as widgets
         children: <Widget>[
           FirstTab(),
-          SecondTab(),
+          TabbedAppBarSample(),
           ThirdTab(),
-		FourthTab(),
+          FourthTab(),
         ],
         // set the controller
         controller: controller,

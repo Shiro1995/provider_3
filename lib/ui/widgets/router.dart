@@ -4,6 +4,8 @@ import 'package:final_1/ui/view/view_component/first_main/symptoms_list.dart';
 import 'package:final_1/ui/view/view_component/main_screen.dart';
 import 'package:final_1/ui/view/main_view/root_screen.dart';
 import 'package:final_1/ui/view/main_view/signin_screen.dart';
+import 'package:final_1/ui/view/view_component/search/search.dart';
+import 'package:final_1/ui/view/view_component/tabs_third.dart';
 import 'package:final_1/ui/view/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -26,6 +28,11 @@ class Router {
         return MaterialPageRoute(builder: (_) => ListSymptoms());
 		case RoutePaths.Sysptomt1:
         return MaterialPageRoute(builder: (_) => DeckScreen());
+		case RoutePaths.Search:
+		 return MaterialPageRoute(builder: (_) =>Search());
+		 	case RoutePaths.Map:
+		 return MaterialPageRoute(builder: (_) =>ThirdTab());
+		 
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(
