@@ -1,7 +1,9 @@
+import 'package:final_1/core/viewmodels/user_model.dart';
 import 'package:final_1/ui/view/main_view/home_screen.dart';
 import 'package:final_1/ui/view/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 
 class RootScreen extends StatefulWidget {
   @override
@@ -20,14 +22,18 @@ class _RootScreenState extends State<RootScreen> {
           );
         } else {
           if (snapshot.hasData) {
-            return new HomeScreen(
-              firebaseUser: snapshot.data,
-            );
+          print(snapshot.data);
+            return new HomeScreen();
           } else {
-            return WelcomeScreen(); 
+            return WelcomeScreen();
           }
         }
       },
     );
   }
+
+//   void _getUserInfo(FirebaseUser user) async {
+//     UserProvider _userProvider = Provider.of<UserProvider>(context);
+//     await _userProvider.getInfo(user);
+//   }
 }

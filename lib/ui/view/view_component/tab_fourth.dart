@@ -1,4 +1,3 @@
-import 'package:final_1/ui/widgets/avatar_fade_image.dart';
 import 'package:final_1/ui/widgets/conference_speaker.dart';
 import 'package:flutter/material.dart';
 

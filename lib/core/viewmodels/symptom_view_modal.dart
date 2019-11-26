@@ -1,33 +1,30 @@
-import 'package:final_1/core/model/disease.dart';
+import 'package:final_1/core/model/symptom.dart';
 import 'package:final_1/core/services/api.dart';
 import 'package:flutter/cupertino.dart';
-class DiseaseViewModel extends ChangeNotifier {
+class SymptomViewModel extends ChangeNotifier {
 
-	List<Disease> _listDisease = [];
+	List<Symptom> _listSymptom = [];
 	Api _api;
 
-	List get disease => _listDisease;
+	List get symptom => _listSymptom;
 	void reset() {
-		 _listDisease = [];
+		 _listSymptom = [];
 		 	notifyListeners();
 	}
-	void getDisease() {
-		 _listDisease = [
-			 Disease(
-			classify: 'Hô hấp',
-			decrible: 'Ngưng thở khi ngủ trung ương có thể xảy ra như là kết quả của các điều kiện khác, chẳng hạn như suy tim và đột quỵ, ngủ ở một độ cao cũng có thể gây ngưng thở khi ngủ trung ương',
-			name: 'Ngưng thở khi ngủ trung ương',
+	void getSymptom() {
+		 _listSymptom = [
+			 Symptom(
+			decrible: 'Viêm màng phổi xảy ra như là một biến chứng của một loạt các điều kiện cơ bản',
+			name: 'Viêm màng phổi (pleuritis)',
 		),
-		Disease(
-			classify: 'Tim Mạch',
-			decrible: 'Viêm tiểu phế quản nặng có thể gây thở khó khăn đáng kể, da xanh, một dấu hiệu oxy không đầy đủ, Điều này đòi hỏi chăm sóc y tế khẩn cấp',
-			name: 'Viêm tiểu phế quản',
+		 Symptom(
+			decrible: 'Điều kiện thông thường, viêm phế quản cấp tính thường phát triển từ nhiễm trùng đường hô hấp do lạnh hay vấn đề khác',
+			name: 'Viêm phế quản',
 		),
-		 Disease(
-			classify: 'Tiêu Hóa và Tụy',
-			decrible: 'Các điều kiện khác bên cạnh xẹp phổi có thể gây ra khó thở, và hầu hết yêu cầu chẩn đoán chính xác và điều trị kịp thời',
-			name: 'Xẹp phổi',
-		)
+		Symptom(
+			decrible: 'Khó thở, thở khò khè, tức ngực, giảm khả năng hoạt động thể chất, ho mãn tính, ăn kém và gầy, mệt mỏi',
+			name: 'Khí phế thũng',
+		),
 		];
 		// listDisease.add(new Disease(
 		// 	classify: 'Hô hấp',

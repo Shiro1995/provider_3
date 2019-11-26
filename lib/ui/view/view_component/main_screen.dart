@@ -1,10 +1,5 @@
-// import 'package:finalproject_healthcare/business/auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:final_1/core/constant/app_constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:finalproject_healthcare/models/user.dart';
 import 'package:final_1/core/model/user.dart';
 import 'package:final_1/core/services/Auth.dart';
 

@@ -13,7 +13,7 @@ class DeckHeader extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-     return new SizedBox.expand(child: child);;
+     return new SizedBox.expand(child: child);
   }
 
   @override

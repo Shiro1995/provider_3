@@ -1,6 +1,7 @@
 import 'package:final_1/core/constant/app_constant.dart';
+import 'package:final_1/core/services/Auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 const double kSmallPadding = 7.0;
 const double kPadding = 12.0;
@@ -19,7 +20,7 @@ class TabbedAppBarSample extends StatelessWidget {
         length: choices.length,
         child: Scaffold(
           appBar: AppBar(
-			  centerTitle: true,
+            centerTitle: true,
             // title: const Text('Tabbed AppBar'),
             title: Text(
               'Personal Healthcare',
@@ -29,7 +30,7 @@ class TabbedAppBarSample extends StatelessWidget {
                 fontFamily: 'Montserrat',
                 fontWeight: FontWeight.bold,
                 fontSize: 23,
-                color: Colors.black38,
+                color: Colors.yellow[200],
               ),
             ),
             bottom: TabBar(
@@ -41,7 +42,7 @@ class TabbedAppBarSample extends StatelessWidget {
                 );
               }).toList(),
             ),
-			 backgroundColor: Color.fromARGB(255, 20, 175, 135),
+            backgroundColor: Color.fromARGB(255, 20, 175, 135),
           ),
           body: TabBarView(
             children: choices.map((Choice choice) {
@@ -51,7 +52,6 @@ class TabbedAppBarSample extends StatelessWidget {
               );
             }).toList(),
           ),
-		  
         ),
       ),
     );
@@ -77,26 +77,29 @@ class ChoiceCard extends StatelessWidget {
   const ChoiceCard({Key key, this.choice}) : super(key: key);
 
   final Choice choice;
-  Widget _row() {
+  Widget _row(FirebaseUser data) {
     return GestureDetector(
-      onTap: () => {
-        null,
+      onTap: () {
+        _logOut();
       },
       child: Row(
         children: <Widget>[
-          ClipRRect(
-            borderRadius: new BorderRadius.circular(12.0),
-            child: Image.asset(
-             "images/doctor.jpg"
-            ),
-          ),
+         Container(
+                    height: 100.0,
+                    width: 100.0,
+                    child: CircleAvatar(
+                      backgroundImage: (data.photoUrl != '')
+                          ? NetworkImage(data.photoUrl)
+                          : AssetImage("assets/images/default.png"),
+                    ),
+                  ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: Column(
                 children: <Widget>[
                   Text(
-                    'Bác sĩ đa khoa',
+                    data.displayName,
                     maxLines: 3,
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -119,60 +122,73 @@ class ChoiceCard extends StatelessWidget {
     );
   }
 
-  Widget _stack() {
+  void _logOut() async {
+    Auth.signOut();
+  }
+
+  Widget _stack(FirebaseUser data) {
     return Stack(
       children: <Widget>[
-        _row(),
+        _row(data),
         // _date(),
       ],
     );
   }
 
-  Widget _date() {
-    DateTime _date = DateTime.now();
-    final df = new DateFormat('dd-MM-yyyy ');
-    String time = df.format(_date);
-    return Positioned(
-      right: kSmallPadding,
-      bottom: kPadding,
-      child: Text(
-        time,
-        style: TextStyle(
-          fontSize: 12.0,
-          color: kColorGrayText,
-        ),
-      ),
-    );
-  }
+//   Widget _date() {
+//     DateTime _date = DateTime.now();
+//     final df = new DateFormat('dd-MM-yyyy ');
+//     String time = df.format(_date);
+//     return Positioned(
+//       right: kSmallPadding,
+//       bottom: kPadding,
+//       child: Text(
+//         time,
+//         style: TextStyle(
+//           fontSize: 12.0,
+//           color: kColorGrayText,
+//         ),
+//       ),
+//     );
+//   }
 
   @override
   Widget build(BuildContext context) {
     // final TextStyle textStyle = Theme.of(context).textTheme.display1;
-    return Scaffold(
-      body: ListView.builder(
-        itemCount: 10,
-        itemBuilder: (BuildContext context, int position) {
-          return Container(
-            margin: EdgeInsets.all(10.0),
-            padding: EdgeInsets.only(bottom: 5),
-            //   color: Colors.amberAccent,
-            // elevation: 3.0,
-            height: 120,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black12,
-                    offset: Offset(0.0, 15.0),
-                    blurRadius: 15.0,
-                  ),
-                ]),
-            child: _stack(),
-          );
-        },
-      ),
-    );
+    return new StreamBuilder<FirebaseUser>(
+        stream: FirebaseAuth.instance.onAuthStateChanged,
+        builder: (BuildContext context, snapshot) {
+          if (snapshot.hasData) {
+            return Scaffold(
+              body: ListView.builder(
+                itemCount: 10,
+                itemBuilder: (BuildContext context, int position) {
+                  return Container(
+                    margin: EdgeInsets.all(10.0),
+                    padding: EdgeInsets.only(bottom: 5),
+                    //   color: Colors.amberAccent,
+                    // elevation: 3.0,
+                    height: 120,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black12,
+                            offset: Offset(0.0, 15.0),
+                            blurRadius: 15.0,
+                          ),
+                        ]),
+						
+                    child: _stack(snapshot.data),
+                  );
+                },
+              ),
+            );
+          } else {
+            return Text('adsasd');
+          }
+        });
   }
 
   void ontap(BuildContext context) {

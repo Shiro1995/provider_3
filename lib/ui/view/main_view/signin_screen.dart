@@ -3,7 +3,7 @@ import "package:flutter/material.dart";
 import "package:final_1/ui/widgets/custom_text_field.dart";
 import 'package:flutter/services.dart';
 import 'package:final_1/ui/widgets/custom_flat_button.dart';
-import 'package:final_1/ui/widgets/custom_alert_dialog.dart';
+
 
 class SignInScreen extends StatefulWidget {
   _SignInScreenState createState() => _SignInScreenState();
@@ -14,7 +14,7 @@ class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _password = new TextEditingController();
   CustomTextField _emailField;
   CustomTextField _passwordField;
-  bool _blackVisible = false;
+
   VoidCallback onBackPress;
 
   @override
@@ -201,32 +201,9 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  void _changeBlackVisible() {
-    setState(() {
-      _blackVisible = !_blackVisible;
-    });
-  }
 
-  void _emailLogin(
-      {String email, String password, BuildContext context}) async {
-    // if (Validator.validateEmail(email) &&
-    //     Validator.validatePassword(password)) {
-    //   try {
-    //     SystemChannels.textInput.invokeMethod('TextInput.hide');
-    //     _changeBlackVisible();
-    //     await Auth.signIn(email, password)
-    //         .then((uid) => Navigator.of(context).pop());
-    //   } catch (e) {
-    //     print("Error in email sign in: $e");
-    //     String exception = Auth.getExceptionText(e);
-    //     _showErrorAlert(
-    //       title: "Login failed",
-    //       content: exception,
-    //       onPressed: _changeBlackVisible,
-    //     );
-    //   }
-    // }
-  }
+
+  
 
 //   void _facebookLogin({BuildContext context}) async {
 //     try {
@@ -265,17 +242,4 @@ class _SignInScreenState extends State<SignInScreen> {
 //     }
 //   }
 
-  void _showErrorAlert({String title, String content, VoidCallback onPressed}) {
-    showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (context) {
-        return CustomAlertDialog(
-          content: content,
-          title: title,
-          onPressed: onPressed,
-        );
-      },
-    );
-  }
 }

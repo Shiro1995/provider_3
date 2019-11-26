@@ -24,9 +24,7 @@ class Router {
         return MaterialPageRoute(builder: (_) => HomeScreen());
       case RoutePaths.Root:
         return MaterialPageRoute(builder: (_) => RootScreen());
-      case RoutePaths.Sysptomt:
-        return MaterialPageRoute(builder: (_) => ListSymptoms());
-		case RoutePaths.Sysptomt1:
+      case RoutePaths.Symptomt:
         return MaterialPageRoute(builder: (_) => DeckScreen());
 		case RoutePaths.Search:
 		 return MaterialPageRoute(builder: (_) =>Search());

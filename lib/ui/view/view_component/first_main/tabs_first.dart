@@ -1,6 +1,12 @@
-import 'package:final_1/core/constant/app_constant.dart';
+import 'package:final_1/core/model/disease.dart';
+import 'package:final_1/core/viewmodels/disease_view_modal.dart';
+import 'package:final_1/ui/widgets/disease_list_screen.dart';
+import 'package:final_1/ui/widgets/disease_screen.dart';
+import 'package:final_1/ui/widgets/search_field.dart';
+import 'package:final_1/ui/widgets/separator.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 const double kSmallPadding = 7.0;
 const double kPadding = 12.0;
@@ -12,224 +18,82 @@ final TextStyle _kTextStyle = TextStyle(
 );
 
 class FirstTab extends StatefulWidget {
-//   FirstTab({this.viewmodel});
-//   DiseaseViewModel viewmodel;
   @override
   _FirstTabState createState() => _FirstTabState();
 }
 
 class _FirstTabState extends State<FirstTab> {
-  Widget _row() {
-    return GestureDetector(
-      onTap: _onTap,
-      child: Row(
-        children: <Widget>[
-          ClipRRect(
-            borderRadius: new BorderRadius.circular(12.0),
-            child: Image.asset(
-              "images/babysick.jpg",
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(kPadding),
-              child: Column(
-                children: <Widget>[
-                  Text(
-                    'Dấu hiệu ở trẻ em',
-                    maxLines: 3,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    '\nCác triệu chứng xuất hiện từ 5 tháng tuổi đến 5 tuổi',
-                    textAlign: TextAlign.center,
-                    style: _kTextStyle,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          // _column(),
-        ],
-      ),
-    );
-  }
+  final DiseaseViewModel dsModal = DiseaseViewModel();
 
-  Widget _stack() {
-    return Stack(
-      children: <Widget>[
-        _row(),
-        _date(),
-      ],
-    );
-  }
-
-  Widget _date() {
-    DateTime _date = DateTime.now();
-    final df = new DateFormat('dd-MM-yyyy ');
-    String time = df.format(_date);
-    return Positioned(
-      right: kSmallPadding,
-      bottom: kPadding,
-      child: Text(
-        time,
-        style: TextStyle(
-          fontSize: 12.0,
-          color: kColorGrayText,
-        ),
-      ),
-    );
-  }
-
-  _onTap() {
-    Navigator.of(context).pushNamed(RoutePaths.Sysptomt1);
-  }
-
-  Widget appBarTitle = new Text("Personal Healthcare");
-  Icon actionIcon = new Icon(Icons.search);
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        // Title
+  void initState() {
+	 Future.delayed(Duration.zero,()=>Provider.of<DiseaseViewModel>(context).getDisease());    
+	 super.initState();
+  }
 
-        title: Text(
-          'Personal Healthcare',
-          maxLines: 1,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontFamily: 'Montserrat',
-            fontWeight: FontWeight.bold,
-            fontSize: 23,
-            color: Colors.black38,
-          ),
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: actionIcon,
-            onPressed: () {
-              setState(() {
-                if (this.actionIcon.icon == Icons.search) {
-                  this.actionIcon = new Icon(Icons.close);
-                  this.appBarTitle = new TextField(
-                    style: new TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 23,
-                      color: Colors.black38,
-                    ),
-                    decoration: new InputDecoration(
-                        prefixIcon: new Icon(Icons.search, color: Colors.white),
-                        hintText: "Search...",
-                        hintStyle: new TextStyle(color: Colors.white)),
-                  );
-                } else {
-                  this.actionIcon = new Icon(Icons.search);
-                  this.appBarTitle = new Text("Personal Healthcar");
-                }
-              });
-            },
-          ),
-        ],
+  Widget _searchField({BuildContext context}) {
+    return SearchField(
+        //   onChanged: (String text) {
+        //     _onTextChanged(text: text);
+        //   },
+        //   onSubmitted: () {
+        //     _onTextSubmitted(context: context);
+        //   },
+        );
+  }
 
-        // title: Text("Using Bottom Navigation Bar"),
-        backgroundColor: Color.fromARGB(255, 20, 175, 135),
-      ),
-      body: ListView.builder(
-        itemCount: 10,
-        itemBuilder: (BuildContext context, int position) {
-          return Container(
-            margin: EdgeInsets.all(10.0),
-            padding: EdgeInsets.only(bottom: 5),
-            //   color: Colors.amberAccent,
-            // elevation: 3.0,
-            height: 120,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black12,
-                    offset: Offset(0.0, 15.0),
-                    blurRadius: 15.0,
-                  ),
-                ]),
-            child: _stack(),
+  void _onPackSelected({BuildContext context, Disease disease}) async {
+    await Navigator.push(
+      context,
+      CupertinoPageRoute(
+        fullscreenDialog: true,
+        builder: (BuildContext context) {
+          return DiseasePage(
+            title: disease.classify,
           );
         },
       ),
     );
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          titleSpacing: 5.0,
+          title: _searchField(context: context),
+          automaticallyImplyLeading: false,
+          backgroundColor: Color.fromARGB(255, 20, 175, 135),
+        ),
+        body: Consumer<DiseaseViewModel>(builder: (context, _disease, _) {
+		
+			// return ListView.builder(
+			// 	itemCount: 15,
+			// 	itemBuilder: ( context,  index) {
+			// 		return DiseaseList(
+            //         disease: _disease.disease[index%3],
+            //         index: index,
+            //         onTap: () {
+            //           _onPackSelected(context: context, disease: _disease.disease[index%3]);
+            //         });
+			// 	}
+			// );
+          return ListView.separated(
+			    itemCount: 15,
+              itemBuilder: (BuildContext context, int index) {
+                final disease = _disease.disease[index%3];
+                return DiseaseList(
+                    disease: disease,
+                    index: index,
+                    onTap: () {
+                      _onPackSelected(context: context, disease: disease);
+                    });
+              },
+            
+              separatorBuilder: (BuildContext context, int index) {
+                return Separator();
+              });
+        })
+		);
+  }
 }
-//   child: ListTile(
-//     leading: Image.asset("images/babysick.jpg"),
-//     title: Text(
-//       'Tre em',
-//       textAlign: TextAlign.center,
-//       style: TextStyle(
-//         fontSize: 27,
-//         fontWeight: FontWeight.bold,
-//       ),
-//     ),
-//     subtitle: Text(
-//       'Kiểm tra dấu hiệu nguy hiểm' +
-//           'toàn thân\nHỏi 4 triệu chứng chính\nKiểm tra bệnh tay chân miệng \nKiểm tra dinh dưỡng và thiếu máu\nĐiều trị cấp cứu trước khi' +
-//           'chuyển viện và điều trị đặc hiệu tại nhà',
-//       // textAlign: TextAlign.center,
-//       textDirection: TextDirection.ltr,
-//     ),
-//   ),
-//   return Container(
-//     decoration: BoxDecoration(
-//         color: Colors.white,
-//         borderRadius: BorderRadius.circular(8.0),
-//         boxShadow: [
-//           BoxShadow(
-//             color: Colors.black12,
-//             offset: Offset(0.0, 15.0),
-//             blurRadius: 15.0,
-//           ),
-//         ]),
-//     child: Row(
-//       children: <Widget>[
-//         Padding(
-//           padding: EdgeInsets.only(
-//             left: kSmallPadding,
-//             top: kPadding,
-//             bottom: kPadding,
-//           ),
-//           child: Container(
-//             height: 120,
-//             //   width: 100,
-//             child: Image.asset(
-//               "images/babysick.jpg",
-//               fit: BoxFit.scaleDown,
-//             ),
-//           ),
-//         ),
-//         Expanded(
-//           child: Padding(
-//             padding: EdgeInsets.all(kSmallPadding),
-//             child: Column(
-//               children: <Widget>[
-//                 Text(
-//                   'Trieu chung o tre em',
-//                   maxLines: 3,
-//                   textAlign: TextAlign.center,
-//                   style: TextStyle(
-//                     fontSize: 16.0,
-//                     fontWeight: FontWeight.bold,
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ),
-//       ],
-//     ),
-//   );

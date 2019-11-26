@@ -8,9 +8,9 @@ class RoutePaths {
   static const String Post = 'post';
   static const String Main = 'main';
 //   static const String Welcome1 = 'welcome1';
-  static const String Sysptomt = '/sysptomt';
+  static const String Symptomt = '/Symptomt';
   static const String Root = '/root';
-  static const String Sysptomt1 = '/sysptomt1';
+  static const String Symptomt1 = '/sysptomt1';
   static const String Search = '/Search';
   static const String Map = '/map';
   

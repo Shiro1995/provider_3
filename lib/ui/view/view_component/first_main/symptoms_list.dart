@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 
-final TextStyle _kTextStyle = TextStyle(
-  fontSize: 14.0,
-  color: kColorGrayText,
-);
 const double kSmallPadding = 7.0;
 const double kPadding = 12.0;
 const Color kColorGrayText = Color.fromRGBO(132, 132, 132, 1.0);
@@ -92,8 +88,8 @@ class ListSymptoms extends StatelessWidget {
         key: Key('symptom'),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: () => {
-            Navigator.of(context).pop(),
+          onPressed: () {
+            Navigator.of(context).pop();
           },
         ),
       ),

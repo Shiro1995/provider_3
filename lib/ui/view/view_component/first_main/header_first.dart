@@ -1,5 +1,6 @@
-import 'package:final_1/core/constant/app_constant.dart';
+import 'package:final_1/core/model/disease.dart';
 import 'package:final_1/ui/view/view_component/first_main/header.dart';
+import 'package:final_1/ui/widgets/separator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -11,22 +12,34 @@ final TextStyle _kTextStyle = TextStyle(
   color: kColorGrayText,
 );
 final TextStyle _textStyleName = TextStyle(
-    fontSize: 16.0,
-    color: Colors.black,
-    fontWeight: FontWeight.bold,
-  );
+  fontSize: 16.0,
+  color: Colors.black,
+  fontWeight: FontWeight.bold,
+);
 const String text1 = 'Trẻ ho hoặc khó thở';
 const String text2 = 'Ho khò khè, thở nhanh, khó thở';
 const String text3 = 'Thở rít nằm nghiên';
 const String text4 = 'tiêu chảy';
-class DeckScreen extends StatelessWidget {
+
+typedef Callback = void Function(Disease card);
+
+class DeckScreen extends StatefulWidget {
+	// DeckScreen({
+	// 	@required this.disease,
+	// }) ;
+	// final Disease disease;
+
   @override
-  String get screenName => 'Deck';
+  _DeckScreenState createState() => _DeckScreenState();
+}
+
+class _DeckScreenState extends State<DeckScreen> {
+	Callback onTap;
 
   Widget _sectionList(String string) {
     return Container(
       height: 35,
-      color: Colors.green[400],
+      color: Color.fromARGB(250, 20, 175, 135),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 12.0),
         child: Align(
@@ -102,13 +115,11 @@ class DeckScreen extends StatelessWidget {
   Widget _widgetLeft() {
     return Container(
       width: 55.0,
-      child: Center(
-        child: Icon(Icons.open_with)
-      ),
+      child: Center(child: Icon(Icons.open_with)),
     );
   }
+
   Widget _widgetMiddle(String text) {
-   
     return Expanded(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -120,12 +131,12 @@ class DeckScreen extends StatelessWidget {
               style: _textStyleName,
             ),
           ),
-        //   FittedBox(
-        //     child: Text(
-        //       subtitle,
-        //       style: kTextStyleType,
-        //     ),
-        //   ),
+          //   FittedBox(
+          //     child: Text(
+          //       subtitle,
+          //       style: kTextStyleType,
+          //     ),
+          //   ),
         ],
       ),
     );
@@ -137,12 +148,15 @@ class DeckScreen extends StatelessWidget {
         Container(
           height: 55.0,
           child: RawMaterialButton(
-            onPressed: null,
+            onPressed: () {
+			
+			},
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 _widgetLeft(),
-				_widgetMiddle(text),
+                _widgetMiddle(text),
+                Separator(),
               ],
             ),
           ),
@@ -150,7 +164,6 @@ class DeckScreen extends StatelessWidget {
       ],
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -171,33 +184,30 @@ class DeckScreen extends StatelessWidget {
                     return _sectionList(text1);
                   } else {
                     return cardList(context, 3, text2);
-				
                   }
                 },
                 childCount: 5,
               ),
             ),
-			 SliverList(
+            SliverList(
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
                   if (index == 0) {
                     return _sectionList(text4);
                   } else {
                     return cardList(context, 2, text3);
-				
                   }
                 },
                 childCount: 5,
               ),
             ),
-			 SliverList(
+            SliverList(
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
                   if (index == 0) {
                     return _sectionList('Trẻ bị sốt');
                   } else {
                     return cardList(context, 2, 'Sởi và các triệu chứng');
-				
                   }
                 },
                 childCount: 5,
@@ -217,7 +227,7 @@ class DeckScreen extends StatelessWidget {
                 },
               ),
             ),
-			
+
             // SliverGrid(
             //   gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
             //     maxCrossAxisExtent: 200.0,

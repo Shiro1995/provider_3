@@ -1,22 +1,13 @@
 import 'dart:async';
 
 import 'package:final_1/core/constant/app_constant.dart';
-import 'package:final_1/core/services/api.dart';
 import 'package:final_1/core/model/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Auth {
-  final Api _api;
-
-  Auth({Api api}) : _api = api;
-
-  StreamController<User> _userController = StreamController<User>();
-
-  Stream<User> get user => _userController.stream;
-
+class Auth extends ChangeNotifier {
   static Future<FirebaseUser> getCurrentFirebaseUser() async {
     FirebaseUser user = await FirebaseAuth.instance.currentUser();
     return user;
@@ -35,7 +26,8 @@ class Auth {
     });
     return id;
   }
-   static Future<void> signOut() async {
+
+  static Future<void> signOut() async {
     return FirebaseAuth.instance.signOut();
   }
 
@@ -70,7 +62,7 @@ class Auth {
           print('===========================');
           print(user);
           FirebaseAuth.instance.currentUser().then((firebaseUser) {
-			  print('hiiiiisdf');
+            print('hiiiiisdf');
             User user = new User(
               firstName: firebaseUser.displayName,
               userID: firebaseUser.uid,
@@ -78,23 +70,24 @@ class Auth {
               profilePictureURL: firebaseUser.photoUrl ?? '',
             );
             Auth.addUser(user);
-			print('adasdhihi');
-			print(Auth.getUser('0MI7ZZ41GyVDLblwWGKqIj24zKZ2'));
-             Navigator.of(context).pushNamed(RoutePaths.Root);
+            print('adasdhihi');
+            print(Auth.getUser('0MI7ZZ41GyVDLblwWGKqIj24zKZ2'));
+            Navigator.of(context).pushNamed(RoutePaths.Root);
           });
           break;
         case FacebookLoginStatus.cancelledByUser:
         //   throw ErrorHint("CANCEL_BY_USER");
         //   break;
         case FacebookLoginStatus.error:
-        //   throw ErrorHint("UNKNOWN ERROR");
+          //   throw ErrorHint("UNKNOWN ERROR");
           break;
       }
       return null;
     } catch (error) {
-    //   throw ErrorHint(error.code);
+      //   throw ErrorHint(error.code);
     }
   }
+	
 
   static Stream<User> getUser(String userID) {
     return Firestore.instance
@@ -123,7 +116,7 @@ class Auth {
     }
   }
 
-  Future<FirebaseUser> loginWithFacebook1(context) async {
+  Future<void> loginWithFacebook1(context) async {
     var fbLogin = FacebookLogin();
     FacebookLoginResult result;
     try {

@@ -1,34 +1,30 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Disease {
+class Symptom {
   final String name;
-  final String classify;
   final String decrible;
-  Disease({
+  Symptom({
     this.name,
-    this.classify,
     this.decrible,
   });
   Map<String, Object> toJson() {
     return {
       'name': name,
-      'name': classify,
       'decrible': decrible,
     };
   }
 
-  factory Disease.fromJson(Map<String, Object> doc) { 
-    Disease disease = new Disease(
+  factory Symptom.fromJson(Map<String, Object> doc) { 
+    Symptom symptom = new Symptom(
       name: doc['tilte'],
-      classify: doc['image'],
       decrible: doc['decrible'],
     );
-    return disease;
+    return symptom;
   }
 
-  factory Disease.fromDocument(DocumentSnapshot doc){
+  factory Symptom.fromDocument(DocumentSnapshot doc){
 
-	  return Disease.fromJson(doc.data);
+	  return Symptom.fromJson(doc.data);
   }
 //   factory User.fromDocument(DocumentSnapshot doc) {
 //     return User.fromJson(doc.data);
