@@ -3,13 +3,11 @@
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:final_1/ui/widgets/custom_flat_button.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:final_1/core/services/Auth.dart';
 import 'package:final_1/core/constant/app_constant.dart';
 
 class WelcomeScreen extends StatelessWidget {
-  final FirebaseUser firebaseUser;
-  WelcomeScreen({this.firebaseUser});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +60,6 @@ class WelcomeScreen extends StatelessWidget {
               fontWeight: FontWeight.w700,
               textColor: Colors.white,
               onPressed: () {
-                // loginWithFacebook(context);
                 Auth.loginWithFacebook(context);
               },
               // splashColor: Colors.black12,

@@ -7,14 +7,15 @@ import 'package:flutter/material.dart';
 const Color kColorGrayText = Color.fromRGBO(132, 132, 132, 1.0);
 const double kSmallPadding = 7.0;
 const double kPadding = 12.0;
-final TextStyle _kTextStyle = TextStyle(
-  fontSize: 14.0,
-  color: kColorGrayText,
-);
+
 final TextStyle _textStyleName = TextStyle(
   fontSize: 16.0,
   color: Colors.black,
   fontWeight: FontWeight.bold,
+);
+final TextStyle _kTextStyle = TextStyle(
+  fontSize: 14.0,
+  color: kColorGrayText,
 );
 const String text1 = 'Trẻ ho hoặc khó thở';
 const String text2 = 'Ho khò khè, thở nhanh, khó thở';

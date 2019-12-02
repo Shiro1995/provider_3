@@ -27,7 +27,11 @@ TextStyle buttonWhiteTextSS() {
   );
 }
 
+
+const Color kColorGrayText = Color.fromRGBO(132, 132, 132, 1.0);
 //.................................. SfProTextRegular ....................................
+const double kSmallPadding = 7.0;
+const double kPadding = 12.0;
 
 TextStyle textWhiteTextSR() {
   return TextStyle(

@@ -1,7 +1,13 @@
+import 'dart:convert';
+
 import 'package:final_1/core/constant/app_constant.dart';
-import 'package:final_1/core/services/Auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:final_1/core/model/pharmacy.dart';
+import 'package:final_1/core/viewmodels/pharmacy_modal.dart';
+import 'package:final_1/ui/view/view_component/second_main/pharmacy.dart';
+import 'package:final_1/ui/widgets/search_field.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 const double kSmallPadding = 7.0;
 const double kPadding = 12.0;
@@ -12,7 +18,31 @@ final TextStyle _kTextStyle = TextStyle(
   color: kColorGrayText,
 );
 
-class TabbedAppBarSample extends StatelessWidget {
+Widget _searchField({BuildContext context}) {
+  return SearchField(
+      //   onChanged: (String text) {
+      //     _onTextChanged(text: text);
+      //   },
+      //   onSubmitted: () {
+      //     _onTextSubmitted(context: context);
+      //   },
+      );
+}
+
+class TabbedAppBarSample extends StatefulWidget {
+  @override
+  _TabbedAppBarSampleState createState() => _TabbedAppBarSampleState();
+}
+
+class _TabbedAppBarSampleState extends State<TabbedAppBarSample> {
+  @override
+  void initState() {
+    print('hello');
+    Future.delayed(Duration.zero,
+        () => Provider.of<PharmacyViewModel>(context).getpharmacies());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -22,17 +52,18 @@ class TabbedAppBarSample extends StatelessWidget {
           appBar: AppBar(
             centerTitle: true,
             // title: const Text('Tabbed AppBar'),
-            title: Text(
-              'Personal Healthcare',
-              maxLines: 1,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.bold,
-                fontSize: 23,
-                color: Colors.yellow[200],
-              ),
-            ),
+            title: _searchField(),
+            // Text(
+            //   'Personal Healthcare',
+            //   maxLines: 1,
+            //   textAlign: TextAlign.center,
+            //   style: TextStyle(
+            //     fontFamily: 'Montserrat',
+            //     fontWeight: FontWeight.bold,
+            //     fontSize: 23,
+            //     color: Colors.yellow[200],
+            //   ),
+            // ),
             bottom: TabBar(
               isScrollable: true,
               tabs: choices.map((Choice choice) {
@@ -73,125 +104,119 @@ const List<Choice> choices = const <Choice>[
 //   const Choice(title: 'WALK', icon: Icons.directions_walk),
 ];
 
-class ChoiceCard extends StatelessWidget {
+class ChoiceCard extends StatefulWidget {
   const ChoiceCard({Key key, this.choice}) : super(key: key);
 
   final Choice choice;
-  Widget _row(FirebaseUser data) {
-    return GestureDetector(
-      onTap: () {
-        _logOut();
-      },
-      child: Row(
-        children: <Widget>[
-         Container(
-                    height: 100.0,
-                    width: 100.0,
-                    child: CircleAvatar(
-                      backgroundImage: (data.photoUrl != '')
-                          ? NetworkImage(data.photoUrl)
-                          : AssetImage("assets/images/default.png"),
-                    ),
-                  ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                children: <Widget>[
-                  Text(
-                    data.displayName,
-                    maxLines: 3,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    '\n125 Hà Huy Tập',
-                    textAlign: TextAlign.center,
-                    style: _kTextStyle,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          // _column(),
-        ],
-      ),
-    );
-  }
 
-  void _logOut() async {
-    Auth.signOut();
-  }
+  @override
+  _ChoiceCardState createState() => _ChoiceCardState();
+}
 
-  Widget _stack(FirebaseUser data) {
-    return Stack(
-      children: <Widget>[
-        _row(data),
-        // _date(),
-      ],
-    );
-  }
+Future<List<Pharmacy>> getpharmacies() async {
+	print("ahih");
+  final response = await http
+      .get('http://ezhealthcare.luisnguyen.com/api/v1/mobile/get/pharmacies');
 
-//   Widget _date() {
-//     DateTime _date = DateTime.now();
-//     final df = new DateFormat('dd-MM-yyyy ');
-//     String time = df.format(_date);
-//     return Positioned(
-//       right: kSmallPadding,
-//       bottom: kPadding,
-//       child: Text(
-//         time,
-//         style: TextStyle(
-//           fontSize: 12.0,
-//           color: kColorGrayText,
-//         ),
-//       ),
-//     );
-//   }
+  if (response.statusCode == 200) {
+	  print("halo");
+	  dynamic data = json.decode(response.body);
+	  print("data: "+data.toString());
+    // If server returns an OK response, parse the JSON.
+    // List<dynamic> list = json.decode(response.body)["data"]["pharmacies"];
+    return PharmaciesList.fromJson(data).data;	
+  } else {
+	  print("api error");
+    // If that response was not OK, throw an error.
+    throw Exception('Failed to load post');
+  }
+}
+
+class _ChoiceCardState extends State<ChoiceCard> {
+  Future pharmacy;
+  @override
+  void initState() {
+    super.initState();
+    pharmacy = getpharmacies();
+  }
 
   @override
   Widget build(BuildContext context) {
-    // final TextStyle textStyle = Theme.of(context).textTheme.display1;
-    return new StreamBuilder<FirebaseUser>(
-        stream: FirebaseAuth.instance.onAuthStateChanged,
-        builder: (BuildContext context, snapshot) {
-          if (snapshot.hasData) {
+    return Center(
+      child: FutureBuilder<List<Pharmacy>>(
+          future: getpharmacies(),
+          builder: (context, snapshot) {
+			  if (snapshot.hasData)
             return Scaffold(
               body: ListView.builder(
-                itemCount: 10,
+                itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int position) {
-                  return Container(
-                    margin: EdgeInsets.all(10.0),
-                    padding: EdgeInsets.only(bottom: 5),
-                    //   color: Colors.amberAccent,
-                    // elevation: 3.0,
-                    height: 120,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(8.0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black12,
-                            offset: Offset(0.0, 15.0),
-                            blurRadius: 15.0,
-                          ),
-                        ]),
-						
-                    child: _stack(snapshot.data),
-                  );
+                  return GestureDetector(
+                      onTap: () => Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Phamarcy())),
+                      child: Container(
+                        margin: EdgeInsets.all(10.0),
+                        padding: EdgeInsets.only(bottom: 5),
+                        height: 120,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black12,
+                                offset: Offset(0.0, 15.0),
+                                blurRadius: 15.0,
+                              ),
+                            ]),
+                        child: Row(
+                          children: <Widget>[
+                            Container(
+                              height: 100.0,
+                              width: 100.0,
+                              child: CircleAvatar(
+                                backgroundImage:
+                                    //  (snapshot.data.photoUrl != '')
+                                    //     ? NetworkImage(snapshot.data.photoUrl)
+                                    //     :
+                                    AssetImage("assets/images/default.png"),
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: Column(
+                                  children: <Widget>[
+                                    Text(
+                                      snapshot.data[position].name,
+                                      maxLines: 3,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(
+                                      snapshot.data[position].address,
+                                      textAlign: TextAlign.center,
+                                      style: _kTextStyle,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            // _column(),
+                          ],
+                        ),
+                      ));
                 },
               ),
             );
-          } else {
-            return Text('adsasd');
-          }
-        });
+			return CircularProgressIndicator();
+          }),
+    );
   }
 
   void ontap(BuildContext context) {
-    Navigator.of(context).pushNamed(RoutePaths.Map);
+    Navigator.of(context).pushNamed(RoutePaths.Phamarcy);
   }
 }

@@ -1,15 +1,13 @@
 import 'package:final_1/core/model/disease.dart';
+import 'package:final_1/styles/styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-const double kSmallPadding = 7.0;
-const double kPadding = 12.0;
-const Color kColorGrayText = Color.fromRGBO(132, 132, 132, 1.0);
 
-final TextStyle _kTextStyle = TextStyle(
-  fontSize: 14.0,
-  color: kColorGrayText,
-);
+// final TextStyle _kTextStyle = TextStyle(
+//   fontSize: 14.0,
+//   color: kColorGrayText,
+// );
 
 class DiseaseList extends StatelessWidget {
   DiseaseList({

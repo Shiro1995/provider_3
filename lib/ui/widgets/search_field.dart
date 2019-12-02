@@ -68,6 +68,8 @@ class SearchField extends StatelessWidget {
         vertical: 7.5,
       ),
       child: Container(
+		  width: double.infinity,
+		  height: 40,
         decoration: BoxDecoration(
           color: Colors.black.withOpacity(0.2),
           borderRadius: BorderRadius.all(Radius.circular(10.0)),

@@ -1,7 +1,7 @@
 import 'package:final_1/core/model/symptom.dart';
 import 'package:final_1/core/viewmodels/symptom_view_modal.dart';
+import 'package:final_1/ui/view/view_component/first_main/symptoms_list.dart';
 import 'package:final_1/ui/widgets/separator.dart';
-import 'package:final_1/ui/widgets/show_screen.dart';
 import 'package:final_1/ui/widgets/symptom_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,8 +33,8 @@ class _SymptomListState extends State<SymptomList> {
       CupertinoPageRoute(
         fullscreenDialog: true,
         builder: (BuildContext context) {
-          return ShowPage(
-            title: symptom.name,
+          return ListSymptoms(
+            
           );
         },
       ),

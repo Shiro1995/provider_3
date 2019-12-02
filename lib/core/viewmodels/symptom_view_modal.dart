@@ -1,10 +1,8 @@
 import 'package:final_1/core/model/symptom.dart';
-import 'package:final_1/core/services/api.dart';
 import 'package:flutter/cupertino.dart';
 class SymptomViewModel extends ChangeNotifier {
 
 	List<Symptom> _listSymptom = [];
-	Api _api;
 
 	List get symptom => _listSymptom;
 	void reset() {

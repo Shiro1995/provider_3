@@ -1,13 +1,27 @@
+import 'package:final_1/core/services/api.dart';
 import 'package:final_1/ui/widgets/conference_speaker.dart';
 import 'package:flutter/material.dart';
 
-class FourthTab extends StatelessWidget {
-	 final ConferenceSpeaker conferenceSpeaker;
-	 FourthTab({this.conferenceSpeaker});
+class FourthTab extends StatefulWidget {
+  final ConferenceSpeaker conferenceSpeaker;
+  FourthTab({this.conferenceSpeaker});
+
+  @override
+  _FourthTabState createState() => _FourthTabState();
+}
+
+class _FourthTabState extends State<FourthTab> {
+  Api _api;
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    // _api.fetchPost();
     return GestureDetector(
-		child:  Card(
+      child: Card(
         color: Colors.green,
         child: Container(
           child: GridTile(
@@ -34,17 +48,13 @@ class FourthTab extends StatelessWidget {
                 }),
                 GridTileBar(
                   title: Chip(
-                      backgroundColor: Colors.blue,
-                      label: Text(
-                        'Profile'
-                      )),
+                      backgroundColor: Colors.blue, label: Text('Profile')),
                 ),
               ],
             ),
           ),
         ),
       ),
-	);
+    );
   }
- 
 }

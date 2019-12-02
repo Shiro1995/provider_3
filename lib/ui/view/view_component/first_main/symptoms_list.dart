@@ -33,16 +33,6 @@ class ListSymptoms extends StatelessWidget {
   _header() {
     return Row(
       children: <Widget>[
-        Container(
-          width: 150,
-          height: 150,
-          child: ClipRRect(
-            borderRadius: new BorderRadius.circular(20.0),
-            child: Image.asset(
-              "images/babysick.jpg",
-            ),
-          ),
-        ),
         Expanded(
           child: Center(
             child: Text(
@@ -55,27 +45,27 @@ class ListSymptoms extends StatelessWidget {
               ),
             ),
           ),
-          // child: Padding(
-          //   padding: const EdgeInsets.all(kPadding),
-          //   child: Column(
-          //     children: <Widget>[
-          //       Text(
-          //         'Dau Hieu O Tre Em',
-          //         maxLines: 3,
-          //         textAlign: TextAlign.center,
-          //         style: TextStyle(
-          //           fontSize: 16.0,
-          //           fontWeight: FontWeight.bold,
+          //   child: Padding(
+          //     padding: const EdgeInsets.all(kPadding),
+          //     child: Column(
+          //       children: <Widget>[
+          //         Text(
+          //           'Dau Hieu O Tre Em',
+          //           maxLines: 3,
+          //           textAlign: TextAlign.center,
+          //           style: TextStyle(
+          //             fontSize: 16.0,
+          //             fontWeight: FontWeight.bold,
+          //           ),
           //         ),
-          //       ),
-          //       Text(
-          //         '\nCac trieu chung xuat hien o tre tu 5 thang tuoi den 5 tuoi',
-          //         textAlign: TextAlign.center,
-          //         style: _kTextStyle,
-          //       ),
-          //     ],
+          //         Text(
+          //           '\nCac trieu chung xuat hien o tre tu 5 thang tuoi den 5 tuoi',
+          //           textAlign: TextAlign.center,
+          //           style: _kTextStyle,
+          //         ),
+          //       ],
+          //     ),
           //   ),
-          // ),
         ),
       ],
     );
@@ -92,6 +82,7 @@ class ListSymptoms extends StatelessWidget {
             Navigator.of(context).pop();
           },
         ),
+		backgroundColor: Color.fromARGB(255, 20, 175, 135),
       ),
       body: Container(
         child: Column(

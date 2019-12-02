@@ -31,6 +31,7 @@ dependencies:
   google_maps_flutter: 0.5.21+6
   timeago: any
   intl: any
+  firebase_storage: ^3.0.8
 
 dev_dependencies:
   flutter_test:
@@ -60,6 +61,7 @@ flutter:
     - images/babysick.jpg
     - assets/icons/
     - images/doctor.jpg
+    - images/tiembanthuoc.jpg
   fonts:  
   - family: Montserrat
     fonts:

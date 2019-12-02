@@ -1,12 +1,10 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Disease {
+class Test {
   final String name;
   final String classify;
   final String decrible;
-  Disease({
+  Test({
     this.name,
     this.classify,
     this.decrible,
@@ -14,20 +12,23 @@ class Disease {
   Map<String, Object> toJson() {
     return {
       'name': name,
-      'classify': classify,
+      'name': classify,
       'decrible': decrible,
     };
   }
 
-  factory Disease.fromJson(Map<String,dynamic> json) {
-    Disease user = new Disease(
-    //   name: json['userId'],
-      classify: json['data']['android-min-version'],
-      decrible: json['data']['android-latest-version'],
+  factory Test.fromJson(Map<String, Object> doc) { 
+    Test disease = new Test(
+      name: doc['baseUrl'],
+      classify: doc['android-min-version'],
+      decrible: doc['android-latest-version'],
     );
-    return user;
+    return disease;
   }
 
+  factory Test.fromDocument(DocumentSnapshot doc){
+	  return Test.fromJson(doc.data);
+  }
 //   factory User.fromDocument(DocumentSnapshot doc) {
 //     return User.fromJson(doc.data);
 //   }

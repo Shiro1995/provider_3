@@ -1,9 +1,8 @@
-import 'package:final_1/core/viewmodels/user_model.dart';
 import 'package:final_1/ui/view/main_view/home_screen.dart';
-import 'package:final_1/ui/view/welcome_screen.dart';
+import 'package:final_1/ui/view/main_view/tab_bar_component.dart';
+import 'package:final_1/ui/view/main_view/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:provider/provider.dart';
 
 class RootScreen extends StatefulWidget {
   @override
@@ -22,8 +21,7 @@ class _RootScreenState extends State<RootScreen> {
           );
         } else {
           if (snapshot.hasData) {
-          print(snapshot.data);
-            return new HomeScreen();
+            return new TabBarComponent();
           } else {
             return WelcomeScreen();
           }

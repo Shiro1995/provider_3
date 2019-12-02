@@ -108,10 +108,6 @@ class _SignInScreenState extends State<SignInScreen> {
                     textColor: Colors.white,
                     onPressed: () {
                       Navigator.of(context).pushNamed(RoutePaths.Welcome);
-                      //   _emailLogin(
-                      //       email: _email.text,
-                      //       password: _password.text,
-                      //       context: context);
                     },
                     splashColor: Colors.black12,
                     borderColor: Color.fromRGBO(17, 156, 103, 30),

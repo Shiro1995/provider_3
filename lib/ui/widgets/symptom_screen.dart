@@ -1,4 +1,3 @@
-import 'package:final_1/core/model/disease.dart';
 import 'package:final_1/core/model/symptom.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,10 +6,12 @@ const double kSmallPadding = 7.0;
 const double kPadding = 12.0;
 const Color kColorGrayText = Color.fromRGBO(132, 132, 132, 1.0);
 
-final TextStyle _kTextStyle = TextStyle(
-  fontSize: 14.0,
-  color: kColorGrayText,
-);
+
+  final TextStyle _textStyleName = TextStyle(
+    fontSize: 16.0,
+    color: Colors.black,
+    fontWeight: FontWeight.bold,
+  );
 
 class SymptomPage extends StatelessWidget {
   SymptomPage({
@@ -25,11 +26,7 @@ class SymptomPage extends StatelessWidget {
   final Symptom symptom;
   final int index;
   final VoidCallback onTap;
-  final TextStyle _textStyleName = TextStyle(
-    fontSize: 16.0,
-    color: Colors.black,
-    fontWeight: FontWeight.bold,
-  );
+
   Widget _widgetName() {
     return Container(
       child: Padding(
@@ -76,7 +73,7 @@ class SymptomPage extends StatelessWidget {
               Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    _widgetText(symptom.decrible),
+                    _widgetText(symptom.decrible.substring(0,47)+'...'),
                   ]),
             ],
           )),
