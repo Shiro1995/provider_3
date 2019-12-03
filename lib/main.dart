@@ -1,15 +1,14 @@
-import 'package:final_1/core/services/Auth.dart';
-import 'package:final_1/core/viewmodels/disease_view_modal.dart';
-import 'package:final_1/core/viewmodels/pharmacy_modal.dart';
-import 'package:final_1/core/viewmodels/symptom_view_modal.dart';
 import 'package:final_1/router.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:final_1/core/constant/app_constant.dart';
+import 'package:provider/provider.dart';
+import 'core/viewmodels/disease_view_modal.dart';
 
 void main() {
   runApp(
-    MyApp(),
+    MultiProvider(providers: [
+      ChangeNotifierProvider(builder: (context) => DiseaseViewModel()),
+    ],child: MyApp()),
   );
 }
 

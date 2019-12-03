@@ -40,7 +40,7 @@ class _TagFourState extends State<TagFour> {
           future: disease,
           builder: (context, snapshot) {
             if (snapshot.hasData)
-              return Text(snapshot.data.classify);
+              return Text(snapshot.data.description);
             else if (snapshot.hasError) {
               return Text("${snapshot.error}"+"asfa");
             }

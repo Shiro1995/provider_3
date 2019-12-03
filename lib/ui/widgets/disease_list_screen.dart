@@ -35,7 +35,7 @@ class DiseaseList extends StatelessWidget {
           vertical: 8.0,
         ),
         child: Text(
-          disease.classify,
+          disease.description,
           style: _textStyleName,
         ),
       ),

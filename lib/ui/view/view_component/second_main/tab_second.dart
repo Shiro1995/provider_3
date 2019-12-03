@@ -2,11 +2,9 @@ import 'dart:convert';
 
 import 'package:final_1/core/constant/app_constant.dart';
 import 'package:final_1/core/model/pharmacy.dart';
-import 'package:final_1/core/viewmodels/pharmacy_modal.dart';
 import 'package:final_1/ui/view/view_component/second_main/pharmacy.dart';
 import 'package:final_1/ui/widgets/search_field.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
 const double kSmallPadding = 7.0;
@@ -35,13 +33,13 @@ class TabbedAppBarSample extends StatefulWidget {
 }
 
 class _TabbedAppBarSampleState extends State<TabbedAppBarSample> {
-  @override
-  void initState() {
-    print('hello');
-    Future.delayed(Duration.zero,
-        () => Provider.of<PharmacyViewModel>(context).getpharmacies());
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   print('hello');
+  //   Future.delayed(Duration.zero,
+  //       () => Provider.of<PharmacyViewModel>(context).getpharmacies());
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -136,8 +134,10 @@ class _ChoiceCardState extends State<ChoiceCard> {
   Future pharmacy;
   @override
   void initState() {
-    super.initState();
+print('haiaiaia');
     pharmacy = getpharmacies();
+       super.initState();
+    print(pharmacy);
   }
 
   @override

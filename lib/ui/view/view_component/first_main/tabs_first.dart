@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:final_1/core/model/disease.dart';
 import 'package:final_1/core/viewmodels/disease_view_modal.dart';
 import 'package:final_1/ui/widgets/disease_list_screen.dart';
@@ -6,6 +8,7 @@ import 'package:final_1/ui/widgets/search_field.dart';
 import 'package:final_1/ui/widgets/separator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 class FirstTab extends StatefulWidget {
@@ -15,12 +18,12 @@ class FirstTab extends StatefulWidget {
 
 class _FirstTabState extends State<FirstTab> {
   final DiseaseViewModel dsModal = DiseaseViewModel();
-
+  Future disease;
   @override
   void initState() {
-    Future.delayed(Duration.zero,
-        () => Provider.of<DiseaseViewModel>(context).getDisease());
     super.initState();
+    Future.delayed(Duration.zero,
+        () => Provider.of<DiseaseViewModel>(context).getdiseases());
   }
 
   Widget _searchField({BuildContext context}) {
@@ -40,9 +43,7 @@ class _FirstTabState extends State<FirstTab> {
       CupertinoPageRoute(
         fullscreenDialog: true,
         builder: (BuildContext context) {
-          return DiseasePage(
-            title: disease.classify,
-          );
+          return DiseasePage(title: disease.name);
         },
       ),
     );
@@ -57,22 +58,28 @@ class _FirstTabState extends State<FirstTab> {
         automaticallyImplyLeading: false,
         backgroundColor: Color.fromARGB(255, 20, 175, 135),
       ),
-      body: Consumer<DiseaseViewModel>(builder: (context, _disease, _) {
-        return ListView.separated(
-            itemCount: 15,
-            itemBuilder: (BuildContext context, int index) {
-              final disease = _disease?.disease[index % 3];
-              return DiseaseList(
-                  disease: disease,
-                  index: index,
-                  onTap: () {
-                    _onPackSelected(context: context, disease: disease);
-                  });
-            },
-            separatorBuilder: (BuildContext context, int index) {
-              return Separator();
-            });
-      }),
+      body: Center(
+        child: Consumer<DiseaseViewModel>(
+            builder: (context, _diseaseViewModel, _) {
+          if (_diseaseViewModel != null)
+            return ListView.separated(
+                itemCount: _diseaseViewModel.disease.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final disease = _diseaseViewModel.disease[index];
+                  return DiseaseList(
+                      disease: disease,
+                      index: index,
+                      onTap: () {
+                        _onPackSelected(context: context, disease: disease);
+                      });
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return Separator();
+                });
+          else
+            return CircularProgressIndicator();
+        }),
+      ),
       floatingActionButton: Padding(
         padding: EdgeInsets.only(bottom: 50.0),
         child: FloatingActionButton(
