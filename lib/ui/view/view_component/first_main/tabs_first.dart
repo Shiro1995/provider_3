@@ -19,7 +19,7 @@ class FirstTab extends StatefulWidget {
 class _FirstTabState extends State<FirstTab> {
   String _query;
   bool _isKeyboardVisible = false;
- FilterComponent _filterComponent = FilterComponent();
+  FilterComponent _filterComponent = FilterComponent();
   final TextEditingController _controller = new TextEditingController();
 
   @override
@@ -55,7 +55,7 @@ class _FirstTabState extends State<FirstTab> {
 
   void _onPackSelected({BuildContext context, Disease disease}) async {
     //   Provider.of<DiseaseViewModel>(context).getDiseases(type);
-	
+
     await Navigator.push(
       context,
       CupertinoPageRoute(
@@ -69,12 +69,12 @@ class _FirstTabState extends State<FirstTab> {
       ),
     );
   }
-  
-	// List<Disease>_sort(List<Disease> disease){
-	// 	disease.sort((a,b) => a.name.compareTo(b.name));
-	// 	return disease;
-	// }
- Widget _filterButton(BuildContext context) {
+
+  // List<Disease>_sort(List<Disease> disease){
+  // 	disease.sort((a,b) => a.name.compareTo(b.name));
+  // 	return disease;
+  // }
+  Widget _filterButton(BuildContext context) {
     return IconButton(
       icon: Icon(Icons.filter_list),
       onPressed: () {
@@ -82,7 +82,8 @@ class _FirstTabState extends State<FirstTab> {
       },
     );
   }
-    void _showFilterWidget(BuildContext context) {
+
+  void _showFilterWidget(BuildContext context) {
     Future<Disease> future = showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -92,17 +93,19 @@ class _FirstTabState extends State<FirstTab> {
     );
 
     future.then((value) {
-    //   _filter.factions = _filterComponent.selectedFactions;
-    //   _filter.types = _filterComponent.selectedTypes;
+      //   _filter.factions = _filterComponent.selectedFactions;
+      //   _filter.types = _filterComponent.selectedTypes;
       setState(() {});
     });
   }
+
   Widget _body(context) {
     print(_query);
     return Consumer<DiseaseViewModel>(builder: (context, _diseaseViewModel, _) {
-	
-      if (_diseaseViewModel.disease.length > 0 ) {
-        return ListView.separated(
+      if (_diseaseViewModel.disease.length > 0) {
+        return Padding(
+          padding: const EdgeInsets.only(top: 12.0),
+          child: ListView.builder(
             itemCount: _diseaseViewModel.disease.length,
             itemBuilder: (BuildContext context, int index) {
               Disease disease = _diseaseViewModel.disease[index];
@@ -113,9 +116,11 @@ class _FirstTabState extends State<FirstTab> {
                     _onPackSelected(context: context, disease: disease);
                   });
             },
-            separatorBuilder: (BuildContext context, int index) {
-              return Separator(1);
-            });
+            // separatorBuilder: (BuildContext context, int index) {
+            //   return Separator(1);
+            // },
+          ),
+        );
       } else
         return CircularProgressIndicator();
     });
@@ -134,7 +139,7 @@ class _FirstTabState extends State<FirstTab> {
         _controller.clear();
         _query = '';
         setState(() {});
-         Provider.of<DiseaseViewModel>(context).queryDisease('');
+        Provider.of<DiseaseViewModel>(context).queryDisease('');
         FocusScope.of(context).requestFocus(new FocusNode());
       },
     );

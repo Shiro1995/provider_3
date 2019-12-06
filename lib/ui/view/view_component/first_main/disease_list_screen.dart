@@ -36,9 +36,8 @@ class DiseaseList extends StatelessWidget {
         child: Text(
           disease.name,
           style: _textStyleName,
-		overflow: TextOverflow.ellipsis,	
+          overflow: TextOverflow.ellipsis,
         ),
-		
       ),
     );
   }
@@ -56,11 +55,13 @@ class DiseaseList extends StatelessWidget {
           horizontal: 20.0,
         ),
         child: Text(
-          text.substring(0,45)+'...',
+          text,
+          maxLines: 2,
           style: TextStyle(
             fontSize: 16.0,
             color: kColorGrayText,
           ),
+          overflow: TextOverflow.ellipsis,
         ),
       ),
     );
@@ -68,23 +69,20 @@ class DiseaseList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      height:65.0,
-      child: RawMaterialButton(
-          onPressed: onTap,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              _widgetName(),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    _widgetText(disease.description),
-                    //  _widgetText('50 disease'),
-                  ]),
-            ],
-          )),
-    );
+    return RawMaterialButton(
+        onPressed: onTap,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            _widgetName(),
+            _widgetText(disease.description),
+            // Row(
+            //     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: <Widget>[
+            //       _widgetText(disease.description),
+            //       //  _widgetText('50 disease'),
+            //     ]),
+          ],
+        ));
   }
 }

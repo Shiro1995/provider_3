@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 const Color kColorYellowLittleBirds = Color.fromRGBO(255, 231, 78, 1.0);
 
 class FilterComponent extends StatefulWidget {
-
-  final String level = '';
+  final List<String> level = [];
 //   final List<CardType> selectedTypes = [];
 
   @override
@@ -13,10 +12,10 @@ class FilterComponent extends StatefulWidget {
 }
 
 class _FilterComponentState extends State<FilterComponent> {
-	_FilterComponentState({
-		this.level,
-	});
-	String level;
+  _FilterComponentState({
+    this.level,
+  });
+  List<String> level;
   Widget _header() {
     return Container(
       height: 50,
@@ -37,6 +36,50 @@ class _FilterComponentState extends State<FilterComponent> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _factions() {
+    return Column(children: <Widget>[
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          _factionItem('Classify'),
+          _factionItem('Disease'),
+          _factionItem('Symtpom'),
+        ],
+      ),
+    ]);
+  }
+
+  Widget _factionItem(String text) {
+    bool isSelected = widget.level.contains(text);
+    return Expanded(
+      child: RawMaterialButton(
+        child: Container(
+          height: 70,
+          color: isSelected ? Colors.grey[300] : Colors.white,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              // Image.asset(faction.icon()),
+              Container(height: 5),
+              Text(
+                text,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+        onPressed: () {
+          // if (isSelected) {
+          //   widget.selectedFactions.remove(faction);
+          // } else {
+          //   widget.selectedFactions.add(faction);
+          // }
+          // setState(() {});
+        },
       ),
     );
   }
@@ -138,10 +181,8 @@ class _FilterComponentState extends State<FilterComponent> {
         ),
         onPressed: () {
           if (isSelected) {
-          level = type;
-          } else {
-           
-          }
+            level.add(type);
+          } else {}
           setState(() {});
         },
       ),
@@ -156,9 +197,7 @@ class _FilterComponentState extends State<FilterComponent> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        _typeItem('1'),
-        _typeItem('2'),
-        _typeItem('3'),
+        _factions(),
       ],
     );
   }
@@ -176,7 +215,8 @@ class _FilterComponentState extends State<FilterComponent> {
                 // _title(title: 'Factions:'),
                 // _factions(),
                 _title(title: 'Types:'),
-                _types(),
+                _factions(),
+                // _types(),
               ],
             ),
           ],

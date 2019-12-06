@@ -50,6 +50,7 @@ class SymptomPage extends StatelessWidget {
         ),
         child: Text(
           text,
+          overflow: TextOverflow.ellipsis,
           style: TextStyle(
             fontSize: 16.0,
             color: kColorGrayText,
@@ -70,13 +71,7 @@ class SymptomPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               _widgetName(),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    _widgetText(
-                        disease.diseases[index].description.substring(0, 47) +
-                            '...'),
-                  ]),
+              _widgetText(disease.diseases[index].description),
             ],
           )),
     );

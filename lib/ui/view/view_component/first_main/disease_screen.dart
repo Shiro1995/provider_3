@@ -36,9 +36,12 @@ class _DiseasePageState extends State<DiseasePage> {
             },
           ),
         ),
-        body: SymptomList(
-          onTap: () {},
-          disease: disease,
+        body: Padding(
+          padding: const EdgeInsets.only(top: 20.0),
+          child: SymptomList(
+            onTap: () {},
+            disease: disease,
+          ),
         ));
   }
 }
