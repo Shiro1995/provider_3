@@ -1,32 +1,31 @@
-import 'package:final_1/core/model/symptom.dart';
+import 'package:final_1/core/model/disease.dart';
+import 'package:final_1/styles/styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-const double kSmallPadding = 7.0;
-const double kPadding = 12.0;
-const Color kColorGrayText = Color.fromRGBO(132, 132, 132, 1.0);
+// final TextStyle _kTextStyle = TextStyle(
+//   fontSize: 14.0,
+//   color: kColorGrayText,
+// );
 
+class DiseaseList extends StatelessWidget {
+  DiseaseList({
+    Key key,
+    @required this.disease,
+    @required this.index,
+    @required this.onTap,
+  })  : assert(disease != null),
+        assert(index != null),
+        super(key: key);
 
+  final Disease disease;
+  final int index;
+  final VoidCallback onTap;
   final TextStyle _textStyleName = TextStyle(
     fontSize: 16.0,
     color: Colors.black,
     fontWeight: FontWeight.bold,
   );
-
-class SymptomPage extends StatelessWidget {
-  SymptomPage({
-    Key key,
-    @required this.symptom,
-    @required this.index,
-    @required this.onTap,
-  })  : assert(symptom != null),
-        assert(index != null),
-        super(key: key);
-
-  final Symptom symptom;
-  final int index;
-  final VoidCallback onTap;
-
   Widget _widgetName() {
     return Container(
       child: Padding(
@@ -35,21 +34,29 @@ class SymptomPage extends StatelessWidget {
           vertical: 8.0,
         ),
         child: Text(
-          symptom.name,
+          disease.name,
           style: _textStyleName,
+		overflow: TextOverflow.ellipsis,	
         ),
+		
       ),
     );
   }
 
   Widget _widgetText(String text) {
+    // String decrip;
+    // if (text.length > 40) {
+    //   decrip = text.substring(0, 50);
+    // } else {
+    //   decrip = text;
+    // }
     return Container(
       child: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: 12.0,
+          horizontal: 20.0,
         ),
         child: Text(
-          text,
+          text.substring(0,45)+'...',
           style: TextStyle(
             fontSize: 16.0,
             color: kColorGrayText,
@@ -63,7 +70,7 @@ class SymptomPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      height: 60.0,
+      height:65.0,
       child: RawMaterialButton(
           onPressed: onTap,
           child: Column(
@@ -73,7 +80,8 @@ class SymptomPage extends StatelessWidget {
               Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    _widgetText(symptom.decrible.substring(0,47)+'...'),
+                    _widgetText(disease.description),
+                    //  _widgetText('50 disease'),
                   ]),
             ],
           )),

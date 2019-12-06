@@ -6,11 +6,13 @@ class SearchField extends StatelessWidget {
   SearchField({
     Key key,
     this.onChanged,
+	this.controller,
     // this.onSubmitted,
   }) ;
 //   : assert(onSubmitted != null);
 
   final SearchCallback onChanged;
+  final TextEditingController controller;
 //   final VoidCallback onSubmitted;
 
   Widget _icon() {
@@ -34,8 +36,9 @@ class SearchField extends StatelessWidget {
     return Expanded(
       child: Container(
         child: Padding(
-          padding: EdgeInsets.only(top: 20.0),
+          padding: EdgeInsets.only(top: 15.0),
           child: TextField(
+			  controller: controller,
             style: TextStyle(color: Colors.black),
             autofocus: false,
             keyboardType: TextInputType.text,
@@ -60,12 +63,12 @@ class SearchField extends StatelessWidget {
       ),
     );
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-        vertical: 7.5,
+        vertical: 2.5,
       ),
       child: Container(
 		  width: double.infinity,

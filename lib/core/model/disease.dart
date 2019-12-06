@@ -1,17 +1,17 @@
 class Diseaselist {
   int httpResponseCode;
   Error error;
-  List<Disease> data;
+  List<Disease> disease;
 
-  Diseaselist({this.httpResponseCode, this.error, this.data});
+  Diseaselist({this.httpResponseCode, this.error, this.disease});
 
   Diseaselist.fromJson(Map<String, dynamic> json) {
     httpResponseCode = json['http_response_code'];
     error = json['error'] != null ? new Error.fromJson(json['error']) : null;
     if (json['data'] != null) {
-      data = new List<Disease>();
+      disease = new List<Disease>();
       json['data'].forEach((v) {
-        data.add(new Disease.fromJson(v));
+        disease.add(new Disease.fromJson(v));
       });
     }
   }
@@ -22,8 +22,8 @@ class Diseaselist {
     if (this.error != null) {
       data['error'] = this.error.toJson();
     }
-    if (this.data != null) {
-      data['data'] = this.data.map((v) => v.toJson()).toList();
+    if (this.disease != null) {
+      data['data'] = this.disease.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -48,7 +48,6 @@ class Error {
   }
 }
 
-
 class Disease {
   String id;
   String name;
@@ -58,10 +57,11 @@ class Disease {
   String isEditable;
   String status;
   String locate;
-  Null type;
-  Null path;
+  String type;
+  String path;
   String createdAt;
   String updatedAt;
+  List<Disease> diseases;
 
   Disease(
       {this.id,
@@ -75,7 +75,8 @@ class Disease {
       this.type,
       this.path,
       this.createdAt,
-      this.updatedAt});
+      this.updatedAt,
+      this.diseases});
 
   Disease.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -90,6 +91,12 @@ class Disease {
     path = json['path'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    if (json['diseases'] != null) {
+      diseases = new List<Disease>();
+      json['diseases'].forEach((v) {
+        diseases.add(new Disease.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -106,6 +113,9 @@ class Disease {
     data['path'] = this.path;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
+    if (this.diseases != null) {
+      data['diseases'] = this.diseases.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }

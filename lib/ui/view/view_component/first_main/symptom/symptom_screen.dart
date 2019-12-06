@@ -1,16 +1,19 @@
 import 'package:final_1/core/model/disease.dart';
-import 'package:final_1/styles/styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+const double kSmallPadding = 7.0;
+const double kPadding = 12.0;
+const Color kColorGrayText = Color.fromRGBO(132, 132, 132, 1.0);
 
-// final TextStyle _kTextStyle = TextStyle(
-//   fontSize: 14.0,
-//   color: kColorGrayText,
-// );
+final TextStyle _textStyleName = TextStyle(
+  fontSize: 16.0,
+  color: Colors.black,
+  fontWeight: FontWeight.bold,
+);
 
-class DiseaseList extends StatelessWidget {
-  DiseaseList({
+class SymptomPage extends StatelessWidget {
+  SymptomPage({
     Key key,
     @required this.disease,
     @required this.index,
@@ -22,11 +25,7 @@ class DiseaseList extends StatelessWidget {
   final Disease disease;
   final int index;
   final VoidCallback onTap;
-  final TextStyle _textStyleName = TextStyle(
-    fontSize: 16.0,
-    color: Colors.black,
-    fontWeight: FontWeight.bold,
-  );
+
   Widget _widgetName() {
     return Container(
       child: Padding(
@@ -35,12 +34,14 @@ class DiseaseList extends StatelessWidget {
           vertical: 8.0,
         ),
         child: Text(
-          disease.description,
+          disease.diseases[index].name,
           style: _textStyleName,
+          overflow: TextOverflow.ellipsis,
         ),
       ),
     );
   }
+
   Widget _widgetText(String text) {
     return Container(
       child: Padding(
@@ -72,9 +73,10 @@ class DiseaseList extends StatelessWidget {
               Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-					   _widgetText(disease.name),
-					     _widgetText('50 disease'),
-				  ]),
+                    _widgetText(
+                        disease.diseases[index].description.substring(0, 47) +
+                            '...'),
+                  ]),
             ],
           )),
     );

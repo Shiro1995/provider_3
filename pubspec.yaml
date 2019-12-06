@@ -32,6 +32,7 @@ dependencies:
   timeago: any
   intl: any
   firebase_storage: ^3.0.8
+  keyboard_visibility: any
 
 dev_dependencies:
   flutter_test:

@@ -117,9 +117,8 @@ Future<List<Pharmacy>> getpharmacies() async {
       .get('http://ezhealthcare.luisnguyen.com/api/v1/mobile/get/pharmacies');
 
   if (response.statusCode == 200) {
-	  print("halo");
 	  dynamic data = json.decode(response.body);
-	  print("data: "+data.toString());
+	//   print("data: "+data.toString());
     // If server returns an OK response, parse the JSON.
     // List<dynamic> list = json.decode(response.body)["data"]["pharmacies"];
     return PharmaciesList.fromJson(data).data;	
@@ -175,6 +174,8 @@ print('haiaiaia');
                               width: 100.0,
                               child: CircleAvatar(
                                 backgroundImage:
+								snapshot.data[position].imageStore !=''?
+										NetworkImage('https://images.foody.vn/res/g91/906753/prof/s576x330/foody-upload-api-foody-mobile-untitled-2-190417150603.jpg'):
                                     //  (snapshot.data.photoUrl != '')
                                     //     ? NetworkImage(snapshot.data.photoUrl)
                                     //     :

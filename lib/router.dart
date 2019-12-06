@@ -1,6 +1,5 @@
 import 'package:final_1/ui/view/main_view/home_screen.dart';
 import 'package:final_1/ui/view/main_view/welcome_screen.dart';
-import 'package:final_1/ui/view/view_component/first_main/header_first.dart';
 import 'package:final_1/ui/view/view_component/main_screen.dart';
 import 'package:final_1/ui/view/main_view/root_screen.dart';
 import 'package:final_1/ui/view/main_view/signin_screen.dart';
@@ -20,12 +19,10 @@ class Router {
         return MaterialPageRoute(builder: (_) => WelcomeScreen());
       case RoutePaths.Main:
         return MaterialPageRoute(builder: (_) => MainScreen());
-      case RoutePaths.Home:
-        return MaterialPageRoute(builder: (_) => HomeScreen());
+    //   case RoutePaths.Home:
+    //     return MaterialPageRoute(builder: (_) => HomeScreen());
       case RoutePaths.Root:
         return MaterialPageRoute(builder: (_) => RootScreen());
-      case RoutePaths.Symptomt:
-        return MaterialPageRoute(builder: (_) => DeckScreen());
       case RoutePaths.Search:
         return MaterialPageRoute(builder: (_) => Search());
       case RoutePaths.Map:

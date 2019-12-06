@@ -8,7 +8,7 @@ class ThirdTab extends StatefulWidget {
 }
 
 class _ThirdTabState extends State<ThirdTab> {
- Completer<GoogleMapController> _controller = Completer();
+  Completer<GoogleMapController> _controller = Completer();
 
   static final CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(37.42796133580664, -122.085749655962),
@@ -24,18 +24,33 @@ class _ThirdTabState extends State<ThirdTab> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      body: GoogleMap(
-        mapType: MapType.hybrid,
-        initialCameraPosition: _kGooglePlex,
-        onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
-        },
+      body: Stack(
+        children: <Widget>[
+          GoogleMap(
+            mapType: MapType.normal,
+            initialCameraPosition: _kGooglePlex,
+            onMapCreated: (GoogleMapController controller) {
+              _controller.complete(controller);
+            },
+          ),
+          Center(
+            child: IconButton(
+              icon: Icon(Icons.backspace),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ),
+        ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _goToTheLake,
-        label: Text('Find doctor/pharmacy'),
-        icon: Icon(Icons.location_city),
-		backgroundColor: Colors.blueAccent,
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(bottom: 50.0),
+        child: FloatingActionButton.extended(
+          onPressed: _goToTheLake,
+          label: Text('Find doctor/pharmacy'),
+          icon: Icon(Icons.location_city),
+          backgroundColor: Colors.blueAccent,
+        ),
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:final_1/core/viewmodels/symptom_view_modal.dart';
 import 'package:final_1/router.dart';
 import 'package:flutter/material.dart';
 import 'package:final_1/core/constant/app_constant.dart';
@@ -8,6 +9,7 @@ void main() {
   runApp(
     MultiProvider(providers: [
       ChangeNotifierProvider(builder: (context) => DiseaseViewModel()),
+	     ChangeNotifierProvider(builder: (context) => SymptomViewModel()),
     ],child: MyApp()),
   );
 }
