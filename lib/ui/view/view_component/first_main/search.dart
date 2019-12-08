@@ -4,18 +4,23 @@ import 'package:flutter/material.dart';
 const Color kColorYellowLittleBirds = Color.fromRGBO(255, 231, 78, 1.0);
 
 class FilterComponent extends StatefulWidget {
-  final List<String> level = [];
+   String level = '0';
+  FilterComponent({
+    this.level,
+  });
+//   const FilterComponent({Key key, this.level}) : super(key: key);
 //   final List<CardType> selectedTypes = [];
 
   @override
-  _FilterComponentState createState() => _FilterComponentState(level: level);
+  _FilterComponentState createState() => _FilterComponentState();
 }
 
 class _FilterComponentState extends State<FilterComponent> {
-  _FilterComponentState({
-    this.level,
-  });
-  List<String> level;
+//   _FilterComponentState({
+//     this.level,
+//   });
+  String dropdownValue = 'One';
+//   String level = '0';
   Widget _header() {
     return Container(
       height: 50,
@@ -45,21 +50,21 @@ class _FilterComponentState extends State<FilterComponent> {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          _factionItem('Classify'),
-          _factionItem('Disease'),
-          _factionItem('Symtpom'),
+          _factionItem('Disease', '1'),
+          _factionItem('Classify','0'),
+          //   _factionItem('Symtpom'),
         ],
       ),
     ]);
   }
 
-  Widget _factionItem(String text) {
-    bool isSelected = widget.level.contains(text);
+  Widget _factionItem(String text, String level) {
+	  bool isActived = widget.level == level;
     return Expanded(
       child: RawMaterialButton(
         child: Container(
           height: 70,
-          color: isSelected ? Colors.grey[300] : Colors.white,
+          color: isActived ? Colors.grey[300] : Colors.white,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -73,12 +78,10 @@ class _FilterComponentState extends State<FilterComponent> {
           ),
         ),
         onPressed: () {
-          // if (isSelected) {
-          //   widget.selectedFactions.remove(faction);
-          // } else {
-          //   widget.selectedFactions.add(faction);
-          // }
-          // setState(() {});
+			widget.level = level;
+			print(widget.level);
+          setState(() {});
+		//   print('a:'+level.toString());
         },
       ),
     );
@@ -104,104 +107,6 @@ class _FilterComponentState extends State<FilterComponent> {
     );
   }
 
-//   Widget _factionItem({Faction faction}) {
-//     bool isSelected = widget.selectedFactions.contains(faction);
-//     return Expanded(
-//       child: RawMaterialButton(
-//         child: Container(
-//           height: 70,
-//           color: isSelected ? Colors.grey[300] : Colors.white,
-//           child: Column(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: <Widget>[
-//               Image.asset(faction.icon()),
-//               Container(height: 5),
-//               Text(
-//                 faction.toString(),
-//                 textAlign: TextAlign.center,
-//               ),
-//             ],
-//           ),
-//         ),
-//         onPressed: () {
-//           if (isSelected) {
-//             widget.selectedFactions.remove(faction);
-//           } else {
-//             widget.selectedFactions.add(faction);
-//           }
-//           setState(() {});
-//         },
-//       ),
-//     );
-//   }
-
-//   Widget _factions() {
-//     return Column(
-//       children: <Widget>[
-//         Row(
-//           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//           children: <Widget>[
-//             _factionItem(faction: Faction.values[0]),
-//             _factionItem(faction: Faction.values[1]),
-//             _factionItem(faction: Faction.values[2]),
-//           ],
-//         ),
-//         Row(
-//           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//           children: <Widget>[
-//             _factionItem(faction: Faction.values[3]),
-//             _factionItem(faction: Faction.values[4]),
-//             _factionItem(faction: Faction.values[5]),
-//           ],
-//         ),
-//         Row(
-//           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//           children: <Widget>[
-//             _factionItem(faction: Faction.values[6]),
-//             _factionItem(faction: Faction.values[7]),
-//             _factionItem(faction: Faction.values[8]),
-//           ],
-//         ),
-//       ],
-//     );
-//   }
-
-  Widget _typeItem(String type) {
-    bool isSelected = widget.level.contains(type);
-    return Expanded(
-      child: RawMaterialButton(
-        child: Container(
-          height: 50,
-          color: isSelected ? Colors.grey[300] : Colors.white,
-          child: Center(
-            child: Text(
-              type,
-            ),
-          ),
-        ),
-        onPressed: () {
-          if (isSelected) {
-            level.add(type);
-          } else {}
-          setState(() {});
-        },
-      ),
-    );
-  }
-
-  Widget _types() {
-    List<Disease> types = [];
-    // types.addAll(CardType.values);
-    // types.remove(CardType.unknown);
-
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        _factions(),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -216,6 +121,32 @@ class _FilterComponentState extends State<FilterComponent> {
                 // _factions(),
                 _title(title: 'Types:'),
                 _factions(),
+                Container(
+                  width: double.infinity,
+                  child: DropdownButton<String>(
+                    value: dropdownValue,
+                    icon: Icon(Icons.arrow_downward),
+                    iconSize: 24,
+                    elevation: 16,
+                    style: TextStyle(color: Colors.deepPurple),
+                    underline: Container(
+                      height: 2,
+                      color: Colors.deepPurpleAccent,
+                    ),
+                    onChanged: (String newValue) {
+                      setState(() {
+                        dropdownValue = newValue;
+                      });
+                    },
+                    items: <String>['One', 'Two', 'Free', 'Four']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                ),
                 // _types(),
               ],
             ),

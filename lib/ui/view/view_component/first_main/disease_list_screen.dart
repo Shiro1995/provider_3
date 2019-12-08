@@ -52,7 +52,7 @@ class DiseaseList extends StatelessWidget {
     return Container(
       child: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: 20.0,
+          horizontal: 10.0,
         ),
         child: Text(
           text,

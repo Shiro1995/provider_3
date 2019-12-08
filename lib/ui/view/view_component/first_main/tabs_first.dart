@@ -21,7 +21,8 @@ class _FirstTabState extends State<FirstTab> {
   bool _isKeyboardVisible = false;
   FilterComponent _filterComponent = FilterComponent();
   final TextEditingController _controller = new TextEditingController();
-
+	DiseaseViewModel viewModel = new DiseaseViewModel();
+	String level = '0';
   @override
   void initState() {
     super.initState();
@@ -38,7 +39,7 @@ class _FirstTabState extends State<FirstTab> {
   void _onTextChanged({String text}) {
     _query = text;
     setState(() {});
-    Provider.of<DiseaseViewModel>(context).queryDisease(_query);
+    Provider.of<DiseaseViewModel>(context).queryDisease(_query, level);
   }
 
   Widget _searchField({BuildContext context}) {
@@ -70,10 +71,6 @@ class _FirstTabState extends State<FirstTab> {
     );
   }
 
-  // List<Disease>_sort(List<Disease> disease){
-  // 	disease.sort((a,b) => a.name.compareTo(b.name));
-  // 	return disease;
-  // }
   Widget _filterButton(BuildContext context) {
     return IconButton(
       icon: Icon(Icons.filter_list),
@@ -93,9 +90,12 @@ class _FirstTabState extends State<FirstTab> {
     );
 
     future.then((value) {
+		level = _filterComponent.level;
+		 setState(() {});
+		 Provider.of<DiseaseViewModel>(context).queryDisease(_query, level);
       //   _filter.factions = _filterComponent.selectedFactions;
       //   _filter.types = _filterComponent.selectedTypes;
-      setState(() {});
+     
     });
   }
 
@@ -105,7 +105,7 @@ class _FirstTabState extends State<FirstTab> {
       if (_diseaseViewModel.disease.length > 0) {
         return Padding(
           padding: const EdgeInsets.only(top: 12.0),
-          child: ListView.builder(
+          child: ListView.separated(
             itemCount: _diseaseViewModel.disease.length,
             itemBuilder: (BuildContext context, int index) {
               Disease disease = _diseaseViewModel.disease[index];
@@ -116,9 +116,9 @@ class _FirstTabState extends State<FirstTab> {
                     _onPackSelected(context: context, disease: disease);
                   });
             },
-            // separatorBuilder: (BuildContext context, int index) {
-            //   return Separator(1);
-            // },
+            separatorBuilder: (BuildContext context, int index) {
+              return Separator(1);
+            },
           ),
         );
       } else
@@ -137,9 +137,9 @@ class _FirstTabState extends State<FirstTab> {
       ),
       onPressed: () {
         _controller.clear();
-        _query = '';
+        _query = null;
         setState(() {});
-        Provider.of<DiseaseViewModel>(context).queryDisease('');
+        Provider.of<DiseaseViewModel>(context).queryDisease(_query, level);
         FocusScope.of(context).requestFocus(new FocusNode());
       },
     );
@@ -160,16 +160,16 @@ class _FirstTabState extends State<FirstTab> {
       body: Center(
         child: _body(context),
       ),
-      floatingActionButton: Padding(
-        padding: EdgeInsets.only(bottom: 50.0),
-        child: FloatingActionButton(
-          onPressed: () {
-            // Add your onPressed code here!
-          },
-          child: Icon(Icons.search),
-          backgroundColor: Color.fromARGB(255, 20, 175, 135),
-        ),
-      ),
+    //   floatingActionButton: Padding(
+    //     padding: EdgeInsets.only(bottom: 50.0),
+    //     child: FloatingActionButton(
+    //       onPressed: () {
+    //         // Add your onPressed code here!
+    //       },
+    //       child: Icon(Icons.search),
+    //       backgroundColor: Color.fromARGB(255, 20, 175, 135),
+    //     ),
+    //   ),
     );
   }
 }

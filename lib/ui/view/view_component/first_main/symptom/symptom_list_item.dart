@@ -1,5 +1,6 @@
 import 'package:final_1/core/model/disease.dart';
 import 'package:final_1/ui/view/view_component/first_main/symptom/symptom_screen.dart';
+import 'package:final_1/ui/view/view_component/first_main/symptom/symptom_screen1.dart';
 import 'package:final_1/ui/widgets/separator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class SymptomList extends StatelessWidget {
       CupertinoPageRoute(
         fullscreenDialog: true,
         builder: (BuildContext context) {
-        //   return ListSymptoms();
+          return ShowPage();
         },
       ),
     );
