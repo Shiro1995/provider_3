@@ -1,10 +1,8 @@
-import 'package:final_1/core/constant/app_constant.dart';
-import 'package:final_1/core/model/symptom.dart';
-import 'package:final_1/ui/view/view_component/first_main/symptom/symptom_screen.dart';
-import 'package:final_1/ui/view/view_component/four_tab.dart';
+import 'package:final_1/core/services/Auth.dart';
+import 'package:final_1/ui/view/view_component/second_main/chat.dart';
 import 'package:final_1/ui/view/view_component/tabs_third.dart';
-import 'package:final_1/ui/widgets/custom_flat_button.dart';
 import 'package:final_1/ui/widgets/separator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -119,38 +117,54 @@ class Phamarcy extends StatelessWidget {
                         Text('7:00-23:00'),
                       ],
                     ),
-                    // RawMaterialButton(
-                    //   child: Container(
-                    //     decoration: BoxDecoration(
-                    //       color: Colors.grey[300],
-                    //       borderRadius: BorderRadius.circular(3.0),
-                    //     ),
-                    //     height: 40,
-                    //     width: 100,
-                    //     child: Padding(
-                    //       padding: EdgeInsets.symmetric(
-                    //         horizontal: 10.0,
-                    //       ),
-                    //       child: Row(
-                    //         children: <Widget>[
-                    //           Icon(Icons.phone),
-                    //           Text(
-                    //             'Liên hệ',
-                    //             style: TextStyle(
-                    //               fontSize: 16.0,
-                    //               //   color: Colors.green[300],
-                    //             ),
-                    //           )
-                    //         ],
-                    //       ),
-                    //     ),
-                    //   ),
-                    //   onPressed: null,
-                    // ),
-                    // IconButton(
-                    //   icon: Icon(Icons.message),
-                    //   onPressed: null,
-                    // ),
+                    RawMaterialButton(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(3.0),
+                        ),
+                        height: 40,
+                        width: 100,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 10.0,
+                          ),
+                          child: Row(
+                            children: <Widget>[
+                              Icon(Icons.phone),
+                              Text(
+                                'Liên hệ',
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  //   color: Colors.green[300],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      onPressed: null,
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.message),
+                      onPressed: () async {
+                        FirebaseUser user = await Auth.getCurrentFirebaseUser();
+						print(user);
+                        await Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                            fullscreenDialog: true,
+                            builder: (BuildContext context) {
+                              return ChatScreen(user: user
+
+                                  //   disease: disease,
+                                  //   title: disease.name,
+                                  );
+                            },
+                          ),
+                        );
+                      },
+                    ),
                     IconButton(
                       icon: Icon(Icons.location_on),
                       // color: Colors.black,
@@ -160,7 +174,7 @@ class Phamarcy extends StatelessWidget {
                           CupertinoPageRoute(
                             fullscreenDialog: true,
                             builder: (BuildContext context) {
-                              return TagFour(
+                              return ThirdTab(
 
                                   //   disease: disease,
                                   //   title: disease.name,

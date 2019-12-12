@@ -1,8 +1,8 @@
 import 'package:final_1/ui/shared/tab_bar_item.dart';
 import 'package:final_1/ui/view/view_component/first_main/tabs_first.dart';
-import 'package:final_1/ui/view/view_component/four_tab.dart';
-import 'package:final_1/ui/view/view_component/second_main/tab_second.dart';
-import 'package:final_1/ui/view/view_component/tabs_third.dart';
+import 'package:final_1/ui/view/view_component/second_main/pharmacy.dart';
+import 'package:final_1/ui/view/view_component/tabs_second.dart';
+// import 'package:final_1/ui/view/view_component/second_main/tab_second.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -10,14 +10,14 @@ class TabBarComponent extends StatelessWidget {
   final List<BottomNavigationBarItem> _items = [
     TabBarItem.buildItem('Home', 'assets/icons/home.png'),
     TabBarItem.buildItem('Library', 'assets/icons/packs.png'),
-    TabBarItem.buildItem('Cards', 'assets/icons/cards.png'),
+    TabBarItem.buildItem('Profile', 'assets/icons/cards.png'),
   ];
 
   List<Widget> _tabs(BuildContext context) {
     return [
       FirstTab(),
-      TabbedAppBarSample(),
-      ThirdTab(),
+      Phamarcy(),
+      SecondTab(),
     ];
   }
 

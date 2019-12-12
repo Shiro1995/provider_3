@@ -1,6 +1,7 @@
 import 'package:final_1/core/model/disease.dart';
 import 'package:final_1/core/viewmodels/disease_view_modal.dart';
 import 'package:final_1/ui/view/view_component/first_main/search.dart';
+import 'package:final_1/ui/view/view_component/first_main/symptom/symptom_screen1.dart';
 import 'package:final_1/ui/widgets/search_field.dart';
 import 'package:final_1/ui/widgets/separator.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,8 +22,8 @@ class _FirstTabState extends State<FirstTab> {
   bool _isKeyboardVisible = false;
   FilterComponent _filterComponent = FilterComponent();
   final TextEditingController _controller = new TextEditingController();
-	DiseaseViewModel viewModel = new DiseaseViewModel();
-	String level = '0';
+  DiseaseViewModel viewModel = new DiseaseViewModel();
+  String level = '0';
   @override
   void initState() {
     super.initState();
@@ -38,8 +39,8 @@ class _FirstTabState extends State<FirstTab> {
 
   void _onTextChanged({String text}) {
     _query = text;
-    setState(() {});
     Provider.of<DiseaseViewModel>(context).queryDisease(_query, level);
+    setState(() {});
   }
 
   Widget _searchField({BuildContext context}) {
@@ -56,16 +57,22 @@ class _FirstTabState extends State<FirstTab> {
 
   void _onPackSelected({BuildContext context, Disease disease}) async {
     //   Provider.of<DiseaseViewModel>(context).getDiseases(type);
-
+    bool isType;
+    if (level == '0')
+      isType = true;
+    else
+      isType = false;
     await Navigator.push(
       context,
       CupertinoPageRoute(
         fullscreenDialog: true,
         builder: (BuildContext context) {
-          return DiseasePage(
-            disease: disease,
-            title: disease.name,
-          );
+          return isType
+              ? DiseasePage(
+                  disease: disease,
+                  title: disease.name,
+                )
+              : ShowPage(title: disease.name,);
         },
       ),
     );
@@ -90,25 +97,25 @@ class _FirstTabState extends State<FirstTab> {
     );
 
     future.then((value) {
-		level = _filterComponent.level;
-		 setState(() {});
-		 Provider.of<DiseaseViewModel>(context).queryDisease(_query, level);
+      level = _filterComponent.level;
+
+      Provider.of<DiseaseViewModel>(context).queryDisease(_query, level);
+      setState(() {});
       //   _filter.factions = _filterComponent.selectedFactions;
       //   _filter.types = _filterComponent.selectedTypes;
-     
     });
   }
 
   Widget _body(context) {
     print(_query);
     return Consumer<DiseaseViewModel>(builder: (context, _diseaseViewModel, _) {
-      if (_diseaseViewModel.disease.length > 0) {
+      if (_diseaseViewModel.type.length > 0) {
         return Padding(
           padding: const EdgeInsets.only(top: 12.0),
           child: ListView.separated(
-            itemCount: _diseaseViewModel.disease.length,
+            itemCount: _diseaseViewModel.type.length,
             itemBuilder: (BuildContext context, int index) {
-              Disease disease = _diseaseViewModel.disease[index];
+              Disease disease = _diseaseViewModel.type[index];
               return DiseaseList(
                   disease: disease,
                   index: index,
@@ -160,16 +167,16 @@ class _FirstTabState extends State<FirstTab> {
       body: Center(
         child: _body(context),
       ),
-    //   floatingActionButton: Padding(
-    //     padding: EdgeInsets.only(bottom: 50.0),
-    //     child: FloatingActionButton(
-    //       onPressed: () {
-    //         // Add your onPressed code here!
-    //       },
-    //       child: Icon(Icons.search),
-    //       backgroundColor: Color.fromARGB(255, 20, 175, 135),
-    //     ),
-    //   ),
+      //   floatingActionButton: Padding(
+      //     padding: EdgeInsets.only(bottom: 50.0),
+      //     child: FloatingActionButton(
+      //       onPressed: () {
+      //         // Add your onPressed code here!
+      //       },
+      //       child: Icon(Icons.search),
+      //       backgroundColor: Color.fromARGB(255, 20, 175, 135),
+      //     ),
+      //   ),
     );
   }
 }

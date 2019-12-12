@@ -5,41 +5,30 @@ import 'package:http/http.dart' as http;
 
 class DiseaseViewModel extends ChangeNotifier {
   List<Disease> _listDisease = [];
+  List<Disease> _listType = [];
+  List<Disease> _listAll = [];
   dynamic data;
   List get disease => _listDisease;
+  List get type => _listType;
   void reset() {
     _listDisease = [];
     notifyListeners();
   }
 
   Future<void> queryDisease(String query, String level) async {
-    List<Disease> diseaselist = [];
-    if (level == '0') {
-      var sortedDisease = Diseaselist.fromJson(data).disease;
-      sortedDisease.sort((a, b) => a.name.compareTo(b.name));
-      diseaselist = sortedDisease;
-    } else {
-      var sortedDisease = Diseaselist.fromJson(data).disease;
-      List<Disease> disease2 = List<Disease>();
-      sortedDisease.forEach((v) {
-        disease2.addAll(v.diseases);
-      });
-	  disease2.sort((a, b) => a.name.compareTo(b.name));
-      diseaselist = disease2;
-    }
+    var disease2;
     if (query == null || query == '') {
-      _listDisease = diseaselist;
-      notifyListeners();
+      disease2 = _listAll;
     } else {
-      List<Disease> disease2 = List<Disease>();
-      diseaselist.forEach((v) {
-        // disease2.addAll(v.diseases);
-        disease2.addAll(v.diseases);
-      });
-      _listDisease = getDiseasesWithQuery(query, disease2);
-    //   _listDisease = diseaselist;
-      notifyListeners();
+      disease2 = getDiseasesWithQuery(query, _listAll);
     }
+    var newdiseases = disease2.where(
+      (disease) {
+        return disease.level == level;
+      },
+    ).toList();
+    _listType = newdiseases;
+    notifyListeners();
   }
 
   List<Disease> getDiseasesWithQuery(String query, List<Disease> diseases) {
@@ -65,8 +54,13 @@ class DiseaseViewModel extends ChangeNotifier {
       notifyListeners();
       print("data: " + data['data'].toString());
       var sortedDisease = Diseaselist.fromJson(data).disease;
-    //   sortedDisease.sort((a, b) => a.name.compareTo(b.name));
-      _listDisease = sortedDisease;
+      //   sortedDisease.sort((a, b) => a.name.compareTo(b.name));
+    //   _listType = sortedDisease;
+       _listAll.addAll(sortedDisease);
+      sortedDisease.forEach((v) {
+        _listAll.addAll(v.diseases);
+      });
+	  _listType = sortedDisease;
       notifyListeners();
     } else {
       print("api error");

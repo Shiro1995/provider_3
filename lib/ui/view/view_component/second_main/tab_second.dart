@@ -49,19 +49,19 @@ class _TabbedAppBarSampleState extends State<TabbedAppBarSample> {
         child: Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            // title: const Text('Tabbed AppBar'),
-            title: _searchField(),
-            // Text(
-            //   'Personal Healthcare',
-            //   maxLines: 1,
-            //   textAlign: TextAlign.center,
-            //   style: TextStyle(
-            //     fontFamily: 'Montserrat',
-            //     fontWeight: FontWeight.bold,
-            //     fontSize: 23,
-            //     color: Colors.yellow[200],
-            //   ),
-            // ),
+            title: Text(
+              'Personal Healthcare',
+              maxLines: 1,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: 'Montserrat',
+                fontWeight: FontWeight.bold,
+                fontSize: 23,
+                color: Colors.yellow[200],
+              ),
+            ),
+            // title: _searchField(),
+
             bottom: TabBar(
               isScrollable: true,
               tabs: choices.map((Choice choice) {
@@ -94,7 +94,7 @@ class Choice {
 }
 
 const List<Choice> choices = const <Choice>[
-  const Choice(title: 'Doctor', icon: Icons.person),
+//   const Choice(title: 'Doctor', icon: Icons.person),
   const Choice(title: 'Pharmacy', icon: Icons.store)
 //   const Choice(title: 'BOAT', icon: Icons.directions_boat),
 //   const Choice(title: 'BUS', icon: Icons.directions_bus),
@@ -112,18 +112,18 @@ class ChoiceCard extends StatefulWidget {
 }
 
 Future<List<Pharmacy>> getpharmacies() async {
-	print("ahih");
+  print("ahih");
   final response = await http
       .get('http://ezhealthcare.luisnguyen.com/api/v1/mobile/get/pharmacies');
 
   if (response.statusCode == 200) {
-	  dynamic data = json.decode(response.body);
-	//   print("data: "+data.toString());
+    dynamic data = json.decode(response.body);
+    //   print("data: "+data.toString());
     // If server returns an OK response, parse the JSON.
     // List<dynamic> list = json.decode(response.body)["data"]["pharmacies"];
-    return PharmaciesList.fromJson(data).data;	
+    return PharmaciesList.fromJson(data).data;
   } else {
-	  print("api error");
+    print("api error");
     // If that response was not OK, throw an error.
     throw Exception('Failed to load post');
   }
@@ -133,9 +133,9 @@ class _ChoiceCardState extends State<ChoiceCard> {
   Future pharmacy;
   @override
   void initState() {
-print('haiaiaia');
+    print('haiaiaia');
     pharmacy = getpharmacies();
-       super.initState();
+    super.initState();
     print(pharmacy);
   }
 
@@ -145,74 +145,82 @@ print('haiaiaia');
       child: FutureBuilder<List<Pharmacy>>(
           future: getpharmacies(),
           builder: (context, snapshot) {
-			  if (snapshot.hasData)
-            return Scaffold(
-              body: ListView.builder(
-                itemCount: snapshot.data.length,
-                itemBuilder: (BuildContext context, int position) {
-                  return GestureDetector(
-                      onTap: () => Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Phamarcy())),
-                      child: Container(
-                        margin: EdgeInsets.all(10.0),
-                        padding: EdgeInsets.only(bottom: 5),
-                        height: 120,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8.0),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black12,
-                                offset: Offset(0.0, 15.0),
-                                blurRadius: 15.0,
-                              ),
-                            ]),
-                        child: Row(
-                          children: <Widget>[
-                            Container(
-                              height: 100.0,
-                              width: 100.0,
-                              child: CircleAvatar(
-                                backgroundImage:
-								snapshot.data[position].imageStore !=''?
-										NetworkImage('https://images.foody.vn/res/g91/906753/prof/s576x330/foody-upload-api-foody-mobile-untitled-2-190417150603.jpg'):
-                                    //  (snapshot.data.photoUrl != '')
-                                    //     ? NetworkImage(snapshot.data.photoUrl)
-                                    //     :
-                                    AssetImage("assets/images/default.png"),
-                              ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(20),
-                                child: Column(
-                                  children: <Widget>[
-                                    Text(
-                                      snapshot.data[position].name,
-                                      maxLines: 3,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text(
-                                      snapshot.data[position].address,
-                                      textAlign: TextAlign.center,
-                                      style: _kTextStyle,
-                                    ),
-                                  ],
+            if (snapshot.hasData)
+              return Scaffold(
+                body: ListView.builder(
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (BuildContext context, int position) {
+                    return GestureDetector(
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Phamarcy())),
+                        child: Container(
+                          margin: EdgeInsets.all(10.0),
+                          padding: EdgeInsets.only(bottom: 5),
+                          height: 120,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black12,
+                                  offset: Offset(0.0, 15.0),
+                                  blurRadius: 15.0,
+                                ),
+                              ]),
+                          child: Row(
+                            children: <Widget>[
+                              Container(
+                                height: 100.0,
+                                width: 100.0,
+                                child: CircleAvatar(
+                                  backgroundImage: snapshot
+                                              .data[position].imageStore !=
+                                          ''
+                                      ? NetworkImage(
+                                          'https://images.foody.vn/res/g91/906753/prof/s576x330/foody-upload-api-foody-mobile-untitled-2-190417150603.jpg')
+                                      :
+                                      //  (snapshot.data.photoUrl != '')
+                                      //     ? NetworkImage(snapshot.data.photoUrl)
+                                      //     :
+                                      AssetImage("assets/images/default.png"),
                                 ),
                               ),
-                            ),
-                            // _column(),
-                          ],
-                        ),
-                      ));
-                },
-              ),
-            );
-			return CircularProgressIndicator();
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(20),
+                                  child: Column(
+                                    children: <Widget>[
+                                      Text(
+                                        snapshot.data[position].name,
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        snapshot.data[position].address,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.center,
+                                        style: _kTextStyle,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              // _column(),
+                            ],
+                          ),
+                        ));
+                  },
+                ),
+              );
+            return CircularProgressIndicator();
           }),
     );
   }

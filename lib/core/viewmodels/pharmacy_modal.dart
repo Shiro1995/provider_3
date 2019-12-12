@@ -1,20 +1,33 @@
-import 'package:final_1/core/model/pharmacy.dart';
-import 'package:final_1/core/services/api.dart';
+import 'dart:convert';
+
+import 'package:final_1/core/model/symptom.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:http/http.dart' as http;
+class SymptomViewModel extends ChangeNotifier {
 
-class PharmacyViewModel extends ChangeNotifier{
-	 List<Pharmacy> _listDisease = [];
-Api _api;
-  List get phamacies => _listDisease;
-  void reset() {
-    _listDisease = [];
-    notifyListeners();
+	Symptom symptoms ;
+
+	 get symptom => symptoms;
+
+	Future<void> getSymptoms() async {
+    print("getsymptoms");
+    dynamic response = await http
+        .get('http://ezhealthcare.luisnguyen.com/api/v1/mobile/get/symptoms/25');
+
+    if (response.statusCode == 200) {
+	    dynamic data = json.decode(response.body);
+    //   notifyListeners();
+    //   print("data: " + data['data'].toString());
+
+	print(data['data'].toString());
+      var sortedDisease = SymptomList.fromJson(data).data;
+    //   sortedDisease.sort((a, b) => a.name.compareTo(b.name));
+      symptoms = sortedDisease;
+      notifyListeners();
+    } else {
+      print("api error");
+      // If that response was not OK, throw an error.
+      throw Exception('Failed to load post');
+    }
   }
-
-  Future<void> getpharmacies() async {
-      _listDisease = await _api.getpharmacies();
-	  print("_listDisease"+_listDisease.toString());
-	  notifyListeners();	
-  }
-
 }

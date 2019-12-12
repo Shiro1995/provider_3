@@ -19,7 +19,9 @@ class SymptomList extends StatelessWidget {
       CupertinoPageRoute(
         fullscreenDialog: true,
         builder: (BuildContext context) {
-          return ShowPage();
+          return ShowPage(
+            title: disease.name,
+          );
         },
       ),
     );
@@ -27,7 +29,7 @@ class SymptomList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-	   disease.diseases.sort((a,b) => a.name.compareTo(b.name));
+    disease.diseases.sort((a, b) => a.name.compareTo(b.name));
     return ListView.separated(
         itemCount: disease.diseases.length,
         itemBuilder: (BuildContext context, int index) {

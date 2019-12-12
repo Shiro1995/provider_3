@@ -26,8 +26,8 @@ class Auth extends ChangeNotifier {
     });
     return id;
   }
-
-  static Future<void> signOut() async {
+ static Future<void> signOut() async {
+    FacebookLogin.channel.invokeMethod("logOut");
     return FirebaseAuth.instance.signOut();
   }
 
