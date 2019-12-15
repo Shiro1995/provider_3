@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:final_1/core/model/chat.dart';
 import 'package:final_1/core/services/Auth.dart';
 import 'package:final_1/ui/view/view_component/second_main/chat.dart';
 import 'package:final_1/ui/view/view_component/tabs_third.dart';
@@ -6,7 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-Widget Item(String text, String number) {
+Widget item(String text, String number) {
   return Column(
     children: <Widget>[
       Text(number),
@@ -18,25 +20,11 @@ Widget Item(String text, String number) {
   );
 }
 
-void _onPackSelected({BuildContext context}) async {
-  //   Provider.of<DiseaseViewModel>(context).getDiseases(type);
-  // Navigator.push(context,
-  //                   MaterialPageRoute(builder: (context) => Phamarcy())),
-//   await Navigator.push(
-//     context,
-//     CupertinoPageRoute(
-//       fullscreenDialog: true,
-//       builder: (BuildContext context) {
-//         return ThirdTab(
-//         //   disease: disease,
-//         //   title: disease.name,
-//         );
-//       },
-//     ),
-//   );
-}
-
-class Phamarcy extends StatelessWidget {
+class PharmacyScreen extends StatelessWidget {
+  PharmacyScreen({
+    @required this.name,
+  });
+  final String name;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,7 +49,7 @@ class Phamarcy extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.all(5.0),
                 child: Text(
-                  'Thuốc tây Phương Anh',
+                  name,
                   style: TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
@@ -74,8 +62,8 @@ class Phamarcy extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    Item('bình luận', '10'),
-                    Item('check in', '5'),
+                    item('bình luận', '10'),
+                    item('check in', '5'),
                     Center(
                       child: Container(
                           height: 34,
@@ -149,20 +137,45 @@ class Phamarcy extends StatelessWidget {
                       icon: Icon(Icons.message),
                       onPressed: () async {
                         FirebaseUser user = await Auth.getCurrentFirebaseUser();
-						print(user);
-                        await Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                            fullscreenDialog: true,
-                            builder: (BuildContext context) {
-                              return ChatScreen(user: user
-
-                                  //   disease: disease,
-                                  //   title: disease.name,
-                                  );
-                            },
-                          ),
-                        );
+                        var id;
+                        Auth()
+                            .findExistedChatRoom(user.displayName, name)
+                            .then((v) {
+                          if (v.documents.length > 0) {
+                            print('yes');
+                            id = v.documents.first.documentID;
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ChatScreen(
+                                    user: user, name: name, id: id.toString()),
+                              ),
+                            );
+                          } else {
+                            print('no');
+                            Chat userroom = new Chat(user.displayName, name);
+                            Firestore.instance
+                                .collection('chats')
+                                .add(userroom.toMap());
+                          }
+                          Firestore.instance
+                              .collection('chats')
+                              .where("members",
+                                  isEqualTo: [user.displayName, name])
+                              .getDocuments()
+                              .then((v) {
+                                id = v.documents.first.documentID;
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ChatScreen(
+                                        user: user,
+                                        name: name,
+                                        id: id.toString()),
+                                  ),
+                                );
+                              });
+                        });
                       },
                     ),
                     IconButton(

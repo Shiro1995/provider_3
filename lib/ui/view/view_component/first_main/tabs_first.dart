@@ -72,7 +72,9 @@ class _FirstTabState extends State<FirstTab> {
                   disease: disease,
                   title: disease.name,
                 )
-              : ShowPage(title: disease.name,);
+              : ShowPage(
+                  title: disease.name,
+                );
         },
       ),
     );
@@ -97,8 +99,11 @@ class _FirstTabState extends State<FirstTab> {
     );
 
     future.then((value) {
-      level = _filterComponent.level;
-
+		if(_filterComponent.level[0]!=null){
+			level = _filterComponent.level[0];
+		} else{
+			level = '0';
+		}
       Provider.of<DiseaseViewModel>(context).queryDisease(_query, level);
       setState(() {});
       //   _filter.factions = _filterComponent.selectedFactions;

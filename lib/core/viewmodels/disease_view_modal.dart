@@ -52,7 +52,7 @@ class DiseaseViewModel extends ChangeNotifier {
     if (response.statusCode == 200) {
       data = json.decode(response.body);
       notifyListeners();
-      print("data: " + data['data'].toString());
+    
       var sortedDisease = Diseaselist.fromJson(data).disease;
       //   sortedDisease.sort((a, b) => a.name.compareTo(b.name));
     //   _listType = sortedDisease;

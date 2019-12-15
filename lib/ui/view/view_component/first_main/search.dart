@@ -1,13 +1,12 @@
-import 'package:final_1/core/model/disease.dart';
 import 'package:flutter/material.dart';
 
 const Color kColorYellowLittleBirds = Color.fromRGBO(255, 231, 78, 1.0);
 
 class FilterComponent extends StatefulWidget {
    String level = '0';
-  FilterComponent({
-    this.level,
-  });
+//   FilterComponent({
+//     this.level,
+//   });
 //   const FilterComponent({Key key, this.level}) : super(key: key);
 //   final List<CardType> selectedTypes = [];
 
@@ -16,11 +15,9 @@ class FilterComponent extends StatefulWidget {
 }
 
 class _FilterComponentState extends State<FilterComponent> {
-//   _FilterComponentState({
-//     this.level,
-//   });
+
   String dropdownValue = 'One';
-//   String level = '0';
+  final String level = '0' ;
   Widget _header() {
     return Container(
       height: 50,

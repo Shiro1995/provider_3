@@ -1,6 +1,7 @@
 import 'package:final_1/ui/shared/tab_bar_item.dart';
 import 'package:final_1/ui/view/view_component/first_main/tabs_first.dart';
 import 'package:final_1/ui/view/view_component/second_main/pharmacy.dart';
+import 'package:final_1/ui/view/view_component/second_main/tab_second.dart';
 import 'package:final_1/ui/view/view_component/tabs_second.dart';
 // import 'package:final_1/ui/view/view_component/second_main/tab_second.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class TabBarComponent extends StatelessWidget {
   List<Widget> _tabs(BuildContext context) {
     return [
       FirstTab(),
-      Phamarcy(),
+    TabbedAppBarSample(),
       SecondTab(),
     ];
   }
@@ -28,7 +29,7 @@ class TabBarComponent extends StatelessWidget {
         activeColor: Colors.black,
         inactiveColor: Colors.grey[500],
         items: _items,
-		currentIndex: 0,
+        currentIndex: 0,
       ),
       tabBuilder: (BuildContext context, int index) {
         final tabs = _tabs(context);

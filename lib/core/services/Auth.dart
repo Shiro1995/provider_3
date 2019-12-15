@@ -26,8 +26,9 @@ class Auth extends ChangeNotifier {
     });
     return id;
   }
- static Future<void> signOut() async {
-    FacebookLogin.channel.invokeMethod("logOut");
+
+  static Future<void> signOut() async {
+    // FacebookLogin.channel.invokeMethod("logOut");
     return FirebaseAuth.instance.signOut();
   }
 
@@ -43,6 +44,21 @@ class Auth extends ChangeNotifier {
       }
     });
   }
+
+  Future<QuerySnapshot> findExistedChatRoom(String name1, String name2) async {
+    return await Firestore.instance
+        .collection("chats")
+        .where("members", isEqualTo: [name1, name2]).getDocuments();
+  }
+//    Future<void> sendMessageChat(String id, Message message) {
+//     return Firestore.instance
+//         .collection("messages/" + id)
+//         add({
+//         'text': messageController.text,
+//         'from': widget.user.email,
+//         'date': DateTime.now().toIso8601String().toString(),
+//       });
+//   }
 
   static Future<void> loginWithFacebook(context) async {
     var fbLogin = FacebookLogin();
@@ -87,7 +103,10 @@ class Auth extends ChangeNotifier {
       //   throw ErrorHint(error.code);
     }
   }
-	
+
+  static  getCurrentUser() async {
+    return await FirebaseAuth.instance.currentUser();
+  }
 
   static Stream<User> getUser(String userID) {
     return Firestore.instance

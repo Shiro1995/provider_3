@@ -14,5 +14,6 @@ class RoutePaths {
   static const String Search = '/Search';
   static const String Map = '/map';
   static const String Phamarcy = '/phamarcy';
+   static const String ChoiceCard = '/tabsecond';
   
 }

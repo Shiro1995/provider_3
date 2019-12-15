@@ -1,9 +1,9 @@
 import 'dart:convert';
-
-import 'package:final_1/core/constant/app_constant.dart';
 import 'package:final_1/core/model/pharmacy.dart';
 import 'package:final_1/ui/view/view_component/second_main/pharmacy.dart';
 import 'package:final_1/ui/widgets/search_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -76,7 +76,9 @@ class _TabbedAppBarSampleState extends State<TabbedAppBarSample> {
           body: TabBarView(
             children: choices.map((Choice choice) {
               return Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.only(
+                  bottom: 5,
+                ),
                 child: ChoiceCard(choice: choice),
               );
             }).toList(),
@@ -95,7 +97,8 @@ class Choice {
 
 const List<Choice> choices = const <Choice>[
 //   const Choice(title: 'Doctor', icon: Icons.person),
-  const Choice(title: 'Pharmacy', icon: Icons.store)
+  const Choice(title: 'Pharmacy', icon: Icons.store),
+  const Choice(title: 'message', icon: Icons.message)
 //   const Choice(title: 'BOAT', icon: Icons.directions_boat),
 //   const Choice(title: 'BUS', icon: Icons.directions_bus),
 //   const Choice(title: 'TRAIN', icon: Icons.directions_railway),
@@ -131,19 +134,20 @@ Future<List<Pharmacy>> getpharmacies() async {
 
 class _ChoiceCardState extends State<ChoiceCard> {
   Future pharmacy;
+
   @override
   void initState() {
-    print('haiaiaia');
     pharmacy = getpharmacies();
     super.initState();
     print(pharmacy);
+    // print(_userProvider.user);
   }
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: FutureBuilder<List<Pharmacy>>(
-          future: getpharmacies(),
+          future: pharmacy,
           builder: (context, snapshot) {
             if (snapshot.hasData)
               return Scaffold(
@@ -151,10 +155,18 @@ class _ChoiceCardState extends State<ChoiceCard> {
                   itemCount: snapshot.data.length,
                   itemBuilder: (BuildContext context, int position) {
                     return GestureDetector(
-                        onTap: () => Navigator.push(
+                        onTap: () async {
+                          await Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => Phamarcy())),
+                            CupertinoPageRoute(
+                              fullscreenDialog: true,
+                              builder: (BuildContext context) {
+                                return PharmacyScreen(
+                                    name: snapshot.data[position].name);
+                              },
+                            ),
+                          );
+                        },
                         child: Container(
                           margin: EdgeInsets.all(10.0),
                           padding: EdgeInsets.only(bottom: 5),
@@ -225,7 +237,19 @@ class _ChoiceCardState extends State<ChoiceCard> {
     );
   }
 
-  void ontap(BuildContext context) {
-    Navigator.of(context).pushNamed(RoutePaths.Phamarcy);
-  }
+//   void ontap() async {
+//     //   FirebaseUser user;
+//     //   FirebaseAuth.instance.currentUser().then((user1){
+//     // 	  	user = user1;
+//     //   });
+//     await Navigator.push(
+//       context,
+//       CupertinoPageRoute(
+//         fullscreenDialog: true,
+//         builder: (BuildContext context) {
+//           return PharmacyScreen(name: user.displayName);
+//         },
+//       ),
+//     );
+//   }
 }
