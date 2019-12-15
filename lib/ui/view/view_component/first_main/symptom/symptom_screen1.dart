@@ -1,6 +1,4 @@
-import 'package:final_1/core/model/symptom.dart';
 import 'package:final_1/core/viewmodels/symptom_view_modal.dart';
-import 'package:final_1/styles/styles.dart';
 import 'package:final_1/ui/widgets/separator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +25,8 @@ class _ShowPageState extends State<ShowPage> {
     Future.delayed(Duration.zero,
         () => Provider.of<SymptomViewModel>(context).getSymptoms());
   }
-	String title1;
+
+  String title1;
   List<String> title = [
     'Hiểu về bệnh',
     'Triệu chứng',
@@ -59,13 +58,13 @@ class _ShowPageState extends State<ShowPage> {
 
   Widget item(int index, List<String> text) {
     return SingleChildScrollView(
-		  child: Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           RawMaterialButton(
-            onPressed: () => {
-              _moreConditions[index] = !_moreConditions[index],
-              setState(() {})
+            onPressed: () {
+              _moreConditions[index] = !_moreConditions[index];
+              setState(() {});
             },
             child: Padding(
               padding: EdgeInsets.all(10),
@@ -119,10 +118,26 @@ class _ShowPageState extends State<ShowPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                item(0, _symptommodal.symptoms.definitions.map((v) => v.name).toList()),
-                item(1,  _symptommodal.symptoms.prognostics.map((v) => v.name).toList()),
-                item(2,_symptommodal.symptoms.prognostics.map((v) => v.name).toList()),
-                item(3, _symptommodal.symptoms.prognostics.map((v) => v.name).toList()),
+                item(
+                    0,
+                    _symptommodal.symptoms.definitions
+                        .map((v) => v.name)
+                        .toList()),
+                item(
+                    1,
+                    _symptommodal.symptoms.prognostics
+                        .map((v) => v.name)
+                        .toList()),
+                item(
+                    2,
+                    _symptommodal.symptoms.prognostics
+                        .map((v) => v.name)
+                        .toList()),
+                item(
+                    3,
+                    _symptommodal.symptoms.prognostics
+                        .map((v) => v.name)
+                        .toList()),
               ],
             ),
           );

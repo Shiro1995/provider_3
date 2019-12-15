@@ -31,9 +31,7 @@ class _DiseasePageState extends State<DiseasePage> {
             icon: new Icon(
               Icons.arrow_back,
             ),
-            onPressed: () => {
-              Navigator.of(context).pop(),
-            },
+            onPressed: () => Navigator.of(context).pop(),
           ),
         ),
         body: Padding(

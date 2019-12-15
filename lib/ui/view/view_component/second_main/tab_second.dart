@@ -1,8 +1,7 @@
 import 'dart:convert';
 import 'package:final_1/core/model/pharmacy.dart';
 import 'package:final_1/ui/view/view_component/second_main/pharmacy.dart';
-import 'package:final_1/ui/widgets/search_field.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -15,17 +14,6 @@ final TextStyle _kTextStyle = TextStyle(
   fontSize: 14.0,
   color: kColorGrayText,
 );
-
-Widget _searchField({BuildContext context}) {
-  return SearchField(
-      //   onChanged: (String text) {
-      //     _onTextChanged(text: text);
-      //   },
-      //   onSubmitted: () {
-      //     _onTextSubmitted(context: context);
-      //   },
-      );
-}
 
 class TabbedAppBarSample extends StatefulWidget {
   @override

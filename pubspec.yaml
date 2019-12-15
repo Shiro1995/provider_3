@@ -55,14 +55,8 @@ flutter:
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
   assets:
-    - images/medicine.png
-    - images/background.jpg
-    - images/facebook.png
-    - images/google-plus.png  
-    - images/babysick.jpg
-    - assets/icons/
-    - images/doctor.jpg
-    - images/tiembanthuoc.jpg
+    - images/
+
   fonts:  
   - family: Montserrat
     fonts:

@@ -1,4 +1,3 @@
-import 'package:final_1/ui/view/main_view/home_screen.dart';
 import 'package:final_1/ui/view/main_view/welcome_screen.dart';
 import 'package:final_1/ui/view/view_component/main_screen.dart';
 import 'package:final_1/ui/view/main_view/root_screen.dart';

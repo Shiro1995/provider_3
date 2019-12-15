@@ -48,7 +48,7 @@ class _FilterComponentState extends State<FilterComponent> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           _factionItem('Disease', '1'),
-          _factionItem('Classify','0'),
+          _factionItem('Classify', '0'),
           //   _factionItem('Symtpom'),
         ],
       ),
@@ -56,7 +56,7 @@ class _FilterComponentState extends State<FilterComponent> {
   }
 
   Widget _factionItem(String text, String level) {
-	  bool isActived = widget.level == level;
+    bool isActived = widget.level == level;
     return Expanded(
       child: RawMaterialButton(
         child: Container(
@@ -75,10 +75,10 @@ class _FilterComponentState extends State<FilterComponent> {
           ),
         ),
         onPressed: () {
-			widget.level = level;
-			print(widget.level);
+          widget.level = level;
+          print(widget.level);
           setState(() {});
-		//   print('a:'+level.toString());
+          //   print('a:'+level.toString());
         },
       ),
     );
