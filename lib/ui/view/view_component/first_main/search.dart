@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 const Color kColorYellowLittleBirds = Color.fromRGBO(255, 231, 78, 1.0);
 
 class FilterComponent extends StatefulWidget {
-   String level = '0';
+  String level = '0';
 //   FilterComponent({
 //     this.level,
 //   });
@@ -15,9 +15,8 @@ class FilterComponent extends StatefulWidget {
 }
 
 class _FilterComponentState extends State<FilterComponent> {
-
   String dropdownValue = 'One';
-  final String level = '0' ;
+  final String level = '0';
   Widget _header() {
     return Container(
       height: 50,

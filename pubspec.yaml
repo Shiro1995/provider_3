@@ -33,6 +33,7 @@ dependencies:
   intl: any
   firebase_storage: ^3.0.8
   keyboard_visibility: any
+  url_launcher: any
 
 dev_dependencies:
   flutter_test:
@@ -56,6 +57,7 @@ flutter:
   #  - images/a_dot_ham.jpeg
   assets:
     - images/
+    - assets/icons/
 
   fonts:  
   - family: Montserrat

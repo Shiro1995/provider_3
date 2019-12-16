@@ -9,8 +9,8 @@ void main() {
   runApp(
     MultiProvider(providers: [
       ChangeNotifierProvider(builder: (context) => DiseaseViewModel()),
-	     ChangeNotifierProvider(builder: (context) => SymptomViewModel()),
-    ],child: MyApp()),
+      ChangeNotifierProvider(builder: (context) => SymptomViewModel()),
+    ], child: MyApp()),
   );
 }
 
@@ -19,9 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue),
       initialRoute: RoutePaths.Root,
       onGenerateRoute: Router.generateRoute,
     );

@@ -7,6 +7,7 @@ import 'package:final_1/ui/widgets/separator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 Widget item(String text, String number) {
   return Column(
@@ -21,15 +22,14 @@ Widget item(String text, String number) {
 }
 
 class PharmacyScreen extends StatelessWidget {
-  PharmacyScreen({
-    @required this.name,
-  });
+  PharmacyScreen({@required this.name, this.phone});
   final String name;
+  final String phone;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('hello'),
+          title: Text(name),
           backgroundColor: Color.fromARGB(255, 20, 175, 135),
         ),
         body: SingleChildScrollView(
@@ -105,33 +105,36 @@ class PharmacyScreen extends StatelessWidget {
                         Text('7:00-23:00'),
                       ],
                     ),
-                    RawMaterialButton(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius: BorderRadius.circular(3.0),
-                        ),
-                        height: 40,
-                        width: 100,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 10.0,
+                    GestureDetector(
+                      onTap: () => _launchURL(),
+                      child: RawMaterialButton(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.grey[300],
+                            borderRadius: BorderRadius.circular(3.0),
                           ),
-                          child: Row(
-                            children: <Widget>[
-                              Icon(Icons.phone),
-                              Text(
-                                'Liên hệ',
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                  //   color: Colors.green[300],
-                                ),
-                              )
-                            ],
+                          height: 40,
+                          width: 100,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 10.0,
+                            ),
+                            child: Row(
+                              children: <Widget>[
+                                Icon(Icons.phone),
+                                Text(
+                                  'Liên hệ',
+                                  style: TextStyle(
+                                    fontSize: 16.0,
+                                    //   color: Colors.green[300],
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
+                        onPressed: null,
                       ),
-                      onPressed: null,
                     ),
                     IconButton(
                       icon: Icon(Icons.message),
@@ -180,18 +183,13 @@ class PharmacyScreen extends StatelessWidget {
                     ),
                     IconButton(
                       icon: Icon(Icons.location_on),
-                      // color: Colors.black,
                       onPressed: () async {
                         await Navigator.push(
                           context,
                           CupertinoPageRoute(
                             fullscreenDialog: true,
                             builder: (BuildContext context) {
-                              return ThirdTab(
-
-                                  //   disease: disease,
-                                  //   title: disease.name,
-                                  );
+                              return ThirdTab();
                             },
                           ),
                         );
@@ -204,5 +202,14 @@ class PharmacyScreen extends StatelessWidget {
             ],
           ),
         ));
+  }
+
+  _launchURL() async {
+    final url = 'tel:' + phone.toString();
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
