@@ -75,8 +75,7 @@ class Auth extends ChangeNotifier {
           final FirebaseUser user =
               (await FirebaseAuth.instance.signInWithCredential(credential))
                   .user;
-          print('===========================');
-          print(user);
+        
           FirebaseAuth.instance.currentUser().then((firebaseUser) {
             print('hiiiiisdf');
             User user = new User(

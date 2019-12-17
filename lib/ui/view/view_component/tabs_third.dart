@@ -20,6 +20,11 @@ class _ThirdTabState extends State<ThirdTab> {
       target: LatLng(37.43296265331129, -122.08832357078792),
       tilt: 59.440717697143555,
       zoom: 19.151926040649414);
+  @override
+  void initState() {
+    Future.delayed(const Duration(seconds: 1), () => _goToTheLake());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,18 +32,31 @@ class _ThirdTabState extends State<ThirdTab> {
       body: Stack(
         children: <Widget>[
           GoogleMap(
+            myLocationEnabled: true,
             mapType: MapType.normal,
             initialCameraPosition: _kGooglePlex,
             onMapCreated: (GoogleMapController controller) {
               _controller.complete(controller);
             },
           ),
-          Center(
-            child: IconButton(
-              icon: Icon(Icons.backspace),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    // width: double.infinity,
+                    color: Colors.blue,
+                    child: IconButton(
+                      icon: Icon(Icons.arrow_back),
+                      // color: Colors.red,
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -47,7 +65,7 @@ class _ThirdTabState extends State<ThirdTab> {
         padding: EdgeInsets.only(bottom: 50.0),
         child: FloatingActionButton.extended(
           onPressed: _goToTheLake,
-          label: Text('Find doctor/pharmacy'),
+          label: Text('Find the pharmacy'),
           icon: Icon(Icons.location_city),
           backgroundColor: Colors.blueAccent,
         ),
