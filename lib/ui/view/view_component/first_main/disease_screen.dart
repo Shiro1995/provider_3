@@ -25,7 +25,7 @@ class _DiseasePageState extends State<DiseasePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(widget.title),
+          title: Text(widget.disease.name),
           backgroundColor: Color.fromARGB(255, 20, 175, 135),
           leading: new IconButton(
             icon: new Icon(

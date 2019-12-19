@@ -28,7 +28,7 @@ class Auth extends ChangeNotifier {
   }
 
   static Future<void> signOut() async {
-    // FacebookLogin.channel.invokeMethod("logOut");
+    FacebookLogin.channel.invokeMethod("logOut");
     return FirebaseAuth.instance.signOut();
   }
 
@@ -48,7 +48,7 @@ class Auth extends ChangeNotifier {
   Future<QuerySnapshot> findExistedChatRoom(String name1, String name2) async {
     return await Firestore.instance
         .collection("chats")
-        .where("members", isEqualTo: [name1, name2]).getDocuments();
+        .where("members", isEqualTo: ['BK Lập', 'name']).getDocuments();
   }
 //    Future<void> sendMessageChat(String id, Message message) {
 //     return Firestore.instance
@@ -59,6 +59,7 @@ class Auth extends ChangeNotifier {
 //         'date': DateTime.now().toIso8601String().toString(),
 //       });
 //   }
+
 
   static Future<void> loginWithFacebook(context) async {
     var fbLogin = FacebookLogin();
@@ -85,6 +86,7 @@ class Auth extends ChangeNotifier {
               profilePictureURL: firebaseUser.photoUrl ?? '',
             );
             Auth.addUser(user);
+
             print('adasdhihi');
             print(Auth.getUser('0MI7ZZ41GyVDLblwWGKqIj24zKZ2'));
             Navigator.of(context).pushNamed(RoutePaths.Root);

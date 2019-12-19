@@ -31,8 +31,9 @@ class _FirstTabState extends State<FirstTab> {
         () => Provider.of<DiseaseViewModel>(context).getDiseases());
     KeyboardVisibilityNotification().addNewListener(
       onChange: (bool visible) {
-        _isKeyboardVisible = visible;
-        setState(() {});
+        setState(() {
+          _isKeyboardVisible = visible;
+        });
       },
     );
   }
@@ -99,11 +100,11 @@ class _FirstTabState extends State<FirstTab> {
     );
 
     future.then((value) {
-		if(_filterComponent.level[0]!=null){
-			level = _filterComponent.level[0];
-		} else{
-			level = '0';
-		}
+      if (_filterComponent.level[0] != null) {
+        level = _filterComponent.level[0];
+      } else {
+        level = '0';
+      }
       Provider.of<DiseaseViewModel>(context).queryDisease(_query, level);
       setState(() {});
       //   _filter.factions = _filterComponent.selectedFactions;

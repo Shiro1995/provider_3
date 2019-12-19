@@ -19,23 +19,24 @@ class _ChatScreenState extends State<ChatScreen> {
   }) : assert(
           id != null,
         );
-   String id;
+  String id;
 
   final Firestore _firestore = Firestore.instance;
   TextEditingController messageController = TextEditingController();
   ScrollController scrollController = ScrollController();
-void initState() {
+  void initState() {
     super.initState();
-    print('id:'+id);
+    print('id:' + id);
   }
+
   Future<void> callback() async {
     if (messageController.text.length > 0) {
-      _firestore.collection('chats/' + id + '/' + id).add({
-        'text':  messageController.text,
+      _firestore.collection('chats/TI5ceYBkrqW8b6rJNNBC/TI5ceYBkrqW8b6rJNNBC').add({
+        'text': messageController.text,
         'from': widget.user.email,
         'date': DateTime.now().toIso8601String().toString(),
       });
-	  messageController.clear();
+      messageController.clear();
       scrollController.animateTo(
         scrollController.position.maxScrollExtent,
         curve: Curves.easeOut,
@@ -63,7 +64,10 @@ void initState() {
                           image: ExactAssetImage("assets/images/no-avatar.png"),
                           fit: BoxFit.cover)),
                 ),
-                Text(widget.name),
+                Text(
+                  'Nhà thuốc',
+                  overflow: TextOverflow.ellipsis,
+                ),
                 // Column(
                 //   mainAxisAlignment: MainAxisAlignment.center,
                 //   crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,7 +84,7 @@ void initState() {
               Expanded(
                 child: StreamBuilder<QuerySnapshot>(
                   stream: _firestore
-                      .collection('chats/' + id + '/' + id)
+                      .collection('chats/TI5ceYBkrqW8b6rJNNBC/TI5ceYBkrqW8b6rJNNBC')
                       .orderBy('date')
                       .snapshots(),
                   builder: (context, snapshot) {

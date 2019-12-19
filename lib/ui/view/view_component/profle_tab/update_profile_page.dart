@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 
 class UpdateProfilePage extends StatelessWidget {
+	 final myController = TextEditingController(text: 'BK Lap');
+	 	 final myController2 = TextEditingController(text: 'tnt.giuma@gmail.com');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+		  backgroundColor: Color.fromARGB(255, 20, 175, 135),
+	  ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,6 +116,7 @@ class UpdateProfilePage extends StatelessWidget {
           Container(
             height: 40,
             child: TextField(
+				controller: myController,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 fillColor: Colors.white,
@@ -135,6 +140,7 @@ class UpdateProfilePage extends StatelessWidget {
           Container(
             height: (40),
             child: TextField(
+				controller: myController2,
               style: TextStyle(color: Colors.blueGrey),
               cursorColor: Colors.blueGrey,
               keyboardType: TextInputType.emailAddress,

@@ -34,7 +34,9 @@ class DiseaseViewModel extends ChangeNotifier {
   List<Disease> getDiseasesWithQuery(String query, List<Disease> diseases) {
     var newdiseases = diseases.where(
       (disease) {
-        bool name = disease.name.toLowerCase().contains(query.toLowerCase());
+        bool name = disease.name.toLowerCase().contains(query.toLowerCase()) ;
+		// || disease.description.toLowerCase().contains(query.toLowerCase());
+
         // bool traits = card.traits.toLowerCase().contains(query.toLowerCase());
         return name;
       },

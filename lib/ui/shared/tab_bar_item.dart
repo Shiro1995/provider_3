@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 
 class TabBarItem {
-  static BottomNavigationBarItem buildItem(String title, String imageName) {
+  static BottomNavigationBarItem buildItem(String title, IconData iconName) {
     return BottomNavigationBarItem(
-      icon: ImageIcon(
-        AssetImage(imageName),
-        size: 25.0,
-      ),
+      icon: Icon(iconName),
       title: Text(title),
     );
   }

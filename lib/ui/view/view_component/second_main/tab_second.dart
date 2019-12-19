@@ -21,14 +21,6 @@ class TabbedAppBarSample extends StatefulWidget {
 }
 
 class _TabbedAppBarSampleState extends State<TabbedAppBarSample> {
-  // @override
-  // void initState() {
-  //   print('hello');
-  //   Future.delayed(Duration.zero,
-  //       () => Provider.of<PharmacyViewModel>(context).getpharmacies());
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -48,15 +40,10 @@ class _TabbedAppBarSampleState extends State<TabbedAppBarSample> {
                 color: Colors.yellow[200],
               ),
             ),
-            // title: _searchField(),
-
             bottom: TabBar(
               isScrollable: true,
               tabs: choices.map((Choice choice) {
-                return Tab(
-                  text: choice.title,
-                  icon: Icon(choice.icon),
-                );
+                return Tab(text: choice.title, icon: Icon(choice.icon));
               }).toList(),
             ),
             backgroundColor: Color.fromARGB(255, 20, 175, 135),
@@ -84,13 +71,8 @@ class Choice {
 }
 
 const List<Choice> choices = const <Choice>[
-//   const Choice(title: 'Doctor', icon: Icons.person),
   const Choice(title: 'Pharmacy', icon: Icons.store),
-  const Choice(title: 'message', icon: Icons.message)
-//   const Choice(title: 'BOAT', icon: Icons.directions_boat),
-//   const Choice(title: 'BUS', icon: Icons.directions_bus),
-//   const Choice(title: 'TRAIN', icon: Icons.directions_railway),
-//   const Choice(title: 'WALK', icon: Icons.directions_walk),
+  const Choice(title: 'Message', icon: Icons.message)
 ];
 
 class ChoiceCard extends StatefulWidget {
@@ -103,22 +85,18 @@ class ChoiceCard extends StatefulWidget {
 }
 
 Future<List<Pharmacy>> getpharmacies() async {
-  print("ahih");
   final response = await http
       .get('http://ezhealthcare.luisnguyen.com/api/v1/mobile/get/pharmacies');
 
   if (response.statusCode == 200) {
     dynamic data = json.decode(response.body);
-    //   print("data: "+data.toString());
-    // If server returns an OK response, parse the JSON.
-    // List<dynamic> list = json.decode(response.body)["data"]["pharmacies"];
     return PharmaciesList.fromJson(data).data;
   } else {
     print("api error");
-    // If that response was not OK, throw an error.
     throw Exception('Failed to load post');
   }
 }
+
 
 class _ChoiceCardState extends State<ChoiceCard> {
   Future pharmacy;
@@ -128,7 +106,6 @@ class _ChoiceCardState extends State<ChoiceCard> {
     pharmacy = getpharmacies();
     super.initState();
     print(pharmacy);
-    // print(_userProvider.user);
   }
 
   @override
@@ -150,7 +127,9 @@ class _ChoiceCardState extends State<ChoiceCard> {
                               fullscreenDialog: true,
                               builder: (BuildContext context) {
                                 return PharmacyScreen(
-                                    name: snapshot.data[position].name);
+                                  name: snapshot.data[position].name,
+                                  phone: snapshot.data[position].phoneNumber,
+                                );
                               },
                             ),
                           );
@@ -224,20 +203,4 @@ class _ChoiceCardState extends State<ChoiceCard> {
           }),
     );
   }
-
-//   void ontap() async {
-//     //   FirebaseUser user;
-//     //   FirebaseAuth.instance.currentUser().then((user1){
-//     // 	  	user = user1;
-//     //   });
-//     await Navigator.push(
-//       context,
-//       CupertinoPageRoute(
-//         fullscreenDialog: true,
-//         builder: (BuildContext context) {
-//           return PharmacyScreen(name: user.displayName);
-//         },
-//       ),
-//     );
-//   }
 }

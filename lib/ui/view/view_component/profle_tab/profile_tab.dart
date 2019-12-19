@@ -1,5 +1,6 @@
 import 'package:final_1/ui/view/view_component/profle_tab/update_profile_page.dart';
 import 'package:flutter/material.dart';
+import 'package:final_1/core/services/Auth.dart';
 
 class ProfileTab extends StatelessWidget {
   @override
@@ -98,7 +99,35 @@ class ProfileTab extends StatelessWidget {
           alignment: Alignment.topRight,
           child: RaisedButton(
             color: Colors.green,
-            onPressed: () {},
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  // return object of type Dialog
+                  return AlertDialog(
+                    // title: new Text("Alert Dialog title"),
+                    content: new Text("Do you want to logout?"),
+                    actions: <Widget>[
+                      // usually buttons at the bottom of the dialog
+                      new FlatButton(
+                        child: new Text("NO"),
+                        onPressed: () {
+							Navigator.of(context).pop();
+						},
+                      ),
+                      // usually buttons at the bottom of the dialog
+                      new FlatButton(
+                        child: new Text("YES"),
+                        onPressed: () {
+                          _logOut();
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
             child: Text(
               'Log out',
               style: TextStyle(fontSize: 20, color: Colors.white),
@@ -111,4 +140,8 @@ class ProfileTab extends StatelessWidget {
       ],
     );
   }
+}
+
+void _logOut() async {
+  await Auth.signOut();
 }
