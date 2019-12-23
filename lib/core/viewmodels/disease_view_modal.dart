@@ -58,6 +58,7 @@ class DiseaseViewModel extends ChangeNotifier {
       var sortedDisease = Diseaselist.fromJson(data).disease;
       //   sortedDisease.sort((a, b) => a.name.compareTo(b.name));
     //   _listType = sortedDisease;
+		_listAll = [];
        _listAll.addAll(sortedDisease);
       sortedDisease.forEach((v) {
         _listAll.addAll(v.diseases);

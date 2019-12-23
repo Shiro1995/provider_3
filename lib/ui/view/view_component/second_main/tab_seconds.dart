@@ -1,84 +1,64 @@
 import 'dart:convert';
+
 import 'package:final_1/core/model/pharmacy.dart';
 import 'package:final_1/ui/view/view_component/second_main/pharmacy.dart';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
-const double kSmallPadding = 7.0;
-const double kPadding = 12.0;
-const Color kColorGrayText = Color.fromRGBO(132, 132, 132, 1.0);
 
 final TextStyle _kTextStyle = TextStyle(
   fontSize: 14.0,
   color: kColorGrayText,
 );
+const Color kColorGrayText = Color.fromRGBO(132, 132, 132, 1.0);
 
-class TabbedAppBarSample extends StatefulWidget {
-  @override
-  _TabbedAppBarSampleState createState() => _TabbedAppBarSampleState();
-}
-
-class _TabbedAppBarSampleState extends State<TabbedAppBarSample> {
+class TabSeconds extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: DefaultTabController(
-        length: choices.length,
-        child: Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            title: Text(
-              'Personal Healthcare',
-              maxLines: 1,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.bold,
-                fontSize: 23,
-                color: Colors.yellow[200],
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+            'Personal Healthcare',
+            maxLines: 1,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: 'Montserrat',
+              fontWeight: FontWeight.bold,
+              fontSize: 23,
+              color: Colors.yellow[200],
+            ),
+          ),
+          bottom: TabBar(
+            tabs: <Widget>[
+              Tab(
+                icon: Icon(Icons.store),
+                text: 'Pharmacy',
               ),
-            ),
-            bottom: TabBar(
-              isScrollable: true,
-              tabs: choices.map((Choice choice) {
-                return Tab(text: choice.title, icon: Icon(choice.icon));
-              }).toList(),
-            ),
-            backgroundColor: Color.fromARGB(255, 20, 175, 135),
+              Tab(
+                text: 'Message',
+                icon: Icon(Icons.message),
+              ),
+            ],
           ),
-          body: TabBarView(
-            children: choices.map((Choice choice) {
-              return Padding(
-                padding: const EdgeInsets.only(
-                  bottom: 5,
-                ),
-                child: ChoiceCard(choice: choice),
-              );
-            }).toList(),
-          ),
+          backgroundColor: Color.fromARGB(255, 20, 175, 135),
+        ),
+        body: TabBarView(
+          children: <Widget>[
+			  ChoiceCard(),
+			  Text('hello')
+		  ],
         ),
       ),
     );
   }
 }
 
-class Choice {
-  const Choice({this.title, this.icon});
-  final String title;
-  final IconData icon;
-}
-
-const List<Choice> choices = const <Choice>[
-  const Choice(title: 'Pharmacy', icon: Icons.store),
-  const Choice(title: 'Message', icon: Icons.message)
-];
-
 class ChoiceCard extends StatefulWidget {
-  const ChoiceCard({Key key, this.choice}) : super(key: key);
-
-  final Choice choice;
+  const ChoiceCard({
+    Key key,
+  }) : super(key: key);
 
   @override
   _ChoiceCardState createState() => _ChoiceCardState();
@@ -96,7 +76,6 @@ Future<List<Pharmacy>> getpharmacies() async {
     throw Exception('Failed to load post');
   }
 }
-
 
 class _ChoiceCardState extends State<ChoiceCard> {
   Future pharmacy;
@@ -123,7 +102,7 @@ class _ChoiceCardState extends State<ChoiceCard> {
                         onTap: () async {
                           await Navigator.push(
                             context,
-                            CupertinoPageRoute(
+                            MaterialPageRoute(
                               fullscreenDialog: true,
                               builder: (BuildContext context) {
                                 return PharmacyScreen(

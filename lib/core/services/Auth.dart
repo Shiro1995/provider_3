@@ -48,7 +48,7 @@ class Auth extends ChangeNotifier {
   Future<QuerySnapshot> findExistedChatRoom(String name1, String name2) async {
     return await Firestore.instance
         .collection("chats")
-        .where("members", isEqualTo: ['BK Lập', 'name']).getDocuments();
+        .where("members", arrayContains: ['BK Lập','Hi']).getDocuments();
   }
 //    Future<void> sendMessageChat(String id, Message message) {
 //     return Firestore.instance
