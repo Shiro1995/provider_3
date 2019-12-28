@@ -1,13 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
-
-import 'package:final_1/core/constant/app_constant.dart';
 import 'package:final_1/core/model/pharmacy.dart';
 import 'package:final_1/core/model/post.dart';
 import 'package:final_1/core/model/user.dart';
-import 'package:final_1/ui/view/main_view/root_screen.dart';
-import 'package:final_1/ui/view/view_component/pharmacy/Pharmacy.dart';
-import 'package:final_1/ui/view/view_component/second_main/pharmacy.dart';
 // import 'package:final_1/core/model/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';

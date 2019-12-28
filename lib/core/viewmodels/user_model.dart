@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:final_1/core/constant/app_constant.dart';
 import 'package:final_1/core/model/post.dart';
 import 'package:final_1/core/model/user.dart';
 import 'package:final_1/core/services/Auth.dart';
@@ -12,14 +13,19 @@ class UserProvider extends ChangeNotifier {
   User _user;
   Post _post;
   get user => _user;
-
+  get post => _post;
   set user(User user) {
     _user = user;
     notifyListeners();
   }
 
-  set post(User user) {
-    _user = user;
+  set post(Post post) {
+    _post = post;
+    notifyListeners();
+  }
+
+  reset() {
+    _post = null;
     notifyListeners();
   }
 
@@ -42,11 +48,10 @@ class UserProvider extends ChangeNotifier {
       }
       if (statusCode == 200) {
         Response useresponse = Response.fromJson(json.decode(response.body));
-       
-	   print(useresponse.data.address	);
-	   _post = useresponse.data;
-	   print(_post.address);
-        notifyListeners();
+        post = useresponse.data;
+        Navigator.of(context).pushNamed(RoutePaths.Root);
+        print(useresponse.data.name);
+        print(_post.name);
       } else {
         throw new Exception("Error while fetching data");
       }

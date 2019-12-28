@@ -1,6 +1,9 @@
+import 'package:final_1/core/constant/app_constant.dart';
+import 'package:final_1/core/viewmodels/user_model.dart';
 import 'package:final_1/ui/view/view_component/profle_tab/update_profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:final_1/core/services/Auth.dart';
+import 'package:provider/provider.dart';
 
 class ProfileTab extends StatelessWidget {
   @override
@@ -111,15 +114,18 @@ class ProfileTab extends StatelessWidget {
                       new FlatButton(
                         child: new Text("NO"),
                         onPressed: () {
-							Navigator.of(context).pop();
-						},
+                          Navigator.of(context).pop();
+                        },
                       ),
                       // usually buttons at the bottom of the dialog
                       new FlatButton(
                         child: new Text("YES"),
                         onPressed: () {
-                          _logOut();
+                          UserProvider _userProvider =
+                              Provider.of<UserProvider>(context);
+                          _userProvider.reset();
                           Navigator.of(context).pop();
+                          Navigator.of(context).pushNamed(RoutePaths.Root);
                         },
                       ),
                     ],
