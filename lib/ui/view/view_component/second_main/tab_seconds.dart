@@ -1,9 +1,8 @@
-import 'dart:convert';
-
 import 'package:final_1/core/model/pharmacy.dart';
+import 'package:final_1/core/services/Auth.dart';
+import 'package:final_1/ui/view/view_component/second_main/list_message.dart';
 import 'package:final_1/ui/view/view_component/second_main/pharmacy.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 final TextStyle _kTextStyle = TextStyle(
   fontSize: 14.0,
@@ -18,6 +17,7 @@ class TabSeconds extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           centerTitle: true,
           title: Text(
             'Personal Healthcare',
@@ -46,9 +46,9 @@ class TabSeconds extends StatelessWidget {
         ),
         body: TabBarView(
           children: <Widget>[
-			  ChoiceCard(),
-			  Text('hello')
-		  ],
+            ChoiceCard(),
+            ListMessage(),
+          ],
         ),
       ),
     );
@@ -64,27 +64,13 @@ class ChoiceCard extends StatefulWidget {
   _ChoiceCardState createState() => _ChoiceCardState();
 }
 
-Future<List<Pharmacy>> getpharmacies() async {
-  final response = await http
-      .get('http://ezhealthcare.luisnguyen.com/api/v1/mobile/get/pharmacies');
-
-  if (response.statusCode == 200) {
-    dynamic data = json.decode(response.body);
-    return PharmaciesList.fromJson(data).data;
-  } else {
-    print("api error");
-    throw Exception('Failed to load post');
-  }
-}
-
 class _ChoiceCardState extends State<ChoiceCard> {
   Future pharmacy;
 
   @override
   void initState() {
-    pharmacy = getpharmacies();
+    pharmacy = Auth.getpharmacies();
     super.initState();
-    print(pharmacy);
   }
 
   @override
@@ -116,7 +102,7 @@ class _ChoiceCardState extends State<ChoiceCard> {
                         child: Container(
                           margin: EdgeInsets.all(10.0),
                           padding: EdgeInsets.only(bottom: 5),
-                          height: 120,
+                          height: 100,
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(8.0),
@@ -130,8 +116,8 @@ class _ChoiceCardState extends State<ChoiceCard> {
                           child: Row(
                             children: <Widget>[
                               Container(
-                                height: 100.0,
-                                width: 100.0,
+                                height: 70.0,
+                                width: 70.0,
                                 child: CircleAvatar(
                                   backgroundImage: snapshot
                                               .data[position].imageStore !=
@@ -152,7 +138,7 @@ class _ChoiceCardState extends State<ChoiceCard> {
                                     children: <Widget>[
                                       Text(
                                         snapshot.data[position].name,
-                                        maxLines: 3,
+                                        maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(

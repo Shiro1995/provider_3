@@ -39,7 +39,10 @@ class _ThirdTabState extends State<ThirdTab> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: AppBar(title: Text('Pharmacy map')),
+      appBar: AppBar(
+        title: Text('Pharmacy map'),
+        backgroundColor: Color.fromARGB(255, 20, 175, 135),
+      ),
       body: Stack(
         children: <Widget>[
           GoogleMap(
@@ -72,15 +75,15 @@ class _ThirdTabState extends State<ThirdTab> {
           // ),
         ],
       ),
-      floatingActionButton: Padding(
-        padding: EdgeInsets.only(bottom: 50.0),
-        child: FloatingActionButton.extended(
-          onPressed: () => _goToTheLake,
-          label: Text('Find the pharmacy'),
-          icon: Icon(Icons.location_city),
-          backgroundColor: Colors.blueAccent,
-        ),
-      ),
+    //   floatingActionButton: Padding(
+    //     padding: EdgeInsets.only(bottom: 50.0),
+    //     child: FloatingActionButton.extended(
+    //       onPressed: () => _goToTheLake,
+    //       label: Text('Find the pharmacy'),
+    //       icon: Icon(Icons.location_city),
+    //       backgroundColor: Colors.blueAccent,
+    //     ),
+    //   ),
     );
   }
 

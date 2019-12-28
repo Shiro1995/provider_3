@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:final_1/core/model/chat.dart';
 import 'package:final_1/core/services/Auth.dart';
 import 'package:final_1/ui/view/view_component/second_main/chat.dart';
 import 'package:final_1/ui/view/view_component/tabs_third.dart';
@@ -158,6 +156,11 @@ class PharmacyScreen extends StatelessWidget {
                             .then((v) {
                           if (v.documents.length > 0) {
                             print('yes');
+							print(v.documents.length);{
+								for(var i =0 ; i < v.documents.length; i++){
+									print(i.toString()+'asda'+v.documents[i].data.toString());
+								}
+							}
                             id = v.documents.first.documentID;
                             Navigator.push(
                               context,
@@ -170,10 +173,10 @@ class PharmacyScreen extends StatelessWidget {
                           // });
                           else {
                             print('no');
-                            Chat userroom = new Chat(user.displayName, name);
-                            Firestore.instance
-                                .collection('chats')
-                                .add(userroom.toMap());
+                            // Chat userroom = new Chat(user.displayName, name);
+                            // Firestore.instance
+                            //     .collection('chats')
+                            //     .add(userroom.toMap());
                           }
                         //   Firestore.instance
                         //       .collection('chats')

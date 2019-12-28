@@ -5,17 +5,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 
-class ChatScreen extends StatefulWidget {
+class ChatScreen1 extends StatefulWidget {
   final FirebaseUser user;
   final String name;
   final String id;
 
-  const ChatScreen({Key key, this.user, this.name, this.id}) : super(key: key);
-  _ChatScreenState createState() => _ChatScreenState(id: id);
+  const ChatScreen1({Key key, this.user, this.name, this.id}) : super(key: key);
+  _ChatScreenState1 createState() => _ChatScreenState1(id: id);
 }
 
-class _ChatScreenState extends State<ChatScreen> {
-  _ChatScreenState({
+class _ChatScreenState1 extends State<ChatScreen1> {
+  _ChatScreenState1({
     @required this.id,
   }) : assert(
           id != null,
@@ -25,7 +25,6 @@ class _ChatScreenState extends State<ChatScreen> {
   final Firestore _firestore = Firestore.instance;
   TextEditingController messageController = TextEditingController();
   ScrollController scrollController = ScrollController();
-  TextEditingController notifiController = TextEditingController();
   void initState() {
     super.initState();
     print('id:' + id);
@@ -33,7 +32,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Future<void> callback() async {
     if (messageController.text.length > 0) {
-      _firestore.collection('chats/' + id + '/' + id).add({
+      _firestore.collection('chats/'+id+'/'+id).add({
         'text': messageController.text,
         'from': widget.user.email,
         'date': DateTime.now().toIso8601String().toString(),
@@ -50,24 +49,36 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomPadding: false,
         appBar: AppBar(
             backgroundColor: Color.fromARGB(255, 20, 175, 135),
+			 actions: <Widget>[
+				 IconButton(icon: Icon(Icons.add),
+				 onPressed: () {
+					  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SendMedicine(),
+                    ),
+                  );
+				 },)
+				 
+			 ],
             title: Row(
               children: <Widget>[
-                // Container(
-                //   width: 40.0,
-                //   height: 40.0,
-                //   margin: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                //   decoration: BoxDecoration(
-                //       shape: BoxShape.circle,
-                //       border: Border.all(width: 3.0, color: Colors.grey[300]),
-                //       image: DecorationImage(
-                //           image: ExactAssetImage("assets/images/no-avatar.png"),
-                //           fit: BoxFit.cover)),
-                // ),
+                Container(
+                  width: 40.0,
+                  height: 40.0,
+                  margin: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(width: 3.0, color: Colors.grey[300]),
+                      image: DecorationImage(
+                          image: ExactAssetImage("assets/images/no-avatar.png"),
+                          fit: BoxFit.cover)),
+                ),
                 Text(
-                  'AC Pharmacy',
+                  'Nhà thuốc',
                   overflow: TextOverflow.ellipsis,
                 ),
                 // Column(
@@ -86,7 +97,7 @@ class _ChatScreenState extends State<ChatScreen> {
               Expanded(
                 child: StreamBuilder<QuerySnapshot>(
                   stream: _firestore
-                      .collection('chats/' + id + '/' + id)
+                      .collection('chats/'+id+'/'+id)
                       .orderBy('date')
                       .snapshots(),
                   builder: (context, snapshot) {

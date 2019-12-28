@@ -1,10 +1,12 @@
 // import 'package:finalproject_healthcare/business/auth.dart';
 // import 'package:finalproject_healthcare/models/user.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
+import 'package:final_1/core/viewmodels/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:final_1/ui/widgets/custom_flat_button.dart';
 import 'package:final_1/core/services/Auth.dart';
 import 'package:final_1/core/constant/app_constant.dart';
+import 'package:provider/provider.dart';
 
 class WelcomeScreen extends StatelessWidget {
 
@@ -21,7 +23,7 @@ class WelcomeScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 35.0, right: 15.0, left: 15.0),
             child: Text(
-              "Welcome to Personal Healthcare!",
+              "Personal Healthcare System",
               softWrap: true,
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -59,8 +61,9 @@ class WelcomeScreen extends StatelessWidget {
               fontSize: 22,
               fontWeight: FontWeight.w700,
               textColor: Colors.white,
-              onPressed: () {
-                Auth.loginWithFacebook(context);
+              onPressed: () async {
+                UserProvider _userProvider = Provider.of<UserProvider>(context);
+				await _userProvider.adduser(context);
               },
               // splashColor: Colors.black12,
               borderColor: Colors.black12,
@@ -80,7 +83,7 @@ class WelcomeScreen extends StatelessWidget {
               fontWeight: FontWeight.w700,
               textColor: Colors.white,
               onPressed: () {
-                Navigator.of(context).pushNamed(RoutePaths.Login);
+                Auth.signOut();
               },
               // splashColor: Colors.black12,
               borderColor: Colors.black12,

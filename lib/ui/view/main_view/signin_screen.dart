@@ -136,61 +136,9 @@ class _SignInScreenState extends State<SignInScreen> {
                     color: Colors.orangeAccent,
                   ),
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.all(10.0),
-                //   child: Text(
-                //     "OR",
-                //     softWrap: true,
-                //     textAlign: TextAlign.center,
-                //     style: TextStyle(
-                //       color: Colors.black,
-                //       decoration: TextDecoration.none,
-                //       fontSize: 15.0,
-                //       fontWeight: FontWeight.w300,
-                //       fontFamily: "OpenSans",
-                //     ),
-                //   ),
-                // ),
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(
-                //       vertical: 14.0, horizontal: 40.0),
-                //   child: CustomFlatButton(
-                //     title: "Facebook Login",
-                //     fontSize: 22,
-                //     fontWeight: FontWeight.w700,
-                //     textColor: Colors.white,
-                //     onPressed: () {
-                //     //   _facebookLogin(context: context);
-                //     },
-                //     splashColor: Colors.black12,
-                //     borderColor: Color.fromRGBO(59, 89, 152, 1.0),
-                //     borderWidth: 0,
-                //     color: Color.fromRGBO(59, 89, 152, 1.0),
-                //   ),
-                // ),
               ],
             ),
-            // SafeArea(
-            //   child: IconButton(
-            //     icon: Icon(Icons.arrow_back),
-            //     onPressed: onBackPress,
-            //   ),
-            // ),
-            // Offstage(
-            //   offstage: !_blackVisible,
-            //   child: GestureDetector(
-            //     onTap: () {},
-            //     child: AnimatedOpacity(
-            //       opacity: _blackVisible ? 1.0 : 0.0,
-            //       duration: Duration(milliseconds: 400),
-            //       curve: Curves.ease,
-            //       child: Container(
-            //         height: MediaQuery.of(context).size.height,
-            //         color: Colors.black54,
-            //       ),
-            //     ),
-            //   ),
-            // ),
+           
           ],
         ),
       ),

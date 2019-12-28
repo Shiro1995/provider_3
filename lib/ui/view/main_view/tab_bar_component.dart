@@ -14,8 +14,8 @@ class TabBarComponent extends StatelessWidget {
 
   List<Widget> _tabs(BuildContext context) {
     return [
-      FirstTab(),
       TabSeconds(),
+      FirstTab(),
       ProfileTab(),
     ];
   }
@@ -24,8 +24,8 @@ class TabBarComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
       tabBar: CupertinoTabBar(
-        activeColor: Colors.black,
-        inactiveColor: Colors.grey[500],
+        activeColor: Color.fromARGB(255, 20, 175, 135),
+        inactiveColor: Colors.green[200],
         items: _items,
         currentIndex: 0,
       ),

@@ -113,7 +113,7 @@ class _FilterComponentState extends State<FilterComponent> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 _header(),
-                // _title(title: 'Factions:'),
+                // _title(title: 'Factions:'), sout
                 // _factions(),
                 _title(title: 'Types:'),
                 _factions(),

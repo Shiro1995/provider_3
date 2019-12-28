@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'welcome_screen.dart';
 
 class RootScreen extends StatefulWidget {
+
   @override
   State<StatefulWidget> createState() => new _RootScreenState();
 }
@@ -20,8 +21,10 @@ class _RootScreenState extends State<RootScreen> {
           );
         } else {
           if (snapshot.hasData) {
+			  print('co data');
             return new TabBarComponent();
           } else {
+			  print('khong co data');
             return WelcomeScreen();
           }
         }

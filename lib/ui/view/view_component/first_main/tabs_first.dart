@@ -107,8 +107,6 @@ class _FirstTabState extends State<FirstTab> {
       }
       Provider.of<DiseaseViewModel>(context).queryDisease(_query, level);
       setState(() {});
-      //   _filter.factions = _filterComponent.selectedFactions;
-      //   _filter.types = _filterComponent.selectedTypes;
     });
   }
 

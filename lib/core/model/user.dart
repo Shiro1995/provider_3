@@ -4,14 +4,9 @@ class User {
   final String userID;
   final String firstName;
   final String email;
-  final String address;
   final String profilePictureURL;
-  final String dateofbirth;
-  final String gender;
+
   User({
-    this.address,
-    this.dateofbirth,
-    this.gender,
     this.userID,
     this.firstName,
     this.email,

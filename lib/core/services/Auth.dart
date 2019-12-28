@@ -1,11 +1,20 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:final_1/core/constant/app_constant.dart';
+import 'package:final_1/core/model/pharmacy.dart';
+import 'package:final_1/core/model/post.dart';
 import 'package:final_1/core/model/user.dart';
+import 'package:final_1/ui/view/main_view/root_screen.dart';
+import 'package:final_1/ui/view/view_component/pharmacy/Pharmacy.dart';
+import 'package:final_1/ui/view/view_component/second_main/pharmacy.dart';
+// import 'package:final_1/core/model/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:http/http.dart' as http;
 
 class Auth extends ChangeNotifier {
   static Future<FirebaseUser> getCurrentFirebaseUser() async {
@@ -13,19 +22,19 @@ class Auth extends ChangeNotifier {
     return user;
   }
 
-  static Future<String> getID() async {
-    String id;
-    getCurrentFirebaseUser().then((info) {
-      User user = new User(
-        firstName: info.displayName,
-        userID: info.uid,
-        email: info.email ?? '',
-        profilePictureURL: info.photoUrl ?? '',
-      );
-      id = user.userID;
-    });
-    return id;
-  }
+//   static Future<String> getID() async {
+//     String id;
+//     getCurrentFirebaseUser().then((info) {
+//       User user = new User(
+//         firstName: info.displayName,
+//         userID: info.uid,
+//         email: info.email ?? '',
+//         profilePictureURL: info.photoUrl ?? '',
+//       );
+//       id = user.userID;
+//     });
+//     return id;
+//   }
 
   static Future<void> signOut() async {
     FacebookLogin.channel.invokeMethod("logOut");
@@ -45,23 +54,60 @@ class Auth extends ChangeNotifier {
     });
   }
 
-  Future<QuerySnapshot> findExistedChatRoom(String name1, String name2) async {
+  static Future<QuerySnapshot> getChatRoom() async {
+    print('asdfasdf');
+
+    FirebaseUser user = await Auth.getCurrentUser();
+    print(user.displayName);
+    return Firestore.instance
+        .collection("chats")
+        .where("members", arrayContains: user.displayName)
+        .getDocuments();
+  }
+
+  static Future<QuerySnapshot> getChatRoom2() async {
+    print('asdfasdf222');
+
+    FirebaseUser user = await Auth.getCurrentUser();
+    print(user.displayName);
+    return Firestore.instance
+        .collection("chats")
+        .where("members", arrayContains: 'Nhà thuốc tây Phước Thiện 5')
+        .getDocuments();
+  }
+
+  static Future<void> addroom(FirebaseUser user) async {
+    return Firestore.instance
+        .collection("chats")
+        .where("members", arrayContains: user.displayName)
+        .getDocuments();
+  }
+
+  Future<QuerySnapshot> findExistedChatRoom2(String id1, String id2) async {
+    return await Firestore.instance.collection("chats").where("members",
+        isEqualTo: [id1, 'Nhà thuốc tây Phước Thiện 5']).getDocuments();
+  }
+
+  Future<QuerySnapshot> findExistedChatRoom(String id1, String id2) async {
     return await Firestore.instance
         .collection("chats")
-        .where("members", arrayContains: ['BK Lập','Hi']).getDocuments();
+        .where("members", isEqualTo: [id1, id2]).getDocuments();
   }
-//    Future<void> sendMessageChat(String id, Message message) {
-//     return Firestore.instance
-//         .collection("messages/" + id)
-//         add({
-//         'text': messageController.text,
-//         'from': widget.user.email,
-//         'date': DateTime.now().toIso8601String().toString(),
-//       });
-//   }
 
+  static Future<List<Pharmacy>> getpharmacies() async {
+    final response = await http
+        .get('http://ezhealthcare.luisnguyen.com/api/v1/mobile/get/pharmacies');
+    if (response.statusCode == 200) {
+      dynamic data = json.decode(response.body);
+      // print(data.toString());
+      return PharmaciesList.fromJson(data).data;
+    } else {
+      print("api error");
+      throw Exception('Failed to load post');
+    }
+  }
 
-  static Future<void> loginWithFacebook(context) async {
+  static Future<String> getToken() async {
     var fbLogin = FacebookLogin();
     FacebookLoginResult result;
     try {
@@ -70,27 +116,65 @@ class Auth extends ChangeNotifier {
       switch (result.status) {
         case FacebookLoginStatus.loggedIn:
           var accessToken = result.accessToken;
+          print(
+              '==============================================================================');
           print(accessToken.token);
-          final AuthCredential credential = FacebookAuthProvider.getCredential(
-              accessToken: accessToken.token);
-          final FirebaseUser user =
-              (await FirebaseAuth.instance.signInWithCredential(credential))
-                  .user;
-        
-          FirebaseAuth.instance.currentUser().then((firebaseUser) {
-            print('hiiiiisdf');
-            User user = new User(
-              firstName: firebaseUser.displayName,
-              userID: firebaseUser.uid,
-              email: firebaseUser.email ?? '',
-              profilePictureURL: firebaseUser.photoUrl ?? '',
-            );
-            Auth.addUser(user);
+          return accessToken.token;
 
-            print('adasdhihi');
-            print(Auth.getUser('0MI7ZZ41GyVDLblwWGKqIj24zKZ2'));
-            Navigator.of(context).pushNamed(RoutePaths.Root);
-          });
+          break;
+        case FacebookLoginStatus.cancelledByUser:
+        //   throw ErrorHint("CANCEL_BY_USER");
+        //   break;
+        case FacebookLoginStatus.error:
+          //   throw ErrorHint("UNKNOWN ERROR");
+          break;
+      }
+    } catch (error) {
+      //   throw ErrorHint(error.code);
+    }
+  }
+
+ 
+
+  static Future<void> loginWithFacebook2(context) async {
+    var fbLogin = FacebookLogin();
+    FacebookLoginResult result;
+    try {
+      result =
+          await fbLogin.logInWithReadPermissions(['email', 'public_profile']);
+      switch (result.status) {
+        case FacebookLoginStatus.loggedIn:
+          var accessToken = result.accessToken;
+          print(
+              '==============================================================================22');
+          print(accessToken.token);
+
+          //   FirebaseAuth.instance.currentUser().then((firebaseUser) {
+          //     User user = new User(
+          //       firstName: firebaseUser.displayName,
+          //       userID: firebaseUser.uid,
+          //       email: firebaseUser.email ?? '',
+          //       profilePictureURL: firebaseUser.photoUrl ?? '',
+          //     );
+          //     Auth.addUser(user);
+          //     if (firebaseUser.displayName == 'BK Lập') {
+          // 		print('1--------------------------------------');
+          //       Navigator.push(
+          //         context,
+          //         MaterialPageRoute(
+          //           builder: (context) => PharmacyMessage(),
+          //         ),
+          //       );
+          //     } else {
+          // 		print('2--------------------------------------');
+          //      Navigator.push(
+          //         context,
+          //         MaterialPageRoute(
+          //           builder: (context) => RootScreen(),
+          //         ),
+          //       );
+          //     }
+          //   });
           break;
         case FacebookLoginStatus.cancelledByUser:
         //   throw ErrorHint("CANCEL_BY_USER");
@@ -105,21 +189,21 @@ class Auth extends ChangeNotifier {
     }
   }
 
-  static  getCurrentUser() async {
+  static getCurrentUser() async {
     return await FirebaseAuth.instance.currentUser();
   }
 
-  static Stream<User> getUser(String userID) {
-    return Firestore.instance
-        .collection("users")
-        .where("userID", isEqualTo: userID)
-        .snapshots()
-        .map((QuerySnapshot snapshot) {
-      return snapshot.documents.map((doc) {
-        return User.fromDocument(doc);
-      }).first;
-    });
-  }
+//   static Stream<User> getUser(String userID) {
+//     return Firestore.instance
+//         .collection("users")
+//         .where("userID", isEqualTo: userID)
+//         .snapshots()
+//         .map((QuerySnapshot snapshot) {
+//       return snapshot.documents.map((doc) {
+//         return User.fromDocument(doc);
+//       }).first;
+//     });
+//   }
 
   static Future<bool> checkUserExist(String userID) async {
     bool exists = false;

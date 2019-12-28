@@ -1,5 +1,4 @@
 import 'package:final_1/ui/view/main_view/welcome_screen.dart';
-import 'package:final_1/ui/view/view_component/main_screen.dart';
 import 'package:final_1/ui/view/main_view/root_screen.dart';
 import 'package:final_1/ui/view/main_view/signin_screen.dart';
 import 'package:final_1/ui/view/view_component/search/search.dart';
@@ -17,8 +16,6 @@ class Router {
         return MaterialPageRoute(builder: (_) => SignInScreen());
       case RoutePaths.Welcome:
         return MaterialPageRoute(builder: (_) => WelcomeScreen());
-      case RoutePaths.Main:
-        return MaterialPageRoute(builder: (_) => MainScreen());
        case RoutePaths.Phamarcy:
          return MaterialPageRoute(builder: (_) => PharmacyScreen(name: 'hihi',));
       case RoutePaths.Root:

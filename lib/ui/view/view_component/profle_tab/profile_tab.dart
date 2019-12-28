@@ -103,7 +103,6 @@ class ProfileTab extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  // return object of type Dialog
                   return AlertDialog(
                     // title: new Text("Alert Dialog title"),
                     content: new Text("Do you want to logout?"),
